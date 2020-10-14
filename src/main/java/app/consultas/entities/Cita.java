@@ -63,6 +63,16 @@ public class Cita implements Serializable {
             insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Hospital idHospital;
+//    @JoinColumns({
+//        @JoinColumn(name = "ID_HOSPITAL", referencedColumnName = "ID_HOSPITAL"),
+//        @JoinColumn(name = "ID_CLINICA", referencedColumnName = "ID_CLINICA")})
+//    @ManyToOne(optional = false)
+//    private HospitalClinica hospitalClinica;
+//    @JoinColumns({
+//        @JoinColumn(name = "ID_HOSPITAL", referencedColumnName = "ID_HOSPITAL"),
+//        @JoinColumn(name = "ID_SALA", referencedColumnName = "ID_SALA")})
+//    @ManyToOne(optional = false)
+//    private HospitalSala hospitalSala;
     @JoinColumn(name = "ID_PACIENTE", referencedColumnName = "ID_PACIENTE")
     @ManyToOne(optional = false)
     private Paciente idPaciente;
