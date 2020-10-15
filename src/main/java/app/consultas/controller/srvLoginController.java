@@ -5,8 +5,11 @@
  */
 package app.consultas.controller;
 
+import app.consultas.entities.Usuario;
+import app.consultas.model.cUsuario;
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -16,6 +19,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author DOxlaj
  */
+//@WebServlet(name="", urlPatterns={""})
 public class srvLoginController extends HttpServlet {
 
     /**
@@ -30,17 +34,37 @@ public class srvLoginController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet srvLoginController</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet srvLoginController at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        RequestDispatcher dispatcher;
+        
+        try {
+            String usurio = request.getParameter("user");
+            String password = request.getParameter("password");
+
+            cUsuario usrService = new cUsuario();
+            Usuario usr = usrService.filterUser(1);
+            
+            request.setAttribute("error", true);
+            request.setAttribute("message", "Usuario no encontrado");
+            
+            dispatcher = request.getRequestDispatcher(request.getContextPath() + "/user/login.jsp");
+            dispatcher.forward(request, response);
+        } catch(IOException e){
+            request.setAttribute("error", true);
+            request.setAttribute("message", e.getMessage());
+            dispatcher = request.getRequestDispatcher(request.getContextPath() + "/user/login.jsp");
+            dispatcher.forward(request, response);
+        } 
+        catch(ServletException e){
+            request.setAttribute("error", true);
+            request.setAttribute("message", e.getMessage());
+            dispatcher = request.getRequestDispatcher(request.getContextPath() + "/user/login.jsp");
+            dispatcher.forward(request, response);
+        }
+        catch(Exception e){
+            request.setAttribute("error", true);
+            request.setAttribute("message", e.getMessage());
+            dispatcher = request.getRequestDispatcher(request.getContextPath() + "/user/login.jsp");
+            dispatcher.forward(request, response);
         }
     }
 

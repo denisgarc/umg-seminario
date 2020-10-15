@@ -59,6 +59,11 @@
             <artifactId>sitemesh</artifactId>
             <version>${sitemesh.version}</version>
         </dependency>
+        <dependency> 	
+            <groupId>org.eclipse.persistence</groupId> 	
+            <artifactId>org.eclipse.persistence.jpa</artifactId> 	
+            <version>2.6.0</version> 
+        </dependency>
     </dependencies>
     
     <build>
