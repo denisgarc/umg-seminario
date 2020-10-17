@@ -5,10 +5,12 @@
  */
 package app.consultas.controller;
 
+import app.consultas.dal.UsuarioFacade;
 import app.consultas.entities.Usuario;
 import app.consultas.model.cUsuario;
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -21,7 +23,8 @@ import javax.servlet.http.HttpServletResponse;
  */
 //@WebServlet(name="", urlPatterns={""})
 public class srvLoginController extends HttpServlet {
-
+    @EJB
+    private UsuarioFacade usrService;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -40,14 +43,15 @@ public class srvLoginController extends HttpServlet {
             String usurio = request.getParameter("user");
             String password = request.getParameter("password");
 
-            cUsuario usrService = new cUsuario();
-            Usuario usr = usrService.filterUser(1);
+            //usrService = new cUsuario();
+            Usuario usr = usrService.find(1L);
             
             request.setAttribute("error", true);
             request.setAttribute("message", "Usuario no encontrado");
             
-            dispatcher = request.getRequestDispatcher(request.getContextPath() + "/user/login.jsp");
+            dispatcher = request.getRequestDispatcher("/login.jsp");
             dispatcher.forward(request, response);
+            
         } catch(IOException e){
             request.setAttribute("error", true);
             request.setAttribute("message", e.getMessage());
