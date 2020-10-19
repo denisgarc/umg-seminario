@@ -134,6 +134,10 @@ public class Persona implements Serializable {
     public void setApellidos(String apellidos) {
         this.apellidos = apellidos;
     }
+    
+    public String getNomberCompleto(){
+        return this.nombres + (this.apellidos == null ? "" : " " + this.apellidos);
+    }
 
     public Date getFecNacimiento() {
         return fecNacimiento;

@@ -5,7 +5,7 @@
 
 <!-- variables globales -->
 <script>
-    var $BaseUrl = '${req.contextPath}';
+    var $BaseUrl = '${req.contextPath}/';
 </script>
 
 <!-- icono -->

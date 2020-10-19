@@ -8,6 +8,7 @@ package app.consultas.controller;
 import app.consultas.dal.UsuarioFacade;
 import app.consultas.entities.Usuario;
 import app.consultas.model.cUsuario;
+import com.google.gson.JsonObject;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.ejb.EJB;
@@ -25,6 +26,7 @@ import javax.servlet.http.HttpServletResponse;
 public class srvLoginController extends HttpServlet {
     @EJB
     private UsuarioFacade usrService;
+    //private cUsuario usrService;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -36,39 +38,57 @@ public class srvLoginController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        RequestDispatcher dispatcher;
+        //response.setContentType("text/html;charset=UTF-8");
+        //RequestDispatcher dispatcher;
+        PrintWriter out = response.getWriter();
+        JsonObject result = new JsonObject();
         
         try {
-            String usurio = request.getParameter("user");
+            String usuario = request.getParameter("user");
             String password = request.getParameter("password");
+            
+            // Realizamos consulta a la DB
+            Usuario usr = usrService.GetUsuarioByCode(usuario);
+            
+            // Validamos si se encontro el usuario
+            if(usr != null){
+                if(!usr.getContrasena().equalsIgnoreCase(password)){
+                    //request.setAttribute("error", true);
+                    //request.setAttribute("message", "Usuario o contraseña incorrectas");
 
-            //usrService = new cUsuario();
-            Usuario usr = usrService.find(1L);
+                    //dispatcher = request.getRequestDispatcher("user/login.jsp");
+                    //dispatcher.forward(request, response);
+                    result.addProperty("error", true);
+                    result.addProperty("message", "Usuario o contraseña incorrectos.");
+                } else {
+                    //request.getSession().setAttribute("usuario", usr);
+                    result.addProperty("error", false);
+                    //response.sendRedirect("index.jsp");
+                    request.getSession().setAttribute("session", usr);
+                    request.getSession().setAttribute("usuario", usr.getUsuario());
+                    request.getSession().setAttribute("nombreUsuario", usr.getIdPersona().getNomberCompleto());
+                }
+            } else {
+                //request.setAttribute("error", true);
+                //request.setAttribute("message", "Usuario o contraseña incorrectas");
+                //response.sendRedirect("user/login.jsp");
+                //dispatcher = request.getRequestDispatcher("./user/login.jsp");
+                //dispatcher.forward(request, response);
+                
+                result.addProperty("error", true);
+                result.addProperty("message", "Usuario no encontrado.");
+            }
             
-            request.setAttribute("error", true);
-            request.setAttribute("message", "Usuario no encontrado");
-            
-            dispatcher = request.getRequestDispatcher("/login.jsp");
-            dispatcher.forward(request, response);
-            
-        } catch(IOException e){
-            request.setAttribute("error", true);
-            request.setAttribute("message", e.getMessage());
-            dispatcher = request.getRequestDispatcher(request.getContextPath() + "/user/login.jsp");
-            dispatcher.forward(request, response);
+            out.write(result.toString());
         } 
-        catch(ServletException e){
-            request.setAttribute("error", true);
-            request.setAttribute("message", e.getMessage());
-            dispatcher = request.getRequestDispatcher(request.getContextPath() + "/user/login.jsp");
-            dispatcher.forward(request, response);
-        }
-        catch(Exception e){
-            request.setAttribute("error", true);
-            request.setAttribute("message", e.getMessage());
-            dispatcher = request.getRequestDispatcher(request.getContextPath() + "/user/login.jsp");
-            dispatcher.forward(request, response);
+        catch(Exception e) {
+            result.addProperty("error", true);
+            result.addProperty("message", e.getLocalizedMessage());
+            out.write(result.toString());
+            //request.setAttribute("error", true);
+            //request.setAttribute("message", e.getMessage());
+            //dispatcher = request.getRequestDispatcher(request.getContextPath() + "user/login.jsp");
+            //dispatcher.forward(request, response);
         }
     }
 

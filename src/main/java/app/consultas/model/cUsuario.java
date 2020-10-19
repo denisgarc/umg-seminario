@@ -18,7 +18,7 @@ public class cUsuario {
     private UsuarioFacade usrFacade;
     
     public cUsuario(){
-        usrFacade = new UsuarioFacade();
+        //usrFacade = new UsuarioFacade();
     }
     
     public Usuario filterUser(int id){

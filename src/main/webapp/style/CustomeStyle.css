@@ -50,3 +50,6 @@
     background-color: #0466c8!important;
     /*background-color: #2196F3!important;*/
 }
+.validator_error{
+    color: red;
+}

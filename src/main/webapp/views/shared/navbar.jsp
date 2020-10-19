@@ -1,6 +1,8 @@
+<%@page import="app.consultas.entities.Usuario"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="req" value="${pageContext.request}" />
+<c:set var="ses" value="${pageContext.session}" />
 
 <header>
     <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-blue-dark shadow">
@@ -65,12 +67,9 @@
                 </li>
             </ul>
             <ul class="navbar-nav mr-5 pr-5">
-<!--                <li class="nav-item text-nowrap">
-                    <a class="nav-link" href="#">Sign out</a>
-                </li>-->
                 <li class="nav-item  dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fas fa-user-secret"></i> Usuario
+                        <i class="fas fa-user-secret"></i> ${ses.getAttribute("nombreUsuario")}
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="${req.contextPath}/user/login.jsp">Cerrar Sesión</a>
