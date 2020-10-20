@@ -37,7 +37,8 @@
                         <a class="dropdown-item" href="${req.contextPath}/mantenimiento/TipoConsulta.jsp">Tipo de Consulta</a>
                         <a class="dropdown-item" href="${req.contextPath}/mantenimiento/TipoDiagnostico.jsp">Tipo de Diagnostico</a>
                         <a class="dropdown-item" href="${req.contextPath}/mantenimiento/TipoTratamiento.jsp">Tipo de Tratamiento</a>
-                        <a class="dropdown-item" href="#">Medicamentos</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="${req.contextPath}/mantenimiento/Medicamento.jsp">Medicamentos</a>
                         <a class="dropdown-item" href="#">Another action</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="#">Something else here</a>

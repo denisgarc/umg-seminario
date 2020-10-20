@@ -28,6 +28,10 @@
         <servlet-name>TipoTratamientoController</servlet-name>
         <servlet-class>app.consultas.controller.TipoTratamientoController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>MedicamentoController</servlet-name>
+        <servlet-class>app.consultas.controller.MedicamentoController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/LoginController</url-pattern>
@@ -55,6 +59,10 @@
     <servlet-mapping>
         <servlet-name>TipoTratamientoController</servlet-name>
         <url-pattern>/TipoTratamientoController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MedicamentoController</servlet-name>
+        <url-pattern>/MedicamentoController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
