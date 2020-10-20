@@ -85,8 +85,8 @@
                                                    name="nombreComercial"
                                                    autocomplete="off"
                                                    data-required data-required-msg="El campo Nombre Comercial es requerido" 
-                                                   data-max-length="11"
-                                                   data-max-length-msg="Solo se pueden ingresar 11 caracteres">
+                                                   data-max-length="100"
+                                                   data-max-length-msg="Solo se pueden ingresar 100 caracteres">
                                         </div>
                                     </div>
                                 </div>

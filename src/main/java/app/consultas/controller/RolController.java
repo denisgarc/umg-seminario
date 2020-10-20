@@ -2,7 +2,7 @@ package app.consultas.controller;
 
 import app.consultas.dal.RolFacade;
 import app.consultas.entities.Rol;
-import com.google.gson.GsonBuilder;
+import app.consultas.util.JsonHandler;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import java.io.IOException;
@@ -52,13 +52,13 @@ public class RolController extends HttpServlet {
                     rolService.edit(modelo);
                 }
 
-                JsonObject result = new GsonBuilder().create().toJsonTree(modelo).getAsJsonObject();
+                JsonObject result = new JsonHandler().ToJson(modelo);
                 out.write(result.toString());
                 
             } else {
                 
                 List<Rol> listado = rolService.findAll();
-                JsonArray jarray = new GsonBuilder().create().toJsonTree(listado).getAsJsonArray();
+                JsonArray jarray = new JsonHandler().ToJsonArray(listado);
                 out.write(jarray.toString());
             }
         }

@@ -5,6 +5,7 @@
  */
 package app.consultas.entities;
 
+import com.google.gson.annotations.Expose;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
@@ -40,19 +41,23 @@ public class TipoDocumento implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "ID_TIPO_DOCUMENTO")
+    @Expose
     private Short idTipoDocumento;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 50)
     @Column(name = "DESCRIPCION")
+    @Expose
     private String descripcion;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 1)
     @Column(name = "ACTIVO")
+    @Expose
     private String activo;
     @Size(max = 10)
     @Column(name = "ABREVIATURA")
+    @Expose
     private String abreviatura;
     @OneToMany(mappedBy = "idTipoDocumento")
     private List<Persona> personaList;

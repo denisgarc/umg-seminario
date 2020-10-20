@@ -7,7 +7,7 @@ package app.consultas.controller;
 
 import app.consultas.dal.EspecializacionFacade;
 import app.consultas.entities.Especializacion;
-import com.google.gson.GsonBuilder;
+import app.consultas.util.JsonHandler;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import java.io.IOException;
@@ -58,13 +58,13 @@ public class EspecializacionController extends HttpServlet {
                     especializacionService.edit(modelo);
                 }
 
-                JsonObject result = new GsonBuilder().create().toJsonTree(modelo).getAsJsonObject();
+                JsonObject result = new JsonHandler().ToJson(modelo);
                 out.write(result.toString());
                 
             } else {
                 
                 List<Especializacion> listado = especializacionService.findAll();
-                JsonArray jarray = new GsonBuilder().create().toJsonTree(listado).getAsJsonArray();
+                JsonArray jarray = new JsonHandler().ToJsonArray(listado);
                 out.write(jarray.toString());
             }
         }

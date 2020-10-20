@@ -7,7 +7,7 @@ package app.consultas.controller;
 
 import app.consultas.dal.MedicamentoFacade;
 import app.consultas.entities.Medicamento;
-import com.google.gson.GsonBuilder;
+import app.consultas.util.JsonHandler;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import java.io.IOException;
@@ -62,13 +62,13 @@ public class MedicamentoController extends HttpServlet {
                     medicamentoService.edit(modelo);
                 }
 
-                JsonObject result = new GsonBuilder().create().toJsonTree(modelo).getAsJsonObject();
+                JsonObject result = new JsonHandler().ToJson(modelo);
                 out.write(result.toString());
                 
             } else {
                 
                 List<Medicamento> listado = medicamentoService.findAll();
-                JsonArray jarray = new GsonBuilder().create().toJsonTree(listado).getAsJsonArray();
+                JsonArray jarray = new JsonHandler().ToJsonArray(listado);
                 out.write(jarray.toString());
             }
         }

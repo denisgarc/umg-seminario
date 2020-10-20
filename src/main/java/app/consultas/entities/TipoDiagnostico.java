@@ -5,6 +5,7 @@
  */
 package app.consultas.entities;
 
+import com.google.gson.annotations.Expose;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
@@ -40,16 +41,19 @@ public class TipoDiagnostico implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "ID_TIPO_DIAGNOSTICO")
+    @Expose
     private Short idTipoDiagnostico;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 50)
     @Column(name = "DESCRIPCION")
+    @Expose
     private String descripcion;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 1)
     @Column(name = "ACTIVO")
+    @Expose
     private String activo;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idTipoDiagnostico")
     private List<ConsultaDiagnostico> consultaDiagnosticoList;

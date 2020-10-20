@@ -5,11 +5,9 @@
  */
 package app.consultas.controller;
 
-import app.consultas.dal.TipoDocumentoFacade;
 import app.consultas.dal.UnidadFacade;
-import app.consultas.entities.TipoDocumento;
 import app.consultas.entities.Unidad;
-import com.google.gson.GsonBuilder;
+import app.consultas.util.JsonHandler;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import java.io.IOException;
@@ -61,13 +59,13 @@ public class UnidadController extends HttpServlet {
                     unidadService.edit(modelo);
                 }
 
-                JsonObject result = new GsonBuilder().create().toJsonTree(modelo).getAsJsonObject();
+                JsonObject result = new JsonHandler().ToJson(modelo);
                 out.write(result.toString());
                 
             } else {
                 
                 List<Unidad> listado = unidadService.findAll();
-                JsonArray jarray = new GsonBuilder().create().toJsonTree(listado).getAsJsonArray();
+                JsonArray jarray = new JsonHandler().ToJsonArray(listado);
                 out.write(jarray.toString());
             }
         }

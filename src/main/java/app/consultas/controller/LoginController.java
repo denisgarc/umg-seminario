@@ -7,12 +7,10 @@ package app.consultas.controller;
 
 import app.consultas.dal.UsuarioFacade;
 import app.consultas.entities.Usuario;
-import app.consultas.model.cUsuario;
 import com.google.gson.JsonObject;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.ejb.EJB;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;

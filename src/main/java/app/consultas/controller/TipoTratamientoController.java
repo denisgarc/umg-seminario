@@ -5,11 +5,9 @@
  */
 package app.consultas.controller;
 
-import app.consultas.dal.TipoDiagnosticoFacade;
 import app.consultas.dal.TipoTratamientoFacade;
-import app.consultas.entities.TipoDiagnostico;
 import app.consultas.entities.TipoTratamiento;
-import com.google.gson.GsonBuilder;
+import app.consultas.util.JsonHandler;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import java.io.IOException;
@@ -59,13 +57,13 @@ public class TipoTratamientoController extends HttpServlet {
                     tipoTratamientoService.edit(modelo);
                 }
 
-                JsonObject result = new GsonBuilder().create().toJsonTree(modelo).getAsJsonObject();
+                JsonObject result = new JsonHandler().ToJson(modelo);
                 out.write(result.toString());
                 
             } else {
                 
                 List<TipoTratamiento> listado = tipoTratamientoService.findAll();
-                JsonArray jarray = new GsonBuilder().create().toJsonTree(listado).getAsJsonArray();
+                JsonArray jarray = new JsonHandler().ToJsonArray(listado);
                 out.write(jarray.toString());
             }
         }

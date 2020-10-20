@@ -5,6 +5,7 @@
  */
 package app.consultas.entities;
 
+import com.google.gson.annotations.Expose;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
@@ -41,19 +42,23 @@ public class Unidad implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "ID_UNIDAD")
+    @Expose
     private Short idUnidad;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 50)
     @Column(name = "DESCRIPCION")
+    @Expose
     private String descripcion;
     @Size(max = 10)
     @Column(name = "ABREVIATURA")
+    @Expose
     private String abreviatura;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 1)
     @Column(name = "ACTIVO")
+    @Expose
     private String activo;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUnidad")
     private List<RecetaDetalle> recetaDetalleList;

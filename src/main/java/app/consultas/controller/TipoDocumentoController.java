@@ -7,6 +7,7 @@ package app.consultas.controller;
 
 import app.consultas.dal.TipoDocumentoFacade;
 import app.consultas.entities.TipoDocumento;
+import app.consultas.util.JsonHandler;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.ejb.EJB;
@@ -14,8 +15,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import java.util.List;
@@ -60,13 +59,13 @@ public class TipoDocumentoController extends HttpServlet {
                     tipoDocumentoService.edit(tipo);
                 }
 
-                JsonObject result = new GsonBuilder().create().toJsonTree(tipo).getAsJsonObject();
+                JsonObject result = new JsonHandler().ToJson(tipo);
                 out.write(result.toString());
                 
             } else {
                 
                 List<TipoDocumento> listado = tipoDocumentoService.findAll();
-                JsonArray jarray = new GsonBuilder().create().toJsonTree(listado).getAsJsonArray();
+                JsonArray jarray = new JsonHandler().ToJsonArray(listado);
                 out.write(jarray.toString());
             }
         }
