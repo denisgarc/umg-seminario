@@ -6,7 +6,7 @@
 
 <header>
     <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-blue-dark shadow">
-        <a class="navbar-brand" href="${contextRoot}"><i class="fas fa-home"></i></a>
+        <a class="navbar-brand" href="${req.contextPath}"><i class="fas fa-home"></i></a>
 
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -31,6 +31,7 @@
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="./mantenimiento/TipoDocumento.jsp">Tipo de Documento</a>
+                        <a class="dropdown-item" href="./mantenimiento/Especializacion.jsp">Especialización</a>
                         <a class="dropdown-item" href="#">Medicamentos</a>
                         <a class="dropdown-item" href="#">Another action</a>
                         <div class="dropdown-divider"></div>
