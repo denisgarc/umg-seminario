@@ -24,6 +24,10 @@
         <servlet-name>TipoDiagnosticoController</servlet-name>
         <servlet-class>app.consultas.controller.TipoDiagnosticoController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>TipoTratamientoController</servlet-name>
+        <servlet-class>app.consultas.controller.TipoTratamientoController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/LoginController</url-pattern>
@@ -47,6 +51,10 @@
     <servlet-mapping>
         <servlet-name>TipoDiagnosticoController</servlet-name>
         <url-pattern>/TipoDiagnosticoController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TipoTratamientoController</servlet-name>
+        <url-pattern>/TipoTratamientoController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

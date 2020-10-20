@@ -30,12 +30,13 @@
                         <i class="fas fa-cogs"></i> Mantenimientos
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="${req.contextPath}/mantenimiento/TipoDocumento.jsp">Tipo de Documento</a>
                         <a class="dropdown-item" href="${req.contextPath}/mantenimiento/Especializacion.jsp">Especialización</a>
                         <a class="dropdown-item" href="${req.contextPath}/mantenimiento/Puesto.jsp">Puesto</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="${req.contextPath}/mantenimiento/TipoConsulta.jsp">Tipo Consulta</a>
-                        <a class="dropdown-item" href="${req.contextPath}/mantenimiento/TipoDiagnostico.jsp">Tipo Diagnostico</a>
+                        <a class="dropdown-item" href="${req.contextPath}/mantenimiento/TipoDocumento.jsp">Tipo de Documento</a>
+                        <a class="dropdown-item" href="${req.contextPath}/mantenimiento/TipoConsulta.jsp">Tipo de Consulta</a>
+                        <a class="dropdown-item" href="${req.contextPath}/mantenimiento/TipoDiagnostico.jsp">Tipo de Diagnostico</a>
+                        <a class="dropdown-item" href="${req.contextPath}/mantenimiento/TipoTratamiento.jsp">Tipo de Tratamiento</a>
                         <a class="dropdown-item" href="#">Medicamentos</a>
                         <a class="dropdown-item" href="#">Another action</a>
                         <div class="dropdown-divider"></div>
