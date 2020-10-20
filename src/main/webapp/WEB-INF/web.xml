@@ -32,6 +32,10 @@
         <servlet-name>MedicamentoController</servlet-name>
         <servlet-class>app.consultas.controller.MedicamentoController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>RolController</servlet-name>
+        <servlet-class>app.consultas.controller.RolController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/LoginController</url-pattern>
@@ -63,6 +67,10 @@
     <servlet-mapping>
         <servlet-name>MedicamentoController</servlet-name>
         <url-pattern>/MedicamentoController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RolController</servlet-name>
+        <url-pattern>/RolController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
