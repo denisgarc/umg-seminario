@@ -5,28 +5,31 @@
  */
 package app.consultas.controller;
 
-import app.consultas.dal.UsuarioFacade;
-import app.consultas.entities.Usuario;
-import app.consultas.model.cUsuario;
-import com.google.gson.JsonObject;
+import app.consultas.dal.TipoDocumentoFacade;
+import app.consultas.entities.TipoDocumento;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.ejb.EJB;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 
 /**
  *
  * @author DOxlaj
  */
-//@WebServlet(name="", urlPatterns={""})
-public class srvLoginController extends HttpServlet {
+public class srvTipoDocumentoList extends HttpServlet {
+    
     @EJB
-    private UsuarioFacade usrService;
-    //private cUsuario usrService;
+    private TipoDocumentoFacade tipoDocumentoService;
+    // private final Gson gson;
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -39,38 +42,20 @@ public class srvLoginController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        JsonObject result = new JsonObject();
-        
-        try {
-            String usuario = request.getParameter("user");
-            String password = request.getParameter("password");
-            
-            // Realizamos consulta a la DB
-            Usuario usr = usrService.GetUsuarioByCode(usuario);
-            
-            // Validamos si se encontro el usuario
-            if(usr != null){
-                if(!usr.getContrasena().equalsIgnoreCase(password)){
-                    result.addProperty("error", true);
-                    result.addProperty("message", "Usuario o contraseña incorrectos.");
-                } else {
-                    result.addProperty("error", false);
-                    request.getSession().setAttribute("session", usr);
-                    request.getSession().setAttribute("usuario", usr.getUsuario());
-                    request.getSession().setAttribute("nombreUsuario", usr.getIdPersona().getNomberCompleto());
-                }
-            } else {
-                result.addProperty("error", true);
-                result.addProperty("message", "Usuario no encontrado.");
-            }
-            
-            out.write(result.toString());
-        } 
-        catch(Exception e) {
-            result.addProperty("error", true);
-            result.addProperty("message", e.getLocalizedMessage());
-            out.write(result.toString());
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+//            out.println("<!DOCTYPE html>");
+//            out.println("<html>");
+//            out.println("<head>");
+//            out.println("<title>Servlet srvTipoDocumentoList</title>");            
+//            out.println("</head>");
+//            out.println("<body>");
+//            out.println("<h1>Servlet srvTipoDocumentoList at " + request.getContextPath() + "</h1>");
+//            out.println("</body>");
+//            out.println("</html>");
+            List<TipoDocumento> listado = tipoDocumentoService.findAll();
+            JsonArray jarray = new GsonBuilder().create().toJsonTree(listado).getAsJsonArray();
+            out.write(jarray.toString());
         }
     }
 

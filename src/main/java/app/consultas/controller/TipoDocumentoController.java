@@ -5,28 +5,30 @@
  */
 package app.consultas.controller;
 
-import app.consultas.dal.UsuarioFacade;
-import app.consultas.entities.Usuario;
-import app.consultas.model.cUsuario;
-import com.google.gson.JsonObject;
+import app.consultas.dal.TipoDocumentoFacade;
+import app.consultas.entities.TipoDocumento;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.ejb.EJB;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import java.util.List;
 
 /**
  *
  * @author DOxlaj
  */
-//@WebServlet(name="", urlPatterns={""})
-public class srvLoginController extends HttpServlet {
+public class TipoDocumentoController extends HttpServlet {
+
     @EJB
-    private UsuarioFacade usrService;
-    //private cUsuario usrService;
+    private TipoDocumentoFacade tipoDocumentoService;
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -39,38 +41,34 @@ public class srvLoginController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        JsonObject result = new JsonObject();
-        
-        try {
-            String usuario = request.getParameter("user");
-            String password = request.getParameter("password");
-            
-            // Realizamos consulta a la DB
-            Usuario usr = usrService.GetUsuarioByCode(usuario);
-            
-            // Validamos si se encontro el usuario
-            if(usr != null){
-                if(!usr.getContrasena().equalsIgnoreCase(password)){
-                    result.addProperty("error", true);
-                    result.addProperty("message", "Usuario o contraseña incorrectos.");
+        try (PrintWriter out = response.getWriter()) {
+            if(request.getMethod() == "POST"){
+                Short codigo = Short.parseShort(request.getParameter("idTipoDocumento"));
+                String descripcion = request.getParameter("descripcion");
+                String abreviatura = request.getParameter("abreviatura");
+                String activo = request.getParameter("activo");
+
+                TipoDocumento tipo = new TipoDocumento();
+                tipo.setIdTipoDocumento(codigo);
+                tipo.setDescripcion(descripcion);
+                tipo.setAbreviatura(abreviatura);
+                tipo.setActivo(activo);
+
+                if(codigo == 0){
+                    tipoDocumentoService.create(tipo);
                 } else {
-                    result.addProperty("error", false);
-                    request.getSession().setAttribute("session", usr);
-                    request.getSession().setAttribute("usuario", usr.getUsuario());
-                    request.getSession().setAttribute("nombreUsuario", usr.getIdPersona().getNomberCompleto());
+                    tipoDocumentoService.edit(tipo);
                 }
+
+                JsonObject result = new GsonBuilder().create().toJsonTree(tipo).getAsJsonObject();
+                out.write(result.toString());
+                
             } else {
-                result.addProperty("error", true);
-                result.addProperty("message", "Usuario no encontrado.");
+                
+                List<TipoDocumento> listado = tipoDocumentoService.findAll();
+                JsonArray jarray = new GsonBuilder().create().toJsonTree(listado).getAsJsonArray();
+                out.write(jarray.toString());
             }
-            
-            out.write(result.toString());
-        } 
-        catch(Exception e) {
-            result.addProperty("error", true);
-            result.addProperty("message", e.getLocalizedMessage());
-            out.write(result.toString());
         }
     }
 

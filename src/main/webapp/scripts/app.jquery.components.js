@@ -1,6 +1,6 @@
-﻿//$(document).ready(function () {
-//    InitializeJSComponents();
-//});
+$(document).ready(function () {
+    InitializeJSComponents();
+});
 
 function InitializeJSComponents() {
 
@@ -52,6 +52,7 @@ function InitializeTables() {
                 var filterColumn = $curTable.hasClass("WithColumnFilter");
                 var addButtons = $curTable.hasClass("isExportTable");
                 var search = !$curTable.hasClass("withOutSearch");
+                var isAjaxTable = $curTable.hasClass("isAjaxTable");
 
                 var dataTableSetup = {
                     "autoWidth": !noAutoFit,
@@ -66,6 +67,7 @@ function InitializeTables() {
                     "fixedHeader": true,
                     "ordercellstop": true,
                     "searching": search,
+                    "processing": true,
                     "language": {
                         "sProcessing": "Procesando...",
                         "sLengthMenu": "Mostrar _MENU_ registros",
@@ -117,6 +119,31 @@ function InitializeTables() {
                         }
                     }
                 };
+                
+                if(isAjaxTable){
+                    var columnsTable = Array.from($curTable.find('thead th'))
+                            .filter(x => x.hasAttribute("data-key"))
+                            .map(x => { return { data: x.attributes.getNamedItem("data-key").value};});
+                    var isMaintenance = $curTable.attr('data-show-buttons') == undefined ? false : $curTable.attr('data-show-buttons');
+
+                    if(isMaintenance){
+                        var event = $curTable.attr('data-click-event');
+                        if(event == undefined){
+                            var buttons = `<div class="btn-group text-center"><button class="btn btn-outline-info btn-sm btnEditar" data-action="edit"><i class="far fa-edit"></i></button><button class="btn btn-outline-danger btn-sm btnDelete" data-action="delete"><i class="far fa-trash-alt"></i></button></div>`    
+                        } else {
+                            var buttons = `<div class="btn-group text-center"><button class="btn btn-outline-info btn-sm btnEditar" data-action="edit" onclick="${event}"><i class="far fa-edit"></i></button><button class="btn btn-outline-danger btn-sm btnDelete" data-action="delete" onclick="${event}"><i class="far fa-trash-alt"></i></button></div>`    
+                        }
+                        columnsTable.push({'defaultContent': buttons});
+                        //dataTableSetup.select = true;
+                    }
+                    
+                    dataTableSetup.ajax = {
+                        'method': $curTable.attr('data-method') == undefined ? '' : $curTable.attr('data-method'),
+                        'url': $curTable.attr('data-url') == undefined ? 'GET' : $curTable.attr('data-url'),
+                        'dataSrc': $curTable.attr('data-src') == undefined ? '' : $curTable.attr('data-src'),
+                    };
+                    dataTableSetup.columns = columnsTable; 
+                }
 
                 if (addButtons) {
                     dataTableSetup.dom = 'Blfrtip';

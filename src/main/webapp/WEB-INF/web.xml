@@ -4,9 +4,25 @@
         <servlet-name>srvLoginController</servlet-name>
         <servlet-class>app.consultas.controller.srvLoginController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>srvTipoDocumentoList</servlet-name>
+        <servlet-class>app.consultas.controller.srvTipoDocumentoList</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>TipoDocumentoController</servlet-name>
+        <servlet-class>app.consultas.controller.TipoDocumentoController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>srvLoginController</servlet-name>
         <url-pattern>/srvLoginController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>srvTipoDocumentoList</servlet-name>
+        <url-pattern>/srvTipoDocumentoList</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TipoDocumentoController</servlet-name>
+        <url-pattern>/TipoDocumentoController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
