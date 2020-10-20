@@ -36,6 +36,10 @@
         <servlet-name>RolController</servlet-name>
         <servlet-class>app.consultas.controller.RolController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>UnidadController</servlet-name>
+        <servlet-class>app.consultas.controller.UnidadController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/LoginController</url-pattern>
@@ -71,6 +75,10 @@
     <servlet-mapping>
         <servlet-name>RolController</servlet-name>
         <url-pattern>/RolController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UnidadController</servlet-name>
+        <url-pattern>/UnidadController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
