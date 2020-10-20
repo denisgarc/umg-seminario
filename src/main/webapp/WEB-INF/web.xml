@@ -8,6 +8,10 @@
         <servlet-name>TipoDocumentoController</servlet-name>
         <servlet-class>app.consultas.controller.TipoDocumentoController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>EspecializacionController</servlet-name>
+        <servlet-class>app.consultas.controller.EspecializacionController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/LoginController</url-pattern>
@@ -15,6 +19,10 @@
     <servlet-mapping>
         <servlet-name>TipoDocumentoController</servlet-name>
         <url-pattern>/TipoDocumentoController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EspecializacionController</servlet-name>
+        <url-pattern>/EspecializacionController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
