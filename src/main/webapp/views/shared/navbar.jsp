@@ -33,6 +33,8 @@
                         <a class="dropdown-item" href="./mantenimiento/TipoDocumento.jsp">Tipo de Documento</a>
                         <a class="dropdown-item" href="./mantenimiento/Especializacion.jsp">Especialización</a>
                         <a class="dropdown-item" href="./mantenimiento/Puesto.jsp">Puesto</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="./mantenimiento/TipoConsulta.jsp">Tipo Consulta</a>
                         <a class="dropdown-item" href="#">Medicamentos</a>
                         <a class="dropdown-item" href="#">Another action</a>
                         <div class="dropdown-divider"></div>

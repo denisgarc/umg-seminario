@@ -16,6 +16,10 @@
         <servlet-name>PuestoController</servlet-name>
         <servlet-class>app.consultas.controller.PuestoController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>TipoConsultaController</servlet-name>
+        <servlet-class>app.consultas.controller.TipoConsultaController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/LoginController</url-pattern>
@@ -31,6 +35,10 @@
     <servlet-mapping>
         <servlet-name>PuestoController</servlet-name>
         <url-pattern>/PuestoController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TipoConsultaController</servlet-name>
+        <url-pattern>/TipoConsultaController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
