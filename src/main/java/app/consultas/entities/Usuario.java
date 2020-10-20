@@ -5,6 +5,7 @@
  */
 package app.consultas.entities;
 
+import com.google.gson.annotations.Expose;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -46,29 +47,35 @@ public class Usuario implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "ID_USUARIO")
+    @Expose
     private Long idUsuario;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 25)
     @Column(name = "USUARIO")
+    @Expose
     private String usuario;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 25)
     @Column(name = "CONTRASENA")
+    @Expose
     private String contrasena;
     @Column(name = "FEC_VTO_CONTRASENA")
     @Temporal(TemporalType.TIMESTAMP)
+    @Expose
     private Date fecVtoContrasena;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 1)
     @Column(name = "ACTIVO")
+    @Expose
     private String activo;
     @ManyToMany(mappedBy = "usuarioList")
     private List<Rol> rolList;
     @JoinColumn(name = "ID_PERSONA", referencedColumnName = "ID_PERSONA")
     @ManyToOne(optional = false)
+    @Expose
     private Persona idPersona;
 
     public Usuario() {
