@@ -23,7 +23,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author DOxlaj
  */
 //@WebServlet(name="", urlPatterns={""})
-public class srvLoginController extends HttpServlet {
+public class LoginController extends HttpServlet {
     @EJB
     private UsuarioFacade usrService;
     //private cUsuario usrService;

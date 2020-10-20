@@ -73,7 +73,7 @@
                         <i class="fas fa-user-secret"></i> ${ses.getAttribute("nombreUsuario")}
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="${req.contextPath}/user/login.jsp">Cerrar Sesión</a>
+                        <a class="dropdown-item" href="${req.contextPath}/user/login.jsp?close=true">Cerrar Sesión</a>
                         <a class="dropdown-item" href="#">Cambiar Contraseña</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="#"></a>

@@ -1,13 +1,20 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="req" value="${pageContext.request}" />
+<%
+    if(request.getParameter("close") != null){
+        request.getSession().removeAttribute("session");
+        request.getSession().removeAttribute("usuario");
+        request.getSession().removeAttribute("nombreUsuario");
+    }
+%>
 <!DOCTYPE html>
 <html>
     <head>
         <title>Inicio de Sesión</title>
     </head>
     <body>
-        <form id="frmLogin" class="form-signin" method="POST" action="<%= request.getContextPath()%>/srvLoginController">
+        <form id="frmLogin" class="form-signin" method="POST" action="<%= request.getContextPath()%>/LoginController">
             <div class="card">
                 <div class="card-body">
 
@@ -29,7 +36,7 @@
                 if (ValidarFormulario('frmLogin')) {
                     ShowWaitingAnimation();
                     $.ajax({
-                        url: '<%= request.getContextPath()%>/srvLoginController',
+                        url: '<%= request.getContextPath()%>/LoginController',
                         method: "GET",
                         data: formLog.serialize(),
                         dataType: 'json',

@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="4.0" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd">
     <servlet>
-        <servlet-name>srvLoginController</servlet-name>
-        <servlet-class>app.consultas.controller.srvLoginController</servlet-class>
+        <servlet-name>LoginController</servlet-name>
+        <servlet-class>app.consultas.controller.LoginController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>TipoDocumentoController</servlet-name>
         <servlet-class>app.consultas.controller.TipoDocumentoController</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>srvLoginController</servlet-name>
-        <url-pattern>/srvLoginController</url-pattern>
+        <servlet-name>LoginController</servlet-name>
+        <url-pattern>/LoginController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>TipoDocumentoController</servlet-name>
