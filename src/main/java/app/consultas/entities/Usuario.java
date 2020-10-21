@@ -10,6 +10,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -71,7 +72,7 @@ public class Usuario implements Serializable {
     @Column(name = "ACTIVO")
     @Expose
     private String activo;
-    @ManyToMany(mappedBy = "usuarioList")
+    @ManyToMany(cascade=CascadeType.REFRESH, mappedBy = "usuarioList")
     private List<Rol> rolList;
     @JoinColumn(name = "ID_PERSONA", referencedColumnName = "ID_PERSONA")
     @ManyToOne(optional = false)

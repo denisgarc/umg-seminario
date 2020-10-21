@@ -11,6 +11,7 @@
     <class>app.consultas.entities.Rol</class>
     <class>app.consultas.entities.Consulta</class>
     <class>app.consultas.entities.Usuario</class>
+    <class>app.consultas.entities.UsuarioRol</class>
     <class>app.consultas.entities.Estado</class>
     <class>app.consultas.entities.Cita</class>
     <class>app.consultas.entities.Receta</class>

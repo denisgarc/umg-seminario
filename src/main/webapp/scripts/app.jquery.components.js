@@ -400,18 +400,20 @@ function InitializeTreeGrid() {
 /// Esta función inicializa todos los autocomplete que se encuentren en el DOM
 function InitializeAutoComplete() {
     $('.isAutoComplete').on("focus", function () {
-        var _Url = location.pathname + ($(this)[0].hasAttribute("data-method-url") ? ('/' + $(this)[0].attributes.getNamedItem("data-method-url").value) : '');
+        var _Url = $BaseUrl + ($(this)[0].hasAttribute("data-method-url") ? ('/' + $(this)[0].attributes.getNamedItem("data-method-url").value) : '');
+        var _method = ($(this)[0].hasAttribute("data-method") ? ('/' + $(this)[0].attributes.getNamedItem("data-method").value) : 'POST');
         $(this).autocomplete({
             source: function (request, response) {
-                var datos = { filter: request.term };
+                //var datos = { filter: request.term };
+                var datos = `filter=${request.term}`;
                 $.ajax({
-                    type: 'POST',
-                    url: _Url,
-                    data: JSON.stringify(datos),
+                    type: 'GET',
+                    url: `${_Url}?filter=${request.term}`,
+                    //data: datos,
                     contentType: 'application/json; charset=utf-8',
                     dataType: 'json',
                     success: function (data) {
-                        response($.map(data.d, function (item) {
+                        response($.map(data, function (item) {
                             return { label: item["label"], value: item["value"] }
                         }));
                     },
