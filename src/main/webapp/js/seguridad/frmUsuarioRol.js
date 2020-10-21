@@ -66,23 +66,34 @@ function asignarRol(){
         $('.action').val('agregar');
         if(ValidarFormulario('frmBusqueda')){
             if(ValidarFormulario('frmAddRol')){
-                var data = $('#frmAddRol').serialize();
-                ShowWaitingAnimation();
-                $.ajax({
-                    url: $BaseUrl + 'UsuarioRolController',
-                    type: 'POST',
-                    dataType: 'json',
-                    data: data,
-                }).done((result) => {
-                    ShowSuccessDialog('Rol asignado correctamente', () => {
-                        loadPerfiles();
+                if(!validarExistencia()){
+                    ShowConfirmationDialog('Esta seguro de asignar el rol seleccionado').then((isOk) => {
+                        if(isOk){
+                            var data = $('#frmAddRol').serialize();
+                            ShowWaitingAnimation();
+                            $.ajax({
+                                url: $BaseUrl + 'UsuarioRolController',
+                                type: 'POST',
+                                dataType: 'json',
+                                data: data,
+                            }).done((result) => {
+                                ShowSuccessDialog('Rol asignado correctamente', () => {
+                                    loadPerfiles();
+                                });
+                            }).fail((err) => {
+                                console.error(err);
+                                ShowErrorDialog('Lo sentimos ha ocurrido un error');
+                            }).always(() => {
+                               HideWaitingAnimation(); 
+                            });
+                        }
+                    }).catch((err) => {
+                        console.error(err);
+                        ShowErrorDialog('Lo sentimos ha ocurrido un error');
                     });
-                }).fail((err) => {
-                    console.error(err);
-                    ShowErrorDialog('Lo sentimos ha ocurrido un error');
-                }).always(() => {
-                   HideWaitingAnimation(); 
-                });
+                } else {
+                    ShowWarningDialog('El rol seleccionado, ya se encuentra asignado');
+                }
             }
         }
     } catch (e) {
@@ -96,22 +107,29 @@ function eliminarRol(){
         $('.action').val('eliminar');
         if(ValidarFormulario('frmBusqueda')){
             if(ValidarFormulario('frmDeleteRol')){
-                var data = $('#frmDeleteRol').serialize();
-                ShowWaitingAnimation();
-                $.ajax({
-                    url: $BaseUrl + 'UsuarioRolController',
-                    type: 'POST',
-                    dataType: 'json',
-                    data: data,
-                }).done((result) => {
-                    ShowSuccessDialog('Rol desasignado correctamente', () => {
-                        loadPerfiles();
-                    });
-                }).fail((err) => {
+                ShowConfirmationDialog('Esta seguro de desasignar el rol seleccionado').then((isOk) => {
+                    if(isOk){
+                        var data = $('#frmDeleteRol').serialize();
+                        ShowWaitingAnimation();
+                        $.ajax({
+                            url: $BaseUrl + 'UsuarioRolController',
+                            type: 'POST',
+                            dataType: 'json',
+                            data: data,
+                        }).done((result) => {
+                            ShowSuccessDialog('Rol desasignado correctamente', () => {
+                                loadPerfiles();
+                            });
+                        }).fail((err) => {
+                            console.error(err);
+                            ShowErrorDialog('Lo sentimos ha ocurrido un error');
+                        }).always(() => {
+                           HideWaitingAnimation(); 
+                        });
+                    }
+                }).catch((err) => {
                     console.error(err);
                     ShowErrorDialog('Lo sentimos ha ocurrido un error');
-                }).always(() => {
-                   HideWaitingAnimation(); 
                 });
             }
         }
@@ -119,4 +137,10 @@ function eliminarRol(){
         console.error(e);
         ShowErrorDialog('Lo sentimos ha ocurrido un error');
     }
+}
+
+function validarExistencia(){
+    var asignados = Array.from($('#ddlRolUsuario option'));
+    var selected = Number($('#ddlRol').val());
+    return (asignados.filter(x => x.value == selected).length != 0);
 }

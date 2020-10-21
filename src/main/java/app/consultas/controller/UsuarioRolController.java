@@ -5,14 +5,17 @@
  */
 package app.consultas.controller;
 
+import app.consultas.dal.RolFacade;
 import app.consultas.dal.UsuarioFacade;
 import app.consultas.dal.UsuarioRolFacade;
+import app.consultas.entities.Rol;
 import app.consultas.entities.Usuario;
 import app.consultas.entities.UsuarioRol;
 import app.consultas.util.JsonHandler;
 import com.google.gson.JsonObject;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -31,6 +34,9 @@ public class UsuarioRolController extends HttpServlet {
     @EJB
     private UsuarioFacade usuarioService;
     
+    @EJB
+    private RolFacade rolService;
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -47,7 +53,7 @@ public class UsuarioRolController extends HttpServlet {
             if(request.getMethod() == "POST"){
                 String action = request.getParameter("action");
                 Long idUsuario = Long.parseLong(request.getParameter("idUsuario"));
-                Short idRol = Short.parseShort(request.getParameter("idUsuario"));
+                Short idRol = Short.parseShort(request.getParameter("idRol"));
                 
                 UsuarioRol modelo = new UsuarioRol();
                 modelo.setIdUsuario(idUsuario);
@@ -68,12 +74,13 @@ public class UsuarioRolController extends HttpServlet {
             } else {
                 String usr = request.getParameter("usuario");
                 Usuario usuario = usuarioService.GetUsuarioByCode(usr);
+                List<Rol> roles = rolService.findByidUser(usuario.getIdUsuario());
                 
                 JsonObject result = new JsonObject();
                 result.addProperty("idUsuario", usuario.getIdUsuario());
                 result.addProperty("usuario", usuario.getUsuario());
                 result.addProperty("nombre", usuario.getIdPersona().getNomberCompleto());
-                result.add("roles", new JsonHandler().ToJsonArray(usuario.getRolList()));
+                result.add("roles", new JsonHandler().ToJsonArray(roles));
                 out.write(result.toString());
             } 
         }

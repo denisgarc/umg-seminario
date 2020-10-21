@@ -13,6 +13,7 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
@@ -72,7 +73,7 @@ public class Usuario implements Serializable {
     @Column(name = "ACTIVO")
     @Expose
     private String activo;
-    @ManyToMany(cascade=CascadeType.REFRESH, mappedBy = "usuarioList")
+    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "usuarioList", fetch = FetchType.LAZY)
     private List<Rol> rolList;
     @JoinColumn(name = "ID_PERSONA", referencedColumnName = "ID_PERSONA")
     @ManyToOne(optional = false)
