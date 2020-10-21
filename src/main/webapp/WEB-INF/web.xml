@@ -40,6 +40,18 @@
         <servlet-name>UnidadController</servlet-name>
         <servlet-class>app.consultas.controller.UnidadController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>UsuarioRolController</servlet-name>
+        <servlet-class>app.consultas.controller.UsuarioRolController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UsuarioController</servlet-name>
+        <servlet-class>app.consultas.controller.UsuarioController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UsuarioConsultaController</servlet-name>
+        <servlet-class>app.consultas.controller.UsuarioConsultaController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/LoginController</url-pattern>
@@ -79,6 +91,18 @@
     <servlet-mapping>
         <servlet-name>UnidadController</servlet-name>
         <url-pattern>/UnidadController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UsuarioRolController</servlet-name>
+        <url-pattern>/UsuarioRolController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UsuarioController</servlet-name>
+        <url-pattern>/UsuarioController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UsuarioConsultaController</servlet-name>
+        <url-pattern>/UsuarioConsultaController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
