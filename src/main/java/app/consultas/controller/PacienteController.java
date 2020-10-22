@@ -50,6 +50,7 @@ public class PacienteController extends HttpServlet {
             if (request.getMethod() == "POST") {
                 Long idPaciente = Long.parseLong(request.getParameter("idPaciente"));
                 Long idPersona = Long.parseLong(request.getParameter("idPersona"));
+                Long idPersonaContacto = Long.parseLong(request.getParameter("idPersonaContacto").length() == 0 ? "0" : request.getParameter("idPersonaContacto"));
                 Date fecAlta = new DateHandler().getDateFromString(request.getParameter("fecAlta"));
                 String numeroSeguro = request.getParameter("numeroSeguro");
                 String tipoSangre = request.getParameter("tipoSangre");
@@ -64,6 +65,10 @@ public class PacienteController extends HttpServlet {
                 modelo.setTipoSangre(tipoSangre);
                 modelo.setFuma(fuma);
                 modelo.setActivo(activo);
+                
+                if(idPersonaContacto != 0){
+                    modelo.setIdPersonaContacto(new Persona(idPersonaContacto));
+                }
 
                 if (modelo.getIdPaciente() == 0) {
                     pacienteService.create(modelo);

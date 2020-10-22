@@ -47,8 +47,8 @@
                         <i class="fas fa-hospital-user"></i> Personas
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">Pacientes</a>
-                        <a class="dropdown-item" href="${req.contextPath}/persona/Empleado.jsp"">Empleados</a>
+                        <a class="dropdown-item" href="${req.contextPath}/persona/Paciente.jsp">Pacientes</a>
+                        <a class="dropdown-item" href="${req.contextPath}/persona/Empleado.jsp">Empleados</a>
                     </div>
                 </li>
                 <li class="nav-item dropdown">

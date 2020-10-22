@@ -43,7 +43,7 @@ public class PersonaConsultaController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             String filter = request.getParameter("filter");
-            String type = request.getParameter("type");
+            String type = request.getParameter("type") == null ? "" : request.getParameter("type");
             List<Persona> encontrados = personaService.findBySearch(filter);
             JsonArray result = new JsonArray();
             if (encontrados.size() != 0) {
