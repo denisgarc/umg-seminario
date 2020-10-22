@@ -16,7 +16,11 @@ import java.util.Date;
 public class DateHandler {
     public Date getDateFromString(String stringDate) throws ParseException{
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-        Date formatedDate = formatter.parse(stringDate);
-        return formatedDate;
+        if(stringDate.length() != 0){
+            Date formatedDate = formatter.parse(stringDate);
+            return formatedDate;
+        } else {
+            return null;
+        }
     }
 }

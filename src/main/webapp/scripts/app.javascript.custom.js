@@ -65,6 +65,9 @@ Date.prototype.withoutTime = function () {
 }
 
 Date.prototype.toStringDMY = function (){
+    if(this.valueOf() == 0 || isNaN(this.valueOf()))
+        return '';
+    
     var date = new Date(this.valueOf());
     var day = date.getDate();
     var month = date.getMonth() + 1;

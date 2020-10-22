@@ -5,6 +5,7 @@
  */
 package app.consultas.entities;
 
+import com.google.gson.annotations.Expose;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -48,33 +49,41 @@ public class Paciente implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "ID_PACIENTE")
+    @Expose
     private Long idPaciente;
     @Column(name = "FEC_ALTA")
     @Temporal(TemporalType.TIMESTAMP)
+    @Expose
     private Date fecAlta;
     @Size(max = 25)
     @Column(name = "NUMERO_SEGURO")
+    @Expose
     private String numeroSeguro;
     @Size(max = 25)
     @Column(name = "TIPO_SANGRE")
+    @Expose
     private String tipoSangre;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 1)
     @Column(name = "FUMA")
+    @Expose
     private String fuma;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 1)
     @Column(name = "ACTIVO")
+    @Expose
     private String activo;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idPaciente")
     private List<Cita> citaList;
     @JoinColumn(name = "ID_PERSONA", referencedColumnName = "ID_PERSONA")
     @ManyToOne(optional = false)
+    @Expose
     private Persona idPersona;
     @JoinColumn(name = "ID_PERSONA_CONTACTO", referencedColumnName = "ID_PERSONA")
     @ManyToOne
+    @Expose
     private Persona idPersonaContacto;
 
     public Paciente() {
