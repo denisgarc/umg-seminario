@@ -5,11 +5,9 @@
  */
 package app.consultas.controller;
 
-import app.consultas.dal.TipoDocumentoFacade;
-import app.consultas.dal.UsuarioFacade;
+import app.consultas.dal.PersonaFacade;
 import app.consultas.entities.Persona;
 import app.consultas.entities.TipoDocumento;
-import app.consultas.entities.Usuario;
 import app.consultas.util.DateHandler;
 import app.consultas.util.JsonHandler;
 import com.google.gson.JsonArray;
@@ -27,17 +25,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- *
- * @author DOxlaj
- */
-public class UsuarioController extends HttpServlet {
+public class PersonaController extends HttpServlet {
 
     @EJB
-    private UsuarioFacade usuarioService;
-    
-    @EJB
-    private TipoDocumentoFacade tipoDocService;
+    private PersonaFacade personaService;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -47,43 +38,54 @@ public class UsuarioController extends HttpServlet {
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
+     * @throws java.text.ParseException
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
+             
             if (request.getMethod() == "POST") {
-                Long idUsuario = Long.parseLong(request.getParameter("idUsuario"));
                 Long idPersona = Long.parseLong(request.getParameter("idPersona"));
-                String usuario = request.getParameter("usuario");
-                String contrasena = request.getParameter("contrasena");
-                Date fecVtoContrasena = new DateHandler().getDateFromString(request.getParameter("fecVtoContrasena"));
+                String nombres = request.getParameter("nombres");
+                String apellidos = request.getParameter("apellidos");
+                Date fecNacimiento = new DateHandler().getDateFromString(request.getParameter("fecNacimiento"));
+                String documentoId = request.getParameter("documentoId");
+                Short idTipoDocumento = Short.parseShort(request.getParameter("idTipoDocumento"));
+                String sexo = request.getParameter("sexo");
+                String direccion = request.getParameter("direccion");
+                String telefonos = request.getParameter("telefonos");
                 String activo = request.getParameter("activo");
 
-                Usuario modelo = new Usuario();
-                modelo.setIdUsuario(idUsuario);
-                modelo.setIdPersona(new Persona(idPersona));
-                modelo.setUsuario(usuario);
-                modelo.setContrasena(contrasena);
-                modelo.setFecVtoContrasena(fecVtoContrasena);
+                Persona modelo = new Persona();
+                modelo.setIdPersona(idPersona);
+                modelo.setNombres(nombres);
+                modelo.setApellidos(apellidos);
+                modelo.setFecNacimiento(fecNacimiento);
+                modelo.setDocumentoId(documentoId);
+                //modelo.setIdTipoDocumento(idTipoDocumento);
+                modelo.setIdTipoDocumento(new TipoDocumento(idTipoDocumento));
+                modelo.setSexo(sexo);
+                modelo.setDireccion(direccion);
+                modelo.setTelefonos(telefonos);
                 modelo.setActivo(activo);
 
-                if (modelo.getIdUsuario() == 0) {
-                    usuarioService.create(modelo);
+                if (modelo.getIdPersona() == 0) {
+                    modelo.setIdPersona(personaService.generateNewId());
+                    personaService.create(modelo);
                 } else {
-                    usuarioService.edit(modelo);
+                    personaService.edit(modelo);
                 }
 
                 JsonObject result = new JsonHandler().ToJson(modelo);
                 out.write(result.toString());
 
             } else {
-                List<Usuario> listado = usuarioService.findAll();
+                List<Persona> listado = personaService.findAll();
                 JsonArray jarray = new JsonHandler().ToJsonArray(listado);
                 out.write(jarray.toString());
             }
-        } 
-        catch (Exception ex) {
+        } catch (Exception ex) {
             Logger.getLogger(UsuarioController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

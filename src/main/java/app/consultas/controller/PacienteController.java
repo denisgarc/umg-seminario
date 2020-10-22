@@ -5,11 +5,9 @@
  */
 package app.consultas.controller;
 
-import app.consultas.dal.TipoDocumentoFacade;
-import app.consultas.dal.UsuarioFacade;
+import app.consultas.dal.PacienteFacade;
+import app.consultas.entities.Paciente;
 import app.consultas.entities.Persona;
-import app.consultas.entities.TipoDocumento;
-import app.consultas.entities.Usuario;
 import app.consultas.util.DateHandler;
 import app.consultas.util.JsonHandler;
 import com.google.gson.JsonArray;
@@ -31,14 +29,10 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author DOxlaj
  */
-public class UsuarioController extends HttpServlet {
+public class PacienteController extends HttpServlet {
 
     @EJB
-    private UsuarioFacade usuarioService;
-    
-    @EJB
-    private TipoDocumentoFacade tipoDocService;
-
+    private PacienteFacade pacienteService;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -47,43 +41,45 @@ public class UsuarioController extends HttpServlet {
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
+     * @throws java.text.ParseException
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             if (request.getMethod() == "POST") {
-                Long idUsuario = Long.parseLong(request.getParameter("idUsuario"));
+                Long idPaciente = Long.parseLong(request.getParameter("idPaciente"));
                 Long idPersona = Long.parseLong(request.getParameter("idPersona"));
-                String usuario = request.getParameter("usuario");
-                String contrasena = request.getParameter("contrasena");
-                Date fecVtoContrasena = new DateHandler().getDateFromString(request.getParameter("fecVtoContrasena"));
+                Date fecAlta = new DateHandler().getDateFromString(request.getParameter("fecAlta"));
+                String numeroSeguro = request.getParameter("numeroSeguro");
+                String tipoSangre = request.getParameter("tipoSangre");
+                String fuma = request.getParameter("fuma");
                 String activo = request.getParameter("activo");
 
-                Usuario modelo = new Usuario();
-                modelo.setIdUsuario(idUsuario);
+                Paciente modelo = new Paciente();
+                modelo.setIdPaciente(idPaciente);
                 modelo.setIdPersona(new Persona(idPersona));
-                modelo.setUsuario(usuario);
-                modelo.setContrasena(contrasena);
-                modelo.setFecVtoContrasena(fecVtoContrasena);
+                modelo.setFecAlta(fecAlta);
+                modelo.setNumeroSeguro(numeroSeguro);
+                modelo.setTipoSangre(tipoSangre);
+                modelo.setFuma(fuma);
                 modelo.setActivo(activo);
 
-                if (modelo.getIdUsuario() == 0) {
-                    usuarioService.create(modelo);
+                if (modelo.getIdPaciente() == 0) {
+                    pacienteService.create(modelo);
                 } else {
-                    usuarioService.edit(modelo);
+                    pacienteService.edit(modelo);
                 }
 
                 JsonObject result = new JsonHandler().ToJson(modelo);
                 out.write(result.toString());
 
             } else {
-                List<Usuario> listado = usuarioService.findAll();
+                List<Paciente> listado = pacienteService.findAll();
                 JsonArray jarray = new JsonHandler().ToJsonArray(listado);
                 out.write(jarray.toString());
             }
-        } 
-        catch (Exception ex) {
+        } catch (Exception ex) {
             Logger.getLogger(UsuarioController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

@@ -66,7 +66,7 @@
                          <i class="fas fa-lock"></i> Seguridad
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">Usuarios</a>
+                        <a class="dropdown-item" href="${req.contextPath}/seguridad/Usuario.jsp">Usuarios</a>
                         <a class="dropdown-item" href="${req.contextPath}/seguridad/Rol.jsp">Roles</a>
                         <a class="dropdown-item" href="${req.contextPath}/seguridad/UsuarioRol.jsp">Asignación de Roles</a>
                     </div>

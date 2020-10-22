@@ -64,6 +64,18 @@ Date.prototype.withoutTime = function () {
     return d;
 }
 
+Date.prototype.toStringDMY = function (){
+    var date = new Date(this.valueOf());
+    var day = date.getDate();
+    var month = date.getMonth() + 1;
+    var year = date.getFullYear();
+    if(month < 10){
+        return `${day}/0${month}/${year}`;
+    } else{
+        return `${day}/${month}/${year}`;
+    }
+}
+
 /// Extension de jquery validator para validar fechas correctamente.
 $(function () {
     $.validator.methods.date = function (value, element) {

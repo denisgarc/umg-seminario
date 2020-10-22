@@ -15,7 +15,12 @@ import com.google.gson.JsonObject;
  */
 public class JsonHandler {
     public <T> JsonArray ToJsonArray(T listado){
-        JsonArray jarray = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create().toJsonTree(listado).getAsJsonArray();
+        JsonArray jarray = new GsonBuilder()
+                                .excludeFieldsWithoutExposeAnnotation()
+                                .serializeNulls()
+                                .create()
+                                .toJsonTree(listado)
+                                .getAsJsonArray();
         return jarray;
     }
     

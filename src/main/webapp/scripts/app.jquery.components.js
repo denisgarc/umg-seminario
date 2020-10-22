@@ -124,6 +124,10 @@ function InitializeTables() {
                     var columnsTable = Array.from($curTable.find('thead th'))
                             .filter(x => x.hasAttribute("data-key"))
                             .map(x => { return { data: x.attributes.getNamedItem("data-key").value};});
+                    var columnsConfig = Array.from($curTable.find('thead th'))
+                            .filter(x => x.hasAttribute("data-visible"))
+                            .map(x => { return { targets: [x.attributes.getNamedItem("data-column-orde").value], visible: x.attributes.getNamedItem("data-visible").value };});
+                    
                     var isMaintenance = $curTable.attr('data-show-buttons') == undefined ? false : $curTable.attr('data-show-buttons');
 
                     if(isMaintenance){
@@ -143,6 +147,10 @@ function InitializeTables() {
                         'dataSrc': $curTable.attr('data-src') == undefined ? '' : $curTable.attr('data-src'),
                     };
                     dataTableSetup.columns = columnsTable; 
+                    
+                    if(columnsConfig.length != 0){
+                        dataTableSetup.columnDefs = columnsConfig;
+                    }
                 }
 
                 if (addButtons) {

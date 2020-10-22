@@ -5,11 +5,11 @@
  */
 package app.consultas.controller;
 
-import app.consultas.dal.TipoDocumentoFacade;
-import app.consultas.dal.UsuarioFacade;
+import app.consultas.dal.EmpleadoFacade;
+import app.consultas.entities.Empleado;
+import app.consultas.entities.Especializacion;
 import app.consultas.entities.Persona;
-import app.consultas.entities.TipoDocumento;
-import app.consultas.entities.Usuario;
+import app.consultas.entities.Puesto;
 import app.consultas.util.DateHandler;
 import app.consultas.util.JsonHandler;
 import com.google.gson.JsonArray;
@@ -27,18 +27,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- *
- * @author DOxlaj
- */
-public class UsuarioController extends HttpServlet {
+public class EmpleadoController extends HttpServlet {
 
     @EJB
-    private UsuarioFacade usuarioService;
-    
-    @EJB
-    private TipoDocumentoFacade tipoDocService;
-
+    private EmpleadoFacade empleadoService;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -53,37 +45,38 @@ public class UsuarioController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             if (request.getMethod() == "POST") {
-                Long idUsuario = Long.parseLong(request.getParameter("idUsuario"));
+                Long idEmpleado = Long.parseLong(request.getParameter("idEmpleado"));
                 Long idPersona = Long.parseLong(request.getParameter("idPersona"));
-                String usuario = request.getParameter("usuario");
-                String contrasena = request.getParameter("contrasena");
-                Date fecVtoContrasena = new DateHandler().getDateFromString(request.getParameter("fecVtoContrasena"));
+                Short idPuesto = Short.parseShort(request.getParameter("idPuesto"));
+                Short idEspecializacion = Short.parseShort(request.getParameter("idEspecializacion"));
+                Date fecIngreso = new DateHandler().getDateFromString(request.getParameter("fecIngreso"));
+                Date fecBaja = new DateHandler().getDateFromString(request.getParameter("fecBaja"));
                 String activo = request.getParameter("activo");
 
-                Usuario modelo = new Usuario();
-                modelo.setIdUsuario(idUsuario);
+                Empleado modelo = new Empleado();
+                modelo.setIdEmpleado(idEmpleado);
                 modelo.setIdPersona(new Persona(idPersona));
-                modelo.setUsuario(usuario);
-                modelo.setContrasena(contrasena);
-                modelo.setFecVtoContrasena(fecVtoContrasena);
+                modelo.setIdPuesto(new Puesto(idPuesto));
+                modelo.setIdEspecializacion(new Especializacion(idEspecializacion));
+                modelo.setFecIngreso(fecIngreso);
+                modelo.setFecBaja(fecBaja);
                 modelo.setActivo(activo);
 
-                if (modelo.getIdUsuario() == 0) {
-                    usuarioService.create(modelo);
+                if (modelo.getIdEmpleado()== 0) {
+                    empleadoService.create(modelo);
                 } else {
-                    usuarioService.edit(modelo);
+                    empleadoService.edit(modelo);
                 }
 
                 JsonObject result = new JsonHandler().ToJson(modelo);
                 out.write(result.toString());
 
             } else {
-                List<Usuario> listado = usuarioService.findAll();
+                List<Empleado> listado = empleadoService.findAll();
                 JsonArray jarray = new JsonHandler().ToJsonArray(listado);
                 out.write(jarray.toString());
             }
-        } 
-        catch (Exception ex) {
+        } catch (Exception ex) {
             Logger.getLogger(UsuarioController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

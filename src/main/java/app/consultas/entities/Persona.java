@@ -139,7 +139,7 @@ public class Persona implements Serializable {
     }
 
     public String getApellidos() {
-        return apellidos;
+        return apellidos == null ? "" : apellidos;
     }
 
     public void setApellidos(String apellidos) {
@@ -159,7 +159,7 @@ public class Persona implements Serializable {
     }
 
     public String getDocumentoId() {
-        return documentoId;
+        return documentoId == null ? "" : documentoId;
     }
 
     public void setDocumentoId(String documentoId) {
@@ -175,7 +175,7 @@ public class Persona implements Serializable {
     }
 
     public String getDireccion() {
-        return direccion;
+        return direccion == null ? "" : direccion;
     }
 
     public void setDireccion(String direccion) {
@@ -183,7 +183,7 @@ public class Persona implements Serializable {
     }
 
     public String getTelefonos() {
-        return telefonos;
+        return telefonos == null ? "" : telefonos;
     }
 
     public void setTelefonos(String telefonos) {

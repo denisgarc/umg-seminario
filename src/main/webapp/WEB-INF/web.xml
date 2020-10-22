@@ -52,6 +52,30 @@
         <servlet-name>UsuarioConsultaController</servlet-name>
         <servlet-class>app.consultas.controller.UsuarioConsultaController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>PersonaConsultaController</servlet-name>
+        <servlet-class>app.consultas.controller.PersonaConsultaController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PacienteConsultaController</servlet-name>
+        <servlet-class>app.consultas.controller.PacienteConsultaController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EmpleadoConsultaController</servlet-name>
+        <servlet-class>app.consultas.controller.EmpleadoConsultaController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PersonaController</servlet-name>
+        <servlet-class>app.consultas.controller.PersonaController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PacienteController</servlet-name>
+        <servlet-class>app.consultas.controller.PacienteController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EmpleadoController</servlet-name>
+        <servlet-class>app.consultas.controller.EmpleadoController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/LoginController</url-pattern>
@@ -103,6 +127,30 @@
     <servlet-mapping>
         <servlet-name>UsuarioConsultaController</servlet-name>
         <url-pattern>/UsuarioConsultaController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PersonaConsultaController</servlet-name>
+        <url-pattern>/PersonaConsultaController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PacienteConsultaController</servlet-name>
+        <url-pattern>/PacienteConsultaController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EmpleadoConsultaController</servlet-name>
+        <url-pattern>/EmpleadoConsultaController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PersonaController</servlet-name>
+        <url-pattern>/PersonaController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PacienteController</servlet-name>
+        <url-pattern>/PacienteController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EmpleadoController</servlet-name>
+        <url-pattern>/EmpleadoController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

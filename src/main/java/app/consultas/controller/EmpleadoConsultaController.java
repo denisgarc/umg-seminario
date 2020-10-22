@@ -5,22 +5,13 @@
  */
 package app.consultas.controller;
 
-import app.consultas.dal.TipoDocumentoFacade;
-import app.consultas.dal.UsuarioFacade;
-import app.consultas.entities.Persona;
-import app.consultas.entities.TipoDocumento;
-import app.consultas.entities.Usuario;
-import app.consultas.util.DateHandler;
-import app.consultas.util.JsonHandler;
+import app.consultas.dal.EmpleadoFacade;
+import app.consultas.entities.Empleado;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.text.ParseException;
-import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -31,14 +22,10 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author DOxlaj
  */
-public class UsuarioController extends HttpServlet {
+public class EmpleadoConsultaController extends HttpServlet {
 
     @EJB
-    private UsuarioFacade usuarioService;
-    
-    @EJB
-    private TipoDocumentoFacade tipoDocService;
-
+    private EmpleadoFacade empleadoService;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -52,39 +39,19 @@ public class UsuarioController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            if (request.getMethod() == "POST") {
-                Long idUsuario = Long.parseLong(request.getParameter("idUsuario"));
-                Long idPersona = Long.parseLong(request.getParameter("idPersona"));
-                String usuario = request.getParameter("usuario");
-                String contrasena = request.getParameter("contrasena");
-                Date fecVtoContrasena = new DateHandler().getDateFromString(request.getParameter("fecVtoContrasena"));
-                String activo = request.getParameter("activo");
-
-                Usuario modelo = new Usuario();
-                modelo.setIdUsuario(idUsuario);
-                modelo.setIdPersona(new Persona(idPersona));
-                modelo.setUsuario(usuario);
-                modelo.setContrasena(contrasena);
-                modelo.setFecVtoContrasena(fecVtoContrasena);
-                modelo.setActivo(activo);
-
-                if (modelo.getIdUsuario() == 0) {
-                    usuarioService.create(modelo);
-                } else {
-                    usuarioService.edit(modelo);
-                }
-
-                JsonObject result = new JsonHandler().ToJson(modelo);
-                out.write(result.toString());
-
-            } else {
-                List<Usuario> listado = usuarioService.findAll();
-                JsonArray jarray = new JsonHandler().ToJsonArray(listado);
-                out.write(jarray.toString());
-            }
-        } 
-        catch (Exception ex) {
-            Logger.getLogger(UsuarioController.class.getName()).log(Level.SEVERE, null, ex);
+            String filter = request.getParameter("filter");
+            List<Empleado> encontrados = empleadoService.findBySearch(filter);
+            JsonArray result = new JsonArray();
+            if(encontrados.size() != 0){
+                encontrados.forEach((item) -> {
+                    JsonObject user = new JsonObject();
+                    user.addProperty("value", item.getIdEmpleado());
+                    user.addProperty("label", item.getIdPersona().getNomberCompleto());
+                    result.add(user);
+                });
+            } 
+            
+            out.write(result.toString());
         }
     }
 

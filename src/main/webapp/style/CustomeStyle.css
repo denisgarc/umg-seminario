@@ -44,7 +44,7 @@
 .bg-blue-dark {
     /*background-color: #3365a3!important;*/
     background-color: #124374!important;
-    
+
 }
 .bg-blue-light {
     background-color: #0466c8!important;
@@ -55,4 +55,8 @@
 }
 .ui-autocomplete-loading {
     background: white url("../images/working.gif") right center no-repeat !important;
-  }
+}
+
+.ui-autocomplete {
+    z-index: 215000000 !important;
+}
