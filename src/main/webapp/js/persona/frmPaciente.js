@@ -85,8 +85,38 @@ $(document).ready(function (e) {
                 break;
         }
     });
-
+    
     $('.isAutoCompleteCustome').on("focus", function () {
+        var _Url = $BaseUrl + 'PersonaConsultaController';
+        $(this).autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    type: 'GET',
+                    url: `${_Url}?filter=${request.term}&type=full`,
+                    contentType: 'application/json; charset=utf-8',
+                    dataType: 'json',
+                    success: function (data) {
+                        response($.map(data, function (item) {
+                            return {label: item["nombres"] + ' ' + item["apellidos"], value: item["idPersona"], model: item}
+                        }));
+                    },
+                    error: function (error) {
+                        console.error(error);
+                    }
+                });
+            },
+            minLength: 3,
+            delay: 1000,
+            select: function (e, selected) {
+                e.preventDefault();
+                $(this).val(selected.item.label);
+                $(Array.from($(this).parent().find('input')).filter(x => x.id != $(this)[0].id)).val(selected.item.value);
+                loadPerson(selected.item.model);
+            }
+        });
+    });
+
+    $('.isAutoCompleteCustomePerson').on("focus", function () {
         var _Url = $BaseUrl + ($(this)[0].hasAttribute("data-method-url") ? ('/' + $(this)[0].attributes.getNamedItem("data-method-url").value) : '');
         var _method = ($(this)[0].hasAttribute("data-method") ? ('/' + $(this)[0].attributes.getNamedItem("data-method").value) : 'POST');
         $(this).autocomplete({

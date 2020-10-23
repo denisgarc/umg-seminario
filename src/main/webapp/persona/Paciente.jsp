@@ -142,7 +142,7 @@
                                                     <div class="input-group">
                                                         <input id="idPersonaContacto" name="idPersonaContacto" style="display:none">
                                                         <span class="input-group-text"><i class="fas fa-search"></i></span>
-                                                        <input id="idPersonaContactoNombre" name="idPersonaContactoNombre" class="form-control isAutoCompleteCustome" 
+                                                        <input id="idPersonaContactoNombre" name="idPersonaContactoNombre" class="form-control isAutoCompleteCustomePerson" 
                                                                placeholder="Ingrese texto para iniciar la búsqueda" 
                                                                autocomplete="off"
                                                                data-method-url="PersonaConsultaController"

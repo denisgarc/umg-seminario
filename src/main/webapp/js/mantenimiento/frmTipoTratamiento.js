@@ -41,7 +41,9 @@ $(document).ready(function (e) {
 function loadData(selectedItem) {
     Object.keys(selectedItem).forEach((key) => {
         if(key == 'activo'){
-            $('input[name="' + key + '"][value="' + selectedItem[key] + '"]').attr('checked',true);
+            $('input[name="' + key + '"]').attr('checked', false);
+            $('input[name="' + key + '"][value="' + selectedItem[key] + '"]').attr('checked', true);
+            $('input[name="' + key + '"][value="' + selectedItem[key] + '"]').click();
         } else {
             $(`#` + key).val(selectedItem[key]);
         }

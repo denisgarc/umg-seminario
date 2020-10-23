@@ -12,7 +12,7 @@
                 <h3 class="card-header text-center bg-secondary text-white">Mantenimiento de Tipos de Documento</h3>
                 <div class="card-body border border-secondary">
                     <div class="row">
-                        <div class="col-6 col-sm-6 col-md-3 col-lg-3">
+                        <div class="col-12 col-sm-6 col-md-3 col-lg-3">
                             <button id="btnAdd" class="btn btn-outline-info btn-block" onclick="loadNew();"><i class="fas fa-plus"></i> Agregar</button>
                         </div>
                     </div>
