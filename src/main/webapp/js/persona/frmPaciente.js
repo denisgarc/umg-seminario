@@ -125,8 +125,10 @@ function loadData(selectedItem) {
     // Para el usuario
     Object.keys(selectedItem).forEach((key) => {
         if (key != 'idPersona') {
-            if (key == 'activo') {
+            if (key == 'activo' || key == 'fuma') {
+                $('input[name="' + key + '"]').attr('checked', false);
                 $('input[name="' + key + '"][value="' + selectedItem[key] + '"]').attr('checked', true);
+                $('input[name="' + key + '"][value="' + selectedItem[key] + '"]').click();
             } else if (key == 'fecAlta') {
                 $(`#` + key).val(new Date(selectedItem[key]).toStringDMY());
             } else if(key == 'idPersonaContacto'){
@@ -146,8 +148,12 @@ function loadData(selectedItem) {
 
 function loadPerson(selectedItem) {
     Object.keys(selectedItem).forEach((key) => {
-        if (key == 'activo') {
-            $('input[name="' + key + '"][value="' + selectedItem[key] + '"]').attr('checked', true);
+        if (key == 'activo' || key == 'sexo') {
+            if(key != 'activo'){
+                $('input[name="' + key + '"]').attr('checked', false);
+                $('input[name="' + key + '"][value="' + selectedItem[key] + '"]').attr('checked', true);
+                $('input[name="' + key + '"][value="' + selectedItem[key] + '"]').click();
+            }
         } else if (key == 'fecNacimiento') {
             $(`#` + key).val(new Date(selectedItem[key]).toStringDMY());
         } else if (key == 'idTipoDocumento') {
