@@ -76,6 +76,22 @@
         <servlet-name>EmpleadoController</servlet-name>
         <servlet-class>app.consultas.controller.EmpleadoController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>HospitalController</servlet-name>
+        <servlet-class>app.consultas.controller.HospitalController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>HospitalSalaController</servlet-name>
+        <servlet-class>app.consultas.controller.HospitalSalaController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>HospitalClinicaController</servlet-name>
+        <servlet-class>app.consultas.controller.HospitalClinicaController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>HospitalHorarioController</servlet-name>
+        <servlet-class>app.consultas.controller.HospitalHorarioController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/LoginController</url-pattern>
@@ -151,6 +167,22 @@
     <servlet-mapping>
         <servlet-name>EmpleadoController</servlet-name>
         <url-pattern>/EmpleadoController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>HospitalController</servlet-name>
+        <url-pattern>/HospitalController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>HospitalSalaController</servlet-name>
+        <url-pattern>/HospitalSalaController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>HospitalClinicaController</servlet-name>
+        <url-pattern>/HospitalClinicaController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>HospitalHorarioController</servlet-name>
+        <url-pattern>/HospitalHorarioController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

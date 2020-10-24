@@ -38,6 +38,7 @@
                         <a class="dropdown-item" href="${req.contextPath}/mantenimiento/TipoDiagnostico.jsp">Tipo de Diagnostico</a>
                         <a class="dropdown-item" href="${req.contextPath}/mantenimiento/TipoTratamiento.jsp">Tipo de Tratamiento</a>
                         <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="${req.contextPath}/mantenimiento/Hospital.jsp">Hospitales</a>
                         <a class="dropdown-item" href="${req.contextPath}/mantenimiento/Medicamento.jsp">Medicamentos</a>
                         <a class="dropdown-item" href="${req.contextPath}/mantenimiento/Unidad.jsp">Unidad de Medida</a>
                     </div>

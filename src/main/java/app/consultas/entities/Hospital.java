@@ -5,6 +5,7 @@
  */
 package app.consultas.entities;
 
+import com.google.gson.annotations.Expose;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
@@ -42,32 +43,40 @@ public class Hospital implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "ID_HOSPITAL")
+    @Expose
     private Short idHospital;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 50)
     @Column(name = "NOMBRE")
+    @Expose
     private String nombre;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
     @Column(name = "DIRECCION")
+    @Expose
     private String direccion;
     @Size(max = 100)
     @Column(name = "TELEFONOS")
+    @Expose
     private String telefonos;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 1)
     @Column(name = "ACTIVO")
+    @Expose
     private String activo;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idHospital")
     private List<Cita> citaList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "hospital")
+    @Expose
     private List<HospitalSala> hospitalSalaList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "hospital")
+    @Expose
     private List<HospitalHorario> hospitalHorarioList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "hospital")
+    @Expose
     private List<HospitalClinica> hospitalClinicaList;
 
     public Hospital() {

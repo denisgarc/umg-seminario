@@ -23,4 +23,14 @@ public class DateHandler {
             return null;
         }
     }
+    
+    public Date getDateFromString(String stringDate, String format) throws ParseException{
+        SimpleDateFormat formatter = new SimpleDateFormat(format);
+        if(stringDate.length() != 0){
+            Date formatedDate = formatter.parse(stringDate);
+            return formatedDate;
+        } else {
+            return null;
+        }
+    }
 }

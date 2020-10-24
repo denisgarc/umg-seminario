@@ -72,11 +72,32 @@ Date.prototype.toStringDMY = function (){
     var day = date.getDate();
     var month = date.getMonth() + 1;
     var year = date.getFullYear();
-    if(month < 10){
-        return `${day}/0${month}/${year}`;
-    } else{
-        return `${day}/${month}/${year}`;
-    }
+
+    return `${('0' + day).slice(-2)}/${('0' + month).slice(-2)}/${year}`;
+}
+
+Date.prototype.toStringDMYTime = function (){
+    if(this.valueOf() == 0 || isNaN(this.valueOf()))
+        return '';
+    
+    var date = new Date(this.valueOf());
+    var day = date.getDate();
+    var month = date.getMonth() + 1;
+    var year = date.getFullYear();
+    var hour = date.getHours();
+    var min = date.getMinutes();
+
+    return `${('0' + day).slice(-2)}/${('0' + month).slice(-2)}/${year} ${('0' + hour).slice(-2)}:${('0' + min).slice(-2)}`;
+}
+
+Date.prototype.toStringTime = function (){
+    if(this.valueOf() == 0 || isNaN(this.valueOf()))
+        return '';
+    
+    var date = new Date(this.valueOf());
+    var hour = date.getHours();
+    var min = date.getMinutes();
+    return `${('0' + hour).slice(-2)}:${('0' + min).slice(-2)}`;
 }
 
 /// Extension de jquery validator para validar fechas correctamente.

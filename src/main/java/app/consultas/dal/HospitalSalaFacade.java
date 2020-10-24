@@ -6,9 +6,12 @@
 package app.consultas.dal;
 
 import app.consultas.entities.HospitalSala;
+import java.util.ArrayList;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -29,4 +32,13 @@ public class HospitalSalaFacade extends AbstractFacade<HospitalSala> {
         super(HospitalSala.class);
     }
     
+    public List<HospitalSala> findByIdHospital(short idHospital){
+        try {
+            TypedQuery<HospitalSala> query = em.createNamedQuery("HospitalSala.findByIdHospital", HospitalSala.class);
+            query.setParameter("idHospital", idHospital);
+            return query.getResultList();
+        } catch(Exception ex) {
+            return new ArrayList<HospitalSala>();
+        }
+    }
 }

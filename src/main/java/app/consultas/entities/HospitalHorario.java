@@ -5,6 +5,7 @@
  */
 package app.consultas.entities;
 
+import com.google.gson.annotations.Expose;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -41,26 +42,31 @@ public class HospitalHorario implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @EmbeddedId
+    @Expose
     protected HospitalHorarioPK hospitalHorarioPK;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 50)
     @Column(name = "DESCRIPCION")
+    @Expose
     private String descripcion;
     @Basic(optional = false)
     @NotNull
     @Column(name = "HORA_INICIO")
     @Temporal(TemporalType.TIMESTAMP)
+    @Expose
     private Date horaInicio;
     @Basic(optional = false)
     @NotNull
     @Column(name = "HORA_FIN")
     @Temporal(TemporalType.TIMESTAMP)
+    @Expose
     private Date horaFin;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 1)
     @Column(name = "ACTIVO")
+    @Expose
     private String activo;
     @JoinColumn(name = "ID_HOSPITAL", referencedColumnName = "ID_HOSPITAL", insertable = false, updatable = false)
     @ManyToOne(optional = false)
