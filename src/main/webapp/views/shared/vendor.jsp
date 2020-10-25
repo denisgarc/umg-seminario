@@ -50,7 +50,12 @@
 <script src="${req.contextPath}/scripts/jquery.block.UI/jquery.blockUI.js" type="text/javascript"></script>
 
 <!-- wizard -->
-
+<link href="${req.contextPath}/scripts/jquery-wizard-bootstrap/dist/css/smart_wizard.min.css" rel="stylesheet" />
+<link href="${req.contextPath}/scripts/jquery-wizard-bootstrap/dist/css/smart_wizard_theme_dots.min.css" rel="stylesheet" />
+<link href="${req.contextPath}/scripts/jquery-wizard-bootstrap/dist/css/smart_wizard_theme_circles.min.css" rel="stylesheet" />
+<link href="${req.contextPath}/scripts/jquery-wizard-bootstrap/dist/css/smart_wizard_theme_arrows.min.css" rel="stylesheet" />
+<script src="${req.contextPath}/scripts/jquery-wizard-bootstrap/dist/js/jquery.smartWizard.js"></script>
+        
 <!-- select picker -->
 <link href="${req.contextPath}/scripts/bootstrap-select-1.13.9/css/bootstrap-select.min.css" rel="stylesheet" type="text/css"/>
 <script src="${req.contextPath}/scripts/bootstrap-select-1.13.9/js/bootstrap-select.min.js" type="text/javascript"></script>

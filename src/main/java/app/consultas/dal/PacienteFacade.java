@@ -43,4 +43,14 @@ public class PacienteFacade extends AbstractFacade<Paciente> {
             return new ArrayList<Paciente>();
         }
     }
+    
+    public Long generateNewId(){
+        try {
+            Query q = em.createNativeQuery("SELECT PACIENTE_SEQ.NEXTVAL FROM DUAL");
+            Long result = Long.parseLong(q.getSingleResult().toString());
+            return result;
+        } catch(Exception e) {
+            return Long.parseLong("0");
+        }
+    }
 }

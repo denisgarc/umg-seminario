@@ -7,6 +7,7 @@ package app.consultas.controller;
 
 import app.consultas.dal.PacienteFacade;
 import app.consultas.entities.Paciente;
+import app.consultas.util.JsonHandler;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import java.io.IOException;
@@ -40,15 +41,25 @@ public class PacienteConsultaController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             String filter = request.getParameter("filter");
+            String type = request.getParameter("type") == null ? "" : request.getParameter("type");
             List<Paciente> encontrados = pacienteService.findBySearch(filter);
             JsonArray result = new JsonArray();
             if(encontrados.size() != 0){
-                encontrados.forEach((item) -> {
-                    JsonObject user = new JsonObject();
-                    user.addProperty("value", item.getIdPaciente());
-                    user.addProperty("label", item.getIdPersona().getNomberCompleto());
-                    result.add(user);
-                });
+                switch(type) {
+                    case "full":
+                        result = new JsonHandler().ToJsonArray(encontrados);
+                        break;
+                    default:
+                        JsonArray result2 = new JsonArray();
+                        encontrados.forEach((item) -> {
+                            JsonObject user = new JsonObject();
+                            user.addProperty("value", item.getIdPaciente());
+                            user.addProperty("label", item.getIdPersona().getNomberCompleto());
+                            result2.add(user);
+                        });
+                        result = result2;
+                        break;
+                }
             } 
             
             out.write(result.toString());

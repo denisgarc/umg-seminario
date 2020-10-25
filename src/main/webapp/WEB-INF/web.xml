@@ -92,6 +92,10 @@
         <servlet-name>HospitalHorarioController</servlet-name>
         <servlet-class>app.consultas.controller.HospitalHorarioController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CitaController</servlet-name>
+        <servlet-class>app.consultas.controller.CitaController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/LoginController</url-pattern>
@@ -183,6 +187,10 @@
     <servlet-mapping>
         <servlet-name>HospitalHorarioController</servlet-name>
         <url-pattern>/HospitalHorarioController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CitaController</servlet-name>
+        <url-pattern>/CitaController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

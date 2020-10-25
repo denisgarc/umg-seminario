@@ -330,10 +330,11 @@ function InitializeWizard() {
     if ($(".isStepWizard").length > 0) {
         $(".isStepWizard").each(function (index) {
             var $stepWizard = $(this);
+            var withOutButton = $stepWizard.hasClass("withOutButton");
             var smartWizardSetup = {
                 theme: 'arrows',
                 backButtonSupport: false, // Enable the back button support
-                enableURLhash: false, // Enable selection of the step based on url hash
+                enableURLhash: true, // Enable selection of the step based on url hash
                 transition: {
                     animation: 'none', // Effect on navigation, none/fade/slide-horizontal/slide-vertical/slide-swing
                     speed: '400', // Transion animation speed
@@ -342,8 +343,8 @@ function InitializeWizard() {
                 toolbarSettings: {
                     toolbarPosition: 'bottom', // none, top, bottom, both
                     toolbarButtonPosition: 'center', // left, right, center
-                    showNextButton: true, // show/hide a Next button
-                    showPreviousButton: true, // show/hide a Previous button
+                    showNextButton: !withOutButton, // show/hide a Next button
+                    showPreviousButton: !withOutButton, // show/hide a Previous button
                     toolbarExtraButtons: [] // Extra buttons to show on toolbar, array of jQuery input/buttons elements
                 },
                 anchorSettings: {

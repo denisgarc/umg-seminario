@@ -5,9 +5,13 @@
  */
 package app.consultas.controller;
 
-import app.consultas.dal.PacienteFacade;
+import app.consultas.dal.CitaFacade;
+import app.consultas.entities.Cita;
+import app.consultas.entities.Estado;
+import app.consultas.entities.Hospital;
 import app.consultas.entities.Paciente;
 import app.consultas.entities.Persona;
+import app.consultas.entities.TipoDocumento;
 import app.consultas.util.DateHandler;
 import app.consultas.util.JsonHandler;
 import com.google.gson.JsonArray;
@@ -29,10 +33,10 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author DOxlaj
  */
-public class PacienteController extends HttpServlet {
+public class CitaController extends HttpServlet {
 
     @EJB
-    private PacienteFacade pacienteService;
+    private CitaFacade citaService;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -41,52 +45,48 @@ public class PacienteController extends HttpServlet {
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
-     * @throws java.text.ParseException
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             if (request.getMethod() == "POST") {
+                Long idCita = Long.parseLong(request.getParameter("idCita"));
+                Date fechaCita = new DateHandler().getDateFromString(request.getParameter("fechaCita"));
+                Date horaCita = new DateHandler().getDateFromString(request.getParameter("horaCita"),"HH:MM");
                 Long idPaciente = Long.parseLong(request.getParameter("idPaciente"));
-                Long idPersona = Long.parseLong(request.getParameter("idPersona"));
-                Long idPersonaContacto = Long.parseLong(request.getParameter("idPersonaContacto").length() == 0 ? "0" : request.getParameter("idPersonaContacto"));
-                Date fecAlta = new DateHandler().getDateFromString(request.getParameter("fecAlta"));
-                String numeroSeguro = request.getParameter("numeroSeguro");
-                String tipoSangre = request.getParameter("tipoSangre");
-                String fuma = request.getParameter("fuma");
-                String activo = request.getParameter("activo");
+                Short idHospital = Short.parseShort(request.getParameter("idHospital"));
+                Short idClinica = Short.parseShort(request.getParameter("idClinica"));
+                Short idSala = Short.parseShort(request.getParameter("idSala"));
+                Short idEstado = Short.parseShort(request.getParameter("idEstado"));
 
-                Paciente modelo = new Paciente();
-                modelo.setIdPaciente(idPaciente);
-                modelo.setIdPersona(new Persona(idPersona));
-                modelo.setFecAlta(fecAlta);
-                modelo.setNumeroSeguro(numeroSeguro);
-                modelo.setTipoSangre(tipoSangre);
-                modelo.setFuma(fuma);
-                modelo.setActivo(activo);
-                
-                if(idPersonaContacto != 0){
-                    modelo.setIdPersonaContacto(new Persona(idPersonaContacto));
-                }
+                Cita modelo = new Cita();
+                modelo.setIdCita(idCita);
+                modelo.setFechaCita(fechaCita);
+                modelo.setHoraCita(horaCita);
+                modelo.setIdPaciente(new Paciente(idPaciente));
+                modelo.setIdHospital(new Hospital(idHospital));
+                modelo.setIdClinica(idClinica);
+                modelo.setIdSala(idSala);
+                modelo.setIdEstado(new Estado(idEstado));
 
-                if (modelo.getIdPaciente() == 0) {
-                    modelo.setIdPaciente(pacienteService.generateNewId());
-                    pacienteService.create(modelo);
+                if (modelo.getIdCita() == 0) {
+                    modelo.setIdCita(citaService.generateNewId());
+                    citaService.create(modelo);
                 } else {
-                    pacienteService.edit(modelo);
+                    citaService.edit(modelo);
                 }
 
                 JsonObject result = new JsonHandler().ToJson(modelo);
                 out.write(result.toString());
 
             } else {
-                List<Paciente> listado = pacienteService.findAll();
+                List<Cita> listado = citaService.findAll();
                 JsonArray jarray = new JsonHandler().ToJsonArray(listado);
                 out.write(jarray.toString());
             }
         } catch (Exception ex) {
-            Logger.getLogger(UsuarioController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CitaController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

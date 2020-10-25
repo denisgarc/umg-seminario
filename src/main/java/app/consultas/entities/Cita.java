@@ -5,6 +5,7 @@
  */
 package app.consultas.entities;
 
+import com.google.gson.annotations.Expose;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -45,23 +46,27 @@ public class Cita implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "ID_CITA")
+    @Expose
     private Long idCita;
     @Basic(optional = false)
     @NotNull
     @Column(name = "FECHA_CITA")
     @Temporal(TemporalType.TIMESTAMP)
+    @Expose
     private Date fechaCita;
     @Basic(optional = false)
     @NotNull
     @Column(name = "HORA_CITA")
     @Temporal(TemporalType.TIMESTAMP)
+    @Expose
     private Date horaCita;
     @JoinColumn(name = "ID_ESTADO", referencedColumnName = "ID_ESTADO")
     @ManyToOne(optional = false)
+    @Expose
     private Estado idEstado;
-    @JoinColumn(name = "ID_HOSPITAL", referencedColumnName = "ID_HOSPITAL", 
-            insertable = false, updatable = false)
+    @JoinColumn(name = "ID_HOSPITAL", referencedColumnName = "ID_HOSPITAL")
     @ManyToOne(optional = false)
+    @Expose
     private Hospital idHospital;
 //    @JoinColumns({
 //        @JoinColumn(name = "ID_HOSPITAL", referencedColumnName = "ID_HOSPITAL"),
@@ -75,9 +80,20 @@ public class Cita implements Serializable {
 //    private HospitalSala hospitalSala;
     @JoinColumn(name = "ID_PACIENTE", referencedColumnName = "ID_PACIENTE")
     @ManyToOne(optional = false)
+    @Expose
     private Paciente idPaciente;
     @OneToMany(mappedBy = "idCita")
     private List<Consulta> consultaList;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "ID_CLINICA")
+    @Expose
+    private Short idClinica;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "ID_SALA")
+    @Expose
+    private Short idSala;
 
     public Cita() {
     }
@@ -147,6 +163,22 @@ public class Cita implements Serializable {
 //    public void setHospitalSala(HospitalSala hospitalSala) {
 //        this.hospitalSala = hospitalSala;
 //    }
+
+    public Short getIdClinica() {
+        return idClinica;
+    }
+
+    public Short getIdSala() {
+        return idSala;
+    }
+
+    public void setIdClinica(Short idClinica) {
+        this.idClinica = idClinica;
+    }
+
+    public void setIdSala(Short idSala) {
+        this.idSala = idSala;
+    }
 
     public Paciente getIdPaciente() {
         return idPaciente;

@@ -1,17 +1,15 @@
 <div class="row" id="rowBuscar" >
     <div class="col-12 col-sm-12 col-md-12 col-lg-12">
         <div class="form-group">
-            <label for="">Buscar Persona (*)</label>
+            <label for="">Buscar Persona</label>
             <div class="input-group">
                 <input id="usuario" name="usuario" style="display:none">
                 <span class="input-group-text"><i class="fas fa-search"></i></span>
                 <input id="nombre" name="nombre" class="form-control isAutoCompleteCustome" 
                        placeholder="Ingrese texto para iniciar la búsqueda" 
-                       autocomplete="off"
-                       data-message-control="persona_error_msg_data-required"
-                       data-required data-required-msg="El campo Usuario es obligatorio">
+                       autocomplete="off">
             </div>
-            <span id="persona_error_msg_data-required" class="validator_error"></span>
+            <span id="person_search_error_msg" class="validator_error"></span>
         </div>
     </div>
 </div>
