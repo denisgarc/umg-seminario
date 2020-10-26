@@ -27,7 +27,7 @@ var newHorarioRecord = {
     "horaInicio":new Date(),
     "horaFin":new Date(),
     "activo":"S"
-}
+};
 
 var newClinicaRecord = {
     "hospitalClinicaPK":{
@@ -36,7 +36,7 @@ var newClinicaRecord = {
     },
     "descripcion":"",
     "activo":"S"
-}
+};
 
 var $modalId = 'mainHospitalModal';
 var $formId = 'frmHospitalMant';
@@ -64,6 +64,12 @@ var $controllerClinicaList = '/consultas/HospitalClinicaController';
 $(document).ready(function (e) {
     // Cargamos el combo de hospitales
     loadHospitales();
+    
+    $('#pacienteNombre').on('change', function(e) {
+       var valor = $(this).val();
+       if(valor == "")
+           $('#idPaciente').val(0);
+    });
     
     $(`#${$tableId} tbody`).on('click', 'button', function () {
         var action = this.attributes.getNamedItem("data-action").value;

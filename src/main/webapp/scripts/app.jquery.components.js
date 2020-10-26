@@ -132,11 +132,18 @@ function InitializeTables() {
 
                     if(isMaintenance){
                         var event = $curTable.attr('data-click-event');
-                        if(event == undefined){
-                            var buttons = `<div class="btn-group text-center"><button class="btn btn-outline-info btn-sm btnEditar" data-action="edit"><i class="far fa-edit"></i></button><button class="btn btn-outline-danger btn-sm btnDelete" data-action="delete"><i class="far fa-trash-alt"></i></button></div>`    
+                        var customeButtons = $curTable.attr('data-buttons');
+                        debugger;
+                        if(customeButtons == undefined){
+                            if(event == undefined){
+                                var buttons = `<div class="btn-group text-center"><button class="btn btn-outline-info btn-sm btnEditar" data-action="edit"><i class="far fa-edit"></i></button><button class="btn btn-outline-danger btn-sm btnDelete" data-action="delete"><i class="far fa-trash-alt"></i></button></div>`;
+                            } else {
+                                var buttons = `<div class="btn-group text-center"><button class="btn btn-outline-info btn-sm btnEditar" data-action="edit" onclick="${event}"><i class="far fa-edit"></i></button><button class="btn btn-outline-danger btn-sm btnDelete" data-action="delete" onclick="${event}"><i class="far fa-trash-alt"></i></button></div>`;
+                            }
                         } else {
-                            var buttons = `<div class="btn-group text-center"><button class="btn btn-outline-info btn-sm btnEditar" data-action="edit" onclick="${event}"><i class="far fa-edit"></i></button><button class="btn btn-outline-danger btn-sm btnDelete" data-action="delete" onclick="${event}"><i class="far fa-trash-alt"></i></button></div>`    
+                            var buttons = customeButtons;
                         }
+                        
                         columnsTable.push({'defaultContent': buttons});
                         //dataTableSetup.select = true;
                     }

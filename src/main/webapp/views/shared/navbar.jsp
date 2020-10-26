@@ -20,7 +20,7 @@
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="${req.contextPath}/cita/Agendar.jsp">Crear Cita</a>
-                        <a class="dropdown-item" href="#">Buscar Citas</a>
+                        <a class="dropdown-item" href="${req.contextPath}/cita/Buscar.jsp">Buscar Citas</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="#">Something else here</a>
                     </div>

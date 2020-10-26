@@ -96,6 +96,14 @@
         <servlet-name>CitaController</servlet-name>
         <servlet-class>app.consultas.controller.CitaController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CitaConsultaController</servlet-name>
+        <servlet-class>app.consultas.controller.CitaConsultaController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EstadoController</servlet-name>
+        <servlet-class>app.consultas.controller.EstadoController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/LoginController</url-pattern>
@@ -191,6 +199,14 @@
     <servlet-mapping>
         <servlet-name>CitaController</servlet-name>
         <url-pattern>/CitaController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CitaConsultaController</servlet-name>
+        <url-pattern>/CitaConsultaController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EstadoController</servlet-name>
+        <url-pattern>/EstadoController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
