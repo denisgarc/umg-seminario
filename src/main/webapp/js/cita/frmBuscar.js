@@ -1,15 +1,47 @@
 var $tableClinicaId = 'tblCitas';
 var $controllerCitaList = '/consultas/CitaConsultaController';
 var $searchFormId = 'frmBuscar';
+var $modalId = 'mainCitaModal';
+var $formId = 'frmCitaMant';
+var $tableId = 'tblCitas';
+var $citaController = 'CitaController';
 
 $(document).ready(function (e) {
     loadEstados();
     loadDataTable();
+
+    $(`#${$tableId} tbody`).on('click', 'button', function () {
+        var action = this.attributes.getNamedItem("data-action").value;
+        var data = $(`#${$tableId}`).DataTable().row($(this).parents('tr')).data();
+
+        switch (action) {
+            case "update":
+                loadData(data);
+                $(`#${$modalId}`).modal({
+                    keyboard: false,
+                    focus: true
+                });
+                break;
+            case "attend":
+                break;
+            case "print":
+                ShowConfirmationDialog('¿Está seguro de deshabilitar el registro?').then((isOk) => {
+                    if (isOk) {
+                        data.activo = 'N';
+                        save(data, 'E');
+                    }
+                }).catch((err) => {
+                    console.error(err);
+                    ShowErrorDialog('Lo sentimos ha ocurrido un error');
+                });
+                break;
+        }
+    });
 });
 
 
 function search() {
-    if(ValidarFormulario('frmBuscar')){
+    if (ValidarFormulario('frmBuscar')) {
         var param = '?' + $('#frmBuscar').serialize(); //`?idHospital=${$('#ddlHospital').val()}`;
         $(`#${$tableClinicaId}`).attr('data-url', $controllerCitaList + param);
         $(`#${$tableClinicaId}`).DataTable().ajax.url($controllerCitaList + param);
@@ -32,7 +64,7 @@ function loadEstados() {
                     .append('<option value="-1">- Seleccione uno -</option>')
                     .val('-1');
             $.each(result, function (index, item) {
-                options.append($("<option />").val(item.idTipoDocumento).text(item.descripcion));
+                options.append($("<option />").val(item.idEstado).text(item.descripcion));
             });
         }).fail((err) => {
             console.error(err);
@@ -49,7 +81,7 @@ function loadEstados() {
 function dataButtons() {
     var buttons = `<div class="btn-group text-center">
             <button class="btn btn-outline-info btn-sm btnPrint" data-action="print"><i class="fas fa-print"></i></button>
-            <button class="btn btn-outline-info btn-sm btnState" data-action="state"><i class="far fa-arrow-alt-circle-right"></i></button>
+            <button class="btn btn-outline-info btn-sm btnState" data-action="update"><i class="far fa-arrow-alt-circle-right"></i></button>
             <button class="btn btn-outline-success btn-sm btnAttend" data-action="attend"><i class="fas fa-user-check"></i></button>
         </div>`;
     return buttons;
@@ -197,4 +229,66 @@ function loadDataTable() {
 function loadNew() {
     ShowWaitingAnimation();
     window.location.href = $BaseUrl + 'cita/Agendar.jsp';
+}
+
+function loadData(selectedItem) {
+    Object.keys(selectedItem).forEach((key) => {
+        if (key == 'activo') {
+            $(`#${$formId} input[name="${key}"]`).attr('checked', false);
+            $(`#${$formId} input[name="${key}"][value="${selectedItem[key]}"]`).attr('checked', true);
+            $(`#${$formId} input[name="${key}"][value="${selectedItem[key]}"]`).click();
+        } else if (key == 'horaCita') {
+            $(`#${$formId} #${key}`).val(new Date(selectedItem[key]).toStringTime());
+        } else if (key == 'fechaCita') {
+            $(`#${$formId} #${key}`).val(new Date(selectedItem[key]).toStringDMY());
+        } else if (key == 'idPaciente') {
+            $(`#${$formId} #${key}`).val(selectedItem[key].idPaciente);
+            Object.keys(selectedItem[key].idPersona).forEach((pKey) => {
+                $(`#${$formId} #${pKey}`).val(selectedItem[key].idPersona[pKey]);
+            });
+        } else if (key == 'idEstado') {
+            $(`#${$formId} #${key}`).val(selectedItem[key].idEstado);
+        } else if (key == 'idHospital'){
+            $(`#${$formId} #${key}`).val(selectedItem[key].idHospital);
+        } else {
+            $(`#${$formId} #${key}`).val(selectedItem[key]);
+        }
+    });
+}
+
+function saveUpdate(selectedItem, action = 'N') {
+    if (ValidarFormulario(`${$formId}`) || action == 'E') {
+        var payload = selectedItem == undefined ? $(`#${$formId}`).serialize() : selectedItem;
+        saveCita(payload).then((result) => {
+            ShowSuccessDialog(`Cita No. ${result.idCita} actualizada correctamente`, () => {
+                CloseModal($modalId);
+                search();
+            });
+        }).catch((err) => {
+            console.error(err);
+            ShowErrorDialog('Lo sentimos, ha ocurrido une error');
+        }).finally(() => {
+            HideWaitingAnimation();
+        });
+    }
+}
+
+function saveCita(payload) {
+    return new Promise((resolve, reject) => {
+        try {
+            $.ajax({
+                method: 'POST',
+                url: $BaseUrl + $citaController,
+                dataType: 'json',
+                data: payload,
+            }).done((result) => {
+                resolve(result);
+            }).fail((err) => {
+                reject(err);
+            });
+
+        } catch (e) {
+            reject(e);
+        }
+    });
 }
