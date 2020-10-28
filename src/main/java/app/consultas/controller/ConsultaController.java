@@ -6,12 +6,15 @@
 package app.consultas.controller;
 
 import app.consultas.dal.CitaFacade;
+import app.consultas.dal.ConsultaFacade;
+import app.consultas.dal.EstadoFacade;
 import app.consultas.entities.Cita;
+import app.consultas.entities.Consulta;
+import app.consultas.entities.Empleado;
 import app.consultas.entities.Estado;
 import app.consultas.entities.Hospital;
 import app.consultas.entities.Paciente;
-import app.consultas.entities.Persona;
-import app.consultas.entities.TipoDocumento;
+import app.consultas.entities.TipoConsulta;
 import app.consultas.util.DateHandler;
 import app.consultas.util.JsonHandler;
 import com.google.gson.JsonArray;
@@ -33,10 +36,14 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author DOxlaj
  */
-public class CitaController extends HttpServlet {
+public class ConsultaController extends HttpServlet {
 
     @EJB
+    private ConsultaFacade consultaService;
+    @EJB
     private CitaFacade citaService;
+    @EJB
+    private EstadoFacade estadoService;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -51,31 +58,36 @@ public class CitaController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             if (request.getMethod() == "POST") {
+                Long idConsulta = Long.parseLong(request.getParameter("idConsulta"));
                 Long idCita = Long.parseLong(request.getParameter("idCita"));
-                Date fechaCita = new DateHandler().getDateFromString(request.getParameter("fechaCita"));
-                Date horaCita = new DateHandler().getDateFromString(request.getParameter("horaCita"),"HH:MM");
-                Long idPaciente = Long.parseLong(request.getParameter("idPaciente"));
-                Short idHospital = Short.parseShort(request.getParameter("idHospital"));
-                Short idClinica = Short.parseShort(request.getParameter("idClinica"));
-                Short idSala = Short.parseShort(request.getParameter("idSala"));
-                Short idEstado = Short.parseShort(request.getParameter("idEstado"));
+                Date fechaConsulta = new DateHandler().getDateFromString(request.getParameter("fechaConsulta"));
+                Long idEmpleado = Long.parseLong(request.getParameter("idEmpleado"));
+                Short idTipoConsulta = Short.parseShort(request.getParameter("idTipoConsulta"));
+                String descripcion = request.getParameter("descripcion");
+                String observaciones = request.getParameter("observaciones");
+                String activo = request.getParameter("activo");
 
-                Cita modelo = new Cita();
-                modelo.setIdCita(idCita);
-                modelo.setFechaCita(fechaCita);
-                modelo.setHoraCita(horaCita);
-                modelo.setIdPaciente(new Paciente(idPaciente));
-                modelo.setIdHospital(new Hospital(idHospital));
-                modelo.setIdClinica(idClinica);
-                modelo.setIdSala(idSala);
-                modelo.setIdEstado(new Estado(idEstado));
+                Consulta modelo = new Consulta();
+                modelo.setIdConsulta(idConsulta);
+                modelo.setIdCita(new Cita(idCita));
+                modelo.setFechaConsulta(fechaConsulta);
+                modelo.setIdEmpleado(new Empleado(idEmpleado));
+                modelo.setIdTipoConsulta(new TipoConsulta(idTipoConsulta));
+                modelo.setDescripcion(descripcion);
+                modelo.setObservaciones(observaciones);
+                modelo.setActivo(activo);
 
-                if (modelo.getIdCita() == 0) {
-                    modelo.setIdCita(citaService.generateNewId());
-                    citaService.create(modelo);
+                if (modelo.getIdConsulta()== 0) {
+                    modelo.setIdConsulta(consultaService.generateNewId());
+                    consultaService.create(modelo);
                 } else {
-                    citaService.edit(modelo);
+                    consultaService.edit(modelo);
                 }
+                
+                Cita citaActualizar = citaService.find(idCita);
+                Estado estadoActualizar = estadoService.find(Short.parseShort("3"));
+                citaActualizar.setIdEstado(estadoActualizar);
+                citaService.edit(citaActualizar);
 
                 JsonObject result = new JsonHandler().ToJson(modelo);
                 out.write(result.toString());
@@ -85,18 +97,12 @@ public class CitaController extends HttpServlet {
                 if(request.getParameter("idCita") != null)
                     codCita = Long.parseLong(request.getParameter("idCita"));
                             
-                if(codCita == 0){
-                    List<Cita> listado = citaService.findAll();
-                    JsonArray jarray = new JsonHandler().ToJsonArray(listado);
-                    out.write(jarray.toString());
-                } else {
-                    Cita item = citaService.find(codCita);
-                    JsonObject result = new JsonHandler().ToJson(item);
-                    out.write(result.toString());
-                }
+                List<Consulta> listado = consultaService.findAll();
+                JsonArray jarray = new JsonHandler().ToJsonArray(listado);
+                out.write(jarray.toString());
             }
         } catch (Exception ex) {
-            Logger.getLogger(CitaController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ConsultaController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

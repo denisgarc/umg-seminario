@@ -5,10 +5,17 @@
  */
 package app.consultas.dal;
 
+import app.consultas.entities.ConsultaDiagnostico;
+import app.consultas.entities.ConsultaTratamiento;
 import app.consultas.entities.Receta;
+import java.util.ArrayList;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -29,4 +36,24 @@ public class RecetaFacade extends AbstractFacade<Receta> {
         super(Receta.class);
     }
     
+    public Receta findByIdConsulta(Long idConsulta){
+        try {
+            Query query = em.createNativeQuery("SELECT R.* FROM RECETA R WHERE R.ID_CONSULTA = ?", Receta.class);
+            query.setParameter(1, idConsulta);
+            Receta result = (Receta)query.getSingleResult();
+            return result;
+        } catch(NoResultException nr){
+            return null;
+        }
+    }
+    
+    public Long generateNewId(){
+        try {
+            Query q = em.createNativeQuery("SELECT RECETA_SEQ.NEXTVAL FROM DUAL");
+            Long result = Long.parseLong(q.getSingleResult().toString());
+            return result;
+        } catch(Exception e) {
+            return Long.parseLong("0");
+        }
+    }
 }

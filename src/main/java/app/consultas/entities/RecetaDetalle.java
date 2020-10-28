@@ -5,6 +5,7 @@
  */
 package app.consultas.entities;
 
+import com.google.gson.annotations.Expose;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
@@ -35,23 +36,29 @@ public class RecetaDetalle implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @EmbeddedId
+    @Expose
     protected RecetaDetallePK recetaDetallePK;
     @Column(name = "CANTIDAD")
+    @Expose
     private Short cantidad;
     @Size(max = 100)
     @Column(name = "INDICACIONES")
+    @Expose
     private String indicaciones;
     @Column(name = "DURACION")
-    private Short duracion;
+    @Expose
+    private String duracion;
     @JoinColumn(name = "ID_MEDICAMENTO", referencedColumnName = "ID_MEDICAMENTO", insertable = false, updatable = false)
     @ManyToOne(optional = false)
+    @Expose
     private Medicamento medicamento;
     @JoinColumn(name = "ID_RECETA", referencedColumnName = "ID_RECETA", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Receta receta;
-    @JoinColumn(name = "ID_UNIDAD", referencedColumnName = "ID_UNIDAD")
+    /*@JoinColumn(name = "ID_UNIDAD", referencedColumnName = "ID_UNIDAD")
     @ManyToOne(optional = false)
-    private Unidad idUnidad;
+    @Expose
+    private Unidad idUnidad;*/
 
     public RecetaDetalle() {
     }
@@ -88,11 +95,11 @@ public class RecetaDetalle implements Serializable {
         this.indicaciones = indicaciones;
     }
 
-    public Short getDuracion() {
+    public String getDuracion() {
         return duracion;
     }
 
-    public void setDuracion(Short duracion) {
+    public void setDuracion(String duracion) {
         this.duracion = duracion;
     }
 
@@ -112,13 +119,13 @@ public class RecetaDetalle implements Serializable {
         this.receta = receta;
     }
 
-    public Unidad getIdUnidad() {
+    /*public Unidad getIdUnidad() {
         return idUnidad;
     }
 
     public void setIdUnidad(Unidad idUnidad) {
         this.idUnidad = idUnidad;
-    }
+    }*/
 
     @Override
     public int hashCode() {

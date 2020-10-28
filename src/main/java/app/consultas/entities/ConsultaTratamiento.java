@@ -5,6 +5,7 @@
  */
 package app.consultas.entities;
 
+import com.google.gson.annotations.Expose;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -30,7 +31,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "ConsultaTratamiento.findAll", query = "SELECT c FROM ConsultaTratamiento c"),
     @NamedQuery(name = "ConsultaTratamiento.findByIdTratamiento", query = "SELECT c FROM ConsultaTratamiento c WHERE c.idTratamiento = :idTratamiento"),
     @NamedQuery(name = "ConsultaTratamiento.findByDescripcion", query = "SELECT c FROM ConsultaTratamiento c WHERE c.descripcion = :descripcion"),
-    @NamedQuery(name = "ConsultaTratamiento.findByActivo", query = "SELECT c FROM ConsultaTratamiento c WHERE c.activo = :activo")})
+    @NamedQuery(name = "ConsultaTratamiento.findByActivo", query = "SELECT c FROM ConsultaTratamiento c WHERE c.activo = :activo"),
+    @NamedQuery(name = "ConsultaTratamiento.findByIdConsulta", query = "SELECT c FROM ConsultaTratamiento c WHERE c.idConsulta = :idConsulta")})
 public class ConsultaTratamiento implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -38,22 +40,26 @@ public class ConsultaTratamiento implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "ID_TRATAMIENTO")
+    @Expose
     private Long idTratamiento;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
     @Column(name = "DESCRIPCION")
+    @Expose
     private String descripcion;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 1)
     @Column(name = "ACTIVO")
+    @Expose
     private String activo;
     @JoinColumn(name = "ID_CONSULTA", referencedColumnName = "ID_CONSULTA")
     @ManyToOne(optional = false)
     private Consulta idConsulta;
     @JoinColumn(name = "ID_TIPO_TRATAMIENTO", referencedColumnName = "ID_TIPO_TRATAMIENTO")
     @ManyToOne(optional = false)
+    @Expose
     private TipoTratamiento idTipoTratamiento;
 
     public ConsultaTratamiento() {

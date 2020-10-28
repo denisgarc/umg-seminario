@@ -104,6 +104,26 @@
         <servlet-name>EstadoController</servlet-name>
         <servlet-class>app.consultas.controller.EstadoController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ConsultaDiagnosticoController</servlet-name>
+        <servlet-class>app.consultas.controller.ConsultaDiagnosticoController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ConsultaTratamientoController</servlet-name>
+        <servlet-class>app.consultas.controller.ConsultaTratamientoController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RecetaController</servlet-name>
+        <servlet-class>app.consultas.controller.RecetaController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ConsultaController</servlet-name>
+        <servlet-class>app.consultas.controller.ConsultaController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RecetaDetalleController</servlet-name>
+        <servlet-class>app.consultas.controller.RecetaDetalleController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/LoginController</url-pattern>
@@ -207,6 +227,26 @@
     <servlet-mapping>
         <servlet-name>EstadoController</servlet-name>
         <url-pattern>/EstadoController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ConsultaDiagnosticoController</servlet-name>
+        <url-pattern>/ConsultaDiagnosticoController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ConsultaTratamientoController</servlet-name>
+        <url-pattern>/ConsultaTratamientoController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RecetaController</servlet-name>
+        <url-pattern>/RecetaController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ConsultaController</servlet-name>
+        <url-pattern>/ConsultaController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RecetaDetalleController</servlet-name>
+        <url-pattern>/RecetaDetalleController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

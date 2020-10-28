@@ -1,25 +1,22 @@
+package app.consultas.controller;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package app.consultas.controller;
 
-import app.consultas.dal.CitaFacade;
-import app.consultas.entities.Cita;
-import app.consultas.entities.Estado;
-import app.consultas.entities.Hospital;
-import app.consultas.entities.Paciente;
-import app.consultas.entities.Persona;
-import app.consultas.entities.TipoDocumento;
-import app.consultas.util.DateHandler;
+import app.consultas.dal.ConsultaTratamientoFacade;
+import app.consultas.entities.Consulta;
+import app.consultas.entities.ConsultaDiagnostico;
+import app.consultas.entities.ConsultaTratamiento;
+import app.consultas.entities.TipoDiagnostico;
+import app.consultas.entities.TipoTratamiento;
 import app.consultas.util.JsonHandler;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.text.ParseException;
-import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -33,10 +30,10 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author DOxlaj
  */
-public class CitaController extends HttpServlet {
+public class ConsultaTratamientoController extends HttpServlet {
 
     @EJB
-    private CitaFacade citaService;
+    private ConsultaTratamientoFacade tratamientoService;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -50,50 +47,36 @@ public class CitaController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            if (request.getMethod() == "POST") {
-                Long idCita = Long.parseLong(request.getParameter("idCita"));
-                Date fechaCita = new DateHandler().getDateFromString(request.getParameter("fechaCita"));
-                Date horaCita = new DateHandler().getDateFromString(request.getParameter("horaCita"),"HH:MM");
-                Long idPaciente = Long.parseLong(request.getParameter("idPaciente"));
-                Short idHospital = Short.parseShort(request.getParameter("idHospital"));
-                Short idClinica = Short.parseShort(request.getParameter("idClinica"));
-                Short idSala = Short.parseShort(request.getParameter("idSala"));
-                Short idEstado = Short.parseShort(request.getParameter("idEstado"));
+            if(request.getMethod() == "POST"){
+                Long codigo = Long.parseLong(request.getParameter("idTratamiento"));
+                Long idConsulta = Long.parseLong(request.getParameter("idConsulta"));
+                Short idTipoTratamiento = Short.parseShort(request.getParameter("idTipoTratamiento[idTipoTratamiento]"));
+                String descripcion = request.getParameter("descripcion");
+                String activo = request.getParameter("activo");
 
-                Cita modelo = new Cita();
-                modelo.setIdCita(idCita);
-                modelo.setFechaCita(fechaCita);
-                modelo.setHoraCita(horaCita);
-                modelo.setIdPaciente(new Paciente(idPaciente));
-                modelo.setIdHospital(new Hospital(idHospital));
-                modelo.setIdClinica(idClinica);
-                modelo.setIdSala(idSala);
-                modelo.setIdEstado(new Estado(idEstado));
+                ConsultaTratamiento modelo = new ConsultaTratamiento();
+                modelo.setIdTratamiento(codigo);
+                modelo.setIdConsulta(new Consulta(idConsulta));
+                modelo.setIdTipoTratamiento(new TipoTratamiento(idTipoTratamiento));
+                modelo.setDescripcion(descripcion);
+                modelo.setActivo(activo);
 
-                if (modelo.getIdCita() == 0) {
-                    modelo.setIdCita(citaService.generateNewId());
-                    citaService.create(modelo);
+                if(codigo == 0){
+                    tratamientoService.create(modelo);
                 } else {
-                    citaService.edit(modelo);
+                    tratamientoService.edit(modelo);
                 }
 
                 JsonObject result = new JsonHandler().ToJson(modelo);
                 out.write(result.toString());
-
             } else {
-                Long codCita = 0L;
-                if(request.getParameter("idCita") != null)
-                    codCita = Long.parseLong(request.getParameter("idCita"));
-                            
-                if(codCita == 0){
-                    List<Cita> listado = citaService.findAll();
-                    JsonArray jarray = new JsonHandler().ToJsonArray(listado);
-                    out.write(jarray.toString());
-                } else {
-                    Cita item = citaService.find(codCita);
-                    JsonObject result = new JsonHandler().ToJson(item);
-                    out.write(result.toString());
-                }
+                Long idConsulta = 0L;
+                if(request.getParameter("idConsulta") != null)
+                    idConsulta = Long.parseLong(request.getParameter("idConsulta"));
+                
+                List<ConsultaTratamiento> listado = tratamientoService.findByIdConsulta(idConsulta);
+                JsonArray jarray = new JsonHandler().ToJsonArray(listado);
+                out.write(jarray.toString());
             }
         } catch (Exception ex) {
             Logger.getLogger(CitaController.class.getName()).log(Level.SEVERE, null, ex);

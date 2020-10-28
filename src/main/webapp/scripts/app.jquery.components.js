@@ -100,16 +100,16 @@ function InitializeTables() {
                                 var column = this;
                                 if ($(column.header()).hasClass('filter-header')) {
                                     var select = $('<select class="filter-table-control"><option value="">-Todos-</option></select>')
-                                        .appendTo($(column.header()))
-                                        .on('change', function () {
-                                            var val = $.fn.dataTable.util.escapeRegex(
-                                                $(this).val()
-                                            );
+                                            .appendTo($(column.header()))
+                                            .on('change', function () {
+                                                var val = $.fn.dataTable.util.escapeRegex(
+                                                        $(this).val()
+                                                        );
 
-                                            column
-                                                .search(val ? '^' + val + '$' : '', true, false)
-                                                .draw();
-                                        });
+                                                column
+                                                        .search(val ? '^' + val + '$' : '', true, false)
+                                                        .draw();
+                                            });
 
                                     column.data().unique().sort().each(function (d, j) {
                                         select.append('<option value="' + d + '">' + d + '</option>')
@@ -119,43 +119,43 @@ function InitializeTables() {
                         }
                     }
                 };
-                
-                if(isAjaxTable){
+
+                if (isAjaxTable) {
                     var columnsTable = Array.from($curTable.find('thead th'))
                             .filter(x => x.hasAttribute("data-key"))
-                            .map(x => { return { data: x.attributes.getNamedItem("data-key").value};});
+                            .map(x => {
+                                return {data: x.attributes.getNamedItem("data-key").value, render: function (data, type, row) {
+                                        return data;
+                                    }};
+                            });
                     var columnsConfig = Array.from($curTable.find('thead th'))
                             .filter(x => x.hasAttribute("data-visible"))
-                            .map(x => { return { targets: [x.attributes.getNamedItem("data-column-orde").value], visible: x.attributes.getNamedItem("data-visible").value };});
-                    
+                            .map(x => {
+                                return {targets: [x.attributes.getNamedItem("data-column-orde").value], visible: x.attributes.getNamedItem("data-visible").value};
+                            });
+
                     var isMaintenance = $curTable.attr('data-show-buttons') == undefined ? false : $curTable.attr('data-show-buttons');
 
-                    if(isMaintenance){
+                    if (isMaintenance) {
                         var event = $curTable.attr('data-click-event');
-                        var customeButtons = $curTable.attr('data-buttons');
-                        debugger;
-                        if(customeButtons == undefined){
-                            if(event == undefined){
-                                var buttons = `<div class="btn-group text-center"><button class="btn btn-outline-info btn-sm btnEditar" data-action="edit"><i class="far fa-edit"></i></button><button class="btn btn-outline-danger btn-sm btnDelete" data-action="delete"><i class="far fa-trash-alt"></i></button></div>`;
-                            } else {
-                                var buttons = `<div class="btn-group text-center"><button class="btn btn-outline-info btn-sm btnEditar" data-action="edit" onclick="${event}"><i class="far fa-edit"></i></button><button class="btn btn-outline-danger btn-sm btnDelete" data-action="delete" onclick="${event}"><i class="far fa-trash-alt"></i></button></div>`;
-                            }
+                        if (event == undefined) {
+                            var buttons = `<div class="btn-group text-center"><button class="btn btn-outline-info btn-sm btnEditar" data-action="edit"><i class="far fa-edit"></i></button><button class="btn btn-outline-danger btn-sm btnDelete" data-action="delete"><i class="far fa-trash-alt"></i></button></div>`;
                         } else {
-                            var buttons = customeButtons;
+                            var buttons = `<div class="btn-group text-center"><button class="btn btn-outline-info btn-sm btnEditar" data-action="edit" onclick="${event}"><i class="far fa-edit"></i></button><button class="btn btn-outline-danger btn-sm btnDelete" data-action="delete" onclick="${event}"><i class="far fa-trash-alt"></i></button></div>`;
                         }
-                        
+
                         columnsTable.push({'defaultContent': buttons});
                         //dataTableSetup.select = true;
                     }
-                    
+
                     dataTableSetup.ajax = {
                         'method': $curTable.attr('data-method') == undefined ? '' : $curTable.attr('data-method'),
                         'url': $curTable.attr('data-url') == undefined ? 'GET' : $curTable.attr('data-url'),
                         'dataSrc': $curTable.attr('data-src') == undefined ? '' : $curTable.attr('data-src'),
                     };
-                    dataTableSetup.columns = columnsTable; 
-                    
-                    if(columnsConfig.length != 0){
+                    dataTableSetup.columns = columnsTable;
+
+                    if (columnsConfig.length != 0) {
                         dataTableSetup.columnDefs = columnsConfig;
                     }
                 }
@@ -224,7 +224,7 @@ function InitializeCalendars() {
                 maxDate: (maxToday ? '0' : '')
             });
 
-            $picker.mask('00/00/0000', { placeholder: '__/__/____' });
+            $picker.mask('00/00/0000', {placeholder: '__/__/____'});
         });
     }
 }
@@ -248,7 +248,8 @@ function InitializeOnOffCheckBox() {
                 $curCheckBox.addClass("onoffswitch-checkbox");
         });
     }
-};
+}
+;
 
 /// Esta función inicializa todas las máscaras aplicadas a los input que se encuentran en el DOM
 function InitializeInputMask() {
@@ -256,7 +257,7 @@ function InitializeInputMask() {
     var $defaultSize = 10;
     if ($(".isNumeric").length > 0) {
         $(".isNumeric").each(function () {
-            var sizeMask = { mask: '', placeholder: '' };
+            var sizeMask = {mask: '', placeholder: ''};
 
             var $inputNumeric = $(this);
             var $size = $inputNumeric[0].hasAttribute("data-size") ? parseInt($inputNumeric[0].attributes.getNamedItem("data-size").value) : $defaultSize;
@@ -279,13 +280,13 @@ function InitializeInputMask() {
                 }
             }
 
-            $inputNumeric.mask(sizeMask.mask, { placeholder: sizeMask.placeholder });
+            $inputNumeric.mask(sizeMask.mask, {placeholder: sizeMask.placeholder});
         });
     }
 
     if ($(".isMaskedInput").length > 0) {
         $(".isMaskedInput").each(function () {
-            var inputMask = { mask: '', placeholder: '' };
+            var inputMask = {mask: '', placeholder: ''};
             var $inputMasked = $(this);
 
             inputMask.mask = $inputMasked[0].hasAttribute("data-mask") ? $inputMasked[0].attributes.getNamedItem("data-mask").value : null;
@@ -301,7 +302,7 @@ function InitializeInputMask() {
                 }
 
                 // Iniciamos la mascara
-                $inputMasked.mask(inputMask.mask, { placeholder: inputMask.placeholder });
+                $inputMasked.mask(inputMask.mask, {placeholder: inputMask.placeholder});
             }
         });
     }
@@ -367,7 +368,7 @@ function InitializeWizard() {
                     keyLeft: [37], // Left key code
                     keyRight: [39] // Right key code
                 },
-                lang: { // Language variables for button
+                lang: {// Language variables for button
                     next: 'Siguiente',
                     previous: 'Anterior'
                 },
@@ -387,7 +388,7 @@ function InitializeCollapse() {
         $(".isCollapse").each(function (index) {
             var $collapse = $(this);
             var collapseSetup = {
-                icons: { "header": "ui-icon-plus", "activeHeader": "ui-icon-minus" },
+                icons: {"header": "ui-icon-plus", "activeHeader": "ui-icon-minus"},
                 collapsible: true
             };
 
@@ -430,7 +431,7 @@ function InitializeAutoComplete() {
                     dataType: 'json',
                     success: function (data) {
                         response($.map(data, function (item) {
-                            return { label: item["label"], value: item["value"] }
+                            return {label: item["label"], value: item["value"]}
                         }));
                     },
                     error: function (error) {
@@ -452,7 +453,7 @@ function InitializeAutoComplete() {
 /// Esta función muestra el loader en la página
 function ShowWaitingAnimation() {
     var message = 'Por favor, espere un momento.';
-    $.blockUI({ message: `<div class="waitingMessageContainer><div class="imgContainer"></div><div class="txtContainer"><img src="${$BaseUrl}images/working.gif" /> ${message}</div></div>` });
+    $.blockUI({message: `<div class="waitingMessageContainer><div class="imgContainer"></div><div class="txtContainer"><img src="${$BaseUrl}images/working.gif" /> ${message}</div></div>`});
 }
 
 /// Esta funcion oculta el loader en la pagina
@@ -493,17 +494,17 @@ function ConfirmationDialog(senderObj, message) {
                 closeOnCancel: true,
                 showLoaderOnConfirm: true
             },
-                function (isConfirm) {
-                    if (isConfirm) {
-                        continueEvent = true;
-                        ShowWaitingAnimation();
-                        senderObj.click();
-                    } else {
-                        retValue = false;
-                        $.unblockUI();
-                        return false;
-                    }
-                });
+                    function (isConfirm) {
+                        if (isConfirm) {
+                            continueEvent = true;
+                            ShowWaitingAnimation();
+                            senderObj.click();
+                        } else {
+                            retValue = false;
+                            $.unblockUI();
+                            return false;
+                        }
+                    });
             retValue = false;
         }
     } else {
@@ -515,7 +516,7 @@ function ConfirmationDialog(senderObj, message) {
 
 /**
  * Para mostrar un mensaje de confirmación utilizando una promesa
-  * @param {any} message El mensaje de confirmación
+ * @param {any} message El mensaje de confirmación
  */
 function ShowConfirmationDialog(message) {
     return new Promise((resolve, reject) => {
@@ -539,10 +540,10 @@ function ShowConfirmationDialog(message) {
                     closeOnCancel: true,
                     showLoaderOnConfirm: true
                 },
-                function (isConfirm) {
-                    retValue = isConfirm;
-                    resolve(retValue);
-                });
+                        function (isConfirm) {
+                            retValue = isConfirm;
+                            resolve(retValue);
+                        });
             }
         } catch (e) {
             reject(e);
@@ -634,7 +635,8 @@ function isValidDate(dateString) {
 
     // Revisar el rango del dia
     return day > 0 && day <= monthLength[month - 1];
-};
+}
+;
 
 function ShowModal(modalId) {
     CloseModal(modalId);
@@ -664,7 +666,10 @@ function ValidarFormulario(formId, showLoad = false) {
             var lengthOk = true;
             try {
                 lengthOk = controlString.length <= maxLength;
-            } catch (e) { lengthOk = false; alert(e); }
+            } catch (e) {
+                lengthOk = false;
+                alert(e);
+            }
             if (!control.isEmpty() && !lengthOk) {
                 return false;
             } else {
@@ -674,6 +679,7 @@ function ValidarFormulario(formId, showLoad = false) {
     });
 
     var ok = Boolean($(`#${formId}`).validate());
-    if (ok && showLoad) ShowWaitingAnimation();
+    if (ok && showLoad)
+        ShowWaitingAnimation();
     return ok;
 }

@@ -31,7 +31,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Unidad.findAll", query = "SELECT u FROM Unidad u"),
-    @NamedQuery(name = "Unidad.findByIdUnidad", query = "SELECT u FROM Unidad u WHERE u.idUnidad = :idUnidad"),
+    //@NamedQuery(name = "Unidad.findByIdUnidad", query = "SELECT u FROM Unidad u WHERE u.idUnidad = :idUnidad"),
     @NamedQuery(name = "Unidad.findByDescripcion", query = "SELECT u FROM Unidad u WHERE u.descripcion = :descripcion"),
     @NamedQuery(name = "Unidad.findByAbreviatura", query = "SELECT u FROM Unidad u WHERE u.abreviatura = :abreviatura"),
     @NamedQuery(name = "Unidad.findByActivo", query = "SELECT u FROM Unidad u WHERE u.activo = :activo")})
@@ -60,8 +60,8 @@ public class Unidad implements Serializable {
     @Column(name = "ACTIVO")
     @Expose
     private String activo;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUnidad")
-    private List<RecetaDetalle> recetaDetalleList;
+    /*@OneToMany(cascade = CascadeType.ALL, mappedBy = "idUnidad")
+    private List<RecetaDetalle> recetaDetalleList;*/
 
     public Unidad() {
     }
@@ -108,14 +108,14 @@ public class Unidad implements Serializable {
         this.activo = activo;
     }
 
-    @XmlTransient
+    /*@XmlTransient
     public List<RecetaDetalle> getRecetaDetalleList() {
         return recetaDetalleList;
     }
 
     public void setRecetaDetalleList(List<RecetaDetalle> recetaDetalleList) {
         this.recetaDetalleList = recetaDetalleList;
-    }
+    }*/
 
     @Override
     public int hashCode() {

@@ -23,6 +23,13 @@ $(document).ready(function (e) {
                 });
                 break;
             case "attend":
+                debugger;
+                if(data.idEstado.idEstado == 3){
+                    ShowWarningDialog('Esta cita ya fue atendida');
+                } else {
+                    ShowWaitingAnimation();
+                    window.location.href = $BaseUrl + 'cita/Consulta.jsp?idCita='+data.idCita;
+                }
                 break;
             case "print":
                 ShowConfirmationDialog('¿Está seguro de deshabilitar el registro?').then((isOk) => {
