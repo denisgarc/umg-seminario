@@ -32,15 +32,11 @@ $(document).ready(function (e) {
                 }
                 break;
             case "print":
-                ShowConfirmationDialog('¿Está seguro de deshabilitar el registro?').then((isOk) => {
-                    if (isOk) {
-                        data.activo = 'N';
-                        save(data, 'E');
-                    }
-                }).catch((err) => {
-                    console.error(err);
-                    ShowErrorDialog('Lo sentimos ha ocurrido un error');
-                });
+                var link = document.createElement('a');
+                document.body.appendChild(link);
+                link.href = '/cita/CitaReporteController?idCita='+ data.idCita;
+                link.target = '_blank';
+                link.click();
                 break;
         }
     });

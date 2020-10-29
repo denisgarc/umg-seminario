@@ -124,6 +124,10 @@
         <servlet-name>RecetaDetalleController</servlet-name>
         <servlet-class>app.consultas.controller.RecetaDetalleController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CitaReporteController</servlet-name>
+        <servlet-class>app.consultas.controller.CitaReporteController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/LoginController</url-pattern>
@@ -247,6 +251,10 @@
     <servlet-mapping>
         <servlet-name>RecetaDetalleController</servlet-name>
         <url-pattern>/RecetaDetalleController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CitaReporteController</servlet-name>
+        <url-pattern>/CitaReporteController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
