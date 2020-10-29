@@ -5,10 +5,18 @@
  */
 package app.consultas.controller;
 
+import app.consultas.dal.CitaFacade;
+import app.consultas.dal.HospitalClinicaFacade;
+import app.consultas.entities.Cita;
 import app.consultas.entities.CitaReporte;
+import app.consultas.entities.HospitalClinica;
+import app.consultas.entities.HospitalClinicaPK;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServlet;
@@ -21,6 +29,11 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class CitaReporteController extends HttpServlet {
 
+    @EJB
+    private CitaFacade citaService;
+    @EJB
+    private HospitalClinicaFacade clinicaService;
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -32,24 +45,27 @@ public class CitaReporteController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("application/pdf;charset=UTF-8");
-//        try (PrintWriter out = response.getWriter()) {
-//            /* TODO output your page here. You may use following sample code. */
-//            out.println("<!DOCTYPE html>");
-//            out.println("<html>");
-//            out.println("<head>");
-//            out.println("<title>Servlet CitaReporteController</title>");            
-//            out.println("</head>");
-//            out.println("<body>");
-//            out.println("<h1>Servlet CitaReporteController at " + request.getContextPath() + "</h1>");
-//            out.println("</body>");
-//            out.println("</html>");
-//        }
-        response.addHeader("Content-Disposition", "inline; filename=" + "cita.pdf");
-        ServletOutputStream out = response.getOutputStream();
-        
-        ByteArrayOutputStream baos = CitaReporte.getPdfFile();
-        baos.writeTo(out);
+        try{
+            response.setContentType("application/pdf;charset=UTF-8");
+            response.addHeader("Content-Disposition", "inline; filename=" + "cita.pdf");
+            ServletOutputStream out = response.getOutputStream();
+
+            // Para obtener la cita
+            Long idCita = 0L;
+            if(request.getParameter("cita") != null){
+                idCita = Long.parseLong(request.getParameter("cita"));
+                Cita cita = citaService.find(idCita);
+                HospitalClinica clinica = clinicaService.find(new HospitalClinicaPK(cita.getIdHospital().getIdHospital(), cita.getIdClinica()));
+
+                ByteArrayOutputStream baos = CitaReporte.getPdfFile(cita, clinica);
+                baos.writeTo(out);
+            } else {
+                PrintWriter writer = response.getWriter();
+                writer.write("Código inválido");
+            }
+        } catch(Exception ex){
+            Logger.getLogger(CitaController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -34,7 +34,7 @@ $(document).ready(function (e) {
             case "print":
                 var link = document.createElement('a');
                 document.body.appendChild(link);
-                link.href = '/cita/CitaReporteController?idCita='+ data.idCita;
+                link.href = '/consultas/CitaReporteController?cita='+ data.idCita;
                 link.target = '_blank';
                 link.click();
                 break;

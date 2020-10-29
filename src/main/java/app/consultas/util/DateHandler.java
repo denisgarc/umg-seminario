@@ -33,4 +33,9 @@ public class DateHandler {
             return null;
         }
     }
+    
+    public String getStringFromDate(Date date, String format){
+        SimpleDateFormat formatter = new SimpleDateFormat(format);
+        return formatter.format(date);
+    }
 }

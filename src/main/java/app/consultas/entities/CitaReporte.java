@@ -6,6 +6,7 @@
 package app.consultas.entities;
 
 
+import app.consultas.util.DateHandler;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
@@ -29,7 +30,7 @@ import javafx.scene.transform.Rotate;
  */
 
 public class CitaReporte {
-    public static ByteArrayOutputStream getPdfFile(){
+    public static ByteArrayOutputStream getPdfFile(Cita cita, HospitalClinica clinica){
         Document document = new Document(PageSize.A5.rotate(), 32, 32, 32, 32);
         ByteArrayOutputStream bout = new ByteArrayOutputStream();
         PdfPCell cell;
@@ -54,84 +55,84 @@ public class CitaReporte {
             titleTable.addCell(cell);
           
             // Detalle
-            cell = new PdfPCell(new Phrase("No."));
+            cell = new PdfPCell(new Phrase("No.:"));
             cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
             cell.setHorizontalAlignment(Element.ALIGN_LEFT);
             cell.setBorder(Rectangle.NO_BORDER);
             cell.setPaddingBottom(10);
             table.addCell(cell);
             
-            cell = new PdfPCell(new Phrase("1"));
+            cell = new PdfPCell(new Phrase(cita.getIdCita().toString()));
             cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
             cell.setHorizontalAlignment(Element.ALIGN_LEFT);
             cell.setBorder(Rectangle.NO_BORDER);
             cell.setPaddingBottom(10);
             table.addCell(cell);
             
-            cell = new PdfPCell(new Phrase("Fecha de Cita"));
+            cell = new PdfPCell(new Phrase("Fecha de Cita:"));
             cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
             cell.setHorizontalAlignment(Element.ALIGN_LEFT);
             cell.setBorder(Rectangle.NO_BORDER);
             cell.setPaddingBottom(10);
             table.addCell(cell);
             
-            cell = new PdfPCell(new Phrase("01/01/2020"));
+            cell = new PdfPCell(new Phrase(new DateHandler().getStringFromDate(cita.getFechaCita(),"dd/MM/yyyy")));
             cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
             cell.setHorizontalAlignment(Element.ALIGN_LEFT);
             cell.setBorder(Rectangle.NO_BORDER);
             cell.setPaddingBottom(10);
             table.addCell(cell);
             
-            cell = new PdfPCell(new Phrase("Hora de Cita"));
+            cell = new PdfPCell(new Phrase("Hora de Cita:"));
             cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
             cell.setHorizontalAlignment(Element.ALIGN_LEFT);
             cell.setBorder(Rectangle.NO_BORDER);
             cell.setPaddingBottom(10);
             table.addCell(cell);
             
-            cell = new PdfPCell(new Phrase("15:00 hrs"));
+            cell = new PdfPCell(new Phrase(new DateHandler().getStringFromDate(cita.getHoraCita(),"HH:MM")));
             cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
             cell.setHorizontalAlignment(Element.ALIGN_LEFT);
             cell.setBorder(Rectangle.NO_BORDER);
             cell.setPaddingBottom(10);
             table.addCell(cell);
             
-            cell = new PdfPCell(new Phrase("Paciente"));
+            cell = new PdfPCell(new Phrase("Paciente:"));
             cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
             cell.setHorizontalAlignment(Element.ALIGN_LEFT);
             cell.setBorder(Rectangle.NO_BORDER);
             cell.setPaddingBottom(10);
             table.addCell(cell);
             
-            cell = new PdfPCell(new Phrase("Dennis Florencio Oxlaj García"));
+            cell = new PdfPCell(new Phrase(cita.getIdPaciente().getIdPersona().getNomberCompleto()));
             cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
             cell.setHorizontalAlignment(Element.ALIGN_LEFT);
             cell.setBorder(Rectangle.NO_BORDER);
             cell.setPaddingBottom(10);
             table.addCell(cell);
             
-            cell = new PdfPCell(new Phrase("Hospital"));
+            cell = new PdfPCell(new Phrase("Hospital:"));
             cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
             cell.setHorizontalAlignment(Element.ALIGN_LEFT);
             cell.setBorder(Rectangle.NO_BORDER);
             cell.setPaddingBottom(10);
             table.addCell(cell);
             
-            cell = new PdfPCell(new Phrase("Hospital Hermano Pedro"));
+            cell = new PdfPCell(new Phrase(cita.getIdHospital().getNombre()));
             cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
             cell.setHorizontalAlignment(Element.ALIGN_LEFT);
             cell.setBorder(Rectangle.NO_BORDER);
             cell.setPaddingBottom(10);
             table.addCell(cell);
             
-            cell = new PdfPCell(new Phrase("Clinica"));
+            cell = new PdfPCell(new Phrase("Clinica:"));
             cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
             cell.setHorizontalAlignment(Element.ALIGN_LEFT);
             cell.setBorder(Rectangle.NO_BORDER);
             cell.setPaddingBottom(10);
             table.addCell(cell);
             
-            cell = new PdfPCell(new Phrase("Pedriatría"));
+            cell = new PdfPCell(new Phrase(clinica.getDescripcion()));
             cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
             cell.setHorizontalAlignment(Element.ALIGN_LEFT);
             cell.setBorder(Rectangle.NO_BORDER);
