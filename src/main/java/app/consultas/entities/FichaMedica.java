@@ -5,7 +5,6 @@
  */
 package app.consultas.entities;
 
-
 import app.consultas.util.DateHandler;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
@@ -27,10 +26,9 @@ import java.util.logging.Logger;
  *
  * @author DOxlaj
  */
-
-public class CitaReporte {
-    public static ByteArrayOutputStream getPdfFile(Cita cita, HospitalClinica clinica){
-        Document document = new Document(PageSize.A5.rotate(), 32, 32, 32, 32);
+public class FichaMedica {
+    public static ByteArrayOutputStream getFichaMedica(Paciente paciente){
+        Document document = new Document(PageSize.LETTER, 10, 10, 10, 10);
         ByteArrayOutputStream bout = new ByteArrayOutputStream();
         PdfPCell cell;
         
@@ -38,111 +36,130 @@ public class CitaReporte {
             PdfPTable titleTable = new PdfPTable(1);
             titleTable.setWidthPercentage(100);
             
-            PdfPTable table = new PdfPTable(2);
-            table.setWidthPercentage(100);
-            table.setWidths(new int[]{1,3});
+            PdfPTable titlePacienteTable = new PdfPTable(1);
+            titlePacienteTable.setWidthPercentage(100);
+            
+            PdfPTable tablePaciente = new PdfPTable(4);
+            tablePaciente.setWidthPercentage(100);
+            tablePaciente.setWidths(new int[]{2,3,2,3});
             
             Font headFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 14, Font.BOLD);
             
             // Titulo
-            Paragraph title = new Paragraph("Confirmación de Cita", headFont);
-            cell = new PdfPCell(title);
+            cell = new PdfPCell(new Paragraph("Ficha Médica", headFont));
             cell.setHorizontalAlignment(Element.ALIGN_CENTER);
             cell.setBorder(Rectangle.BOTTOM);
             cell.setPaddingBottom(10);
             titleTable.addCell(cell);
-          
-            // Detalle
-            cell = new PdfPCell(new Phrase("No.:"));
-            cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-            cell.setHorizontalAlignment(Element.ALIGN_LEFT);
-            cell.setBorder(Rectangle.NO_BORDER);
-            cell.setPaddingBottom(10);
-            table.addCell(cell);
             
-            cell = new PdfPCell(new Phrase(cita.getIdCita().toString()));
-            cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+            // Titulo Paciente
+            cell = new PdfPCell(new Paragraph("Datos del Paciente", headFont));
             cell.setHorizontalAlignment(Element.ALIGN_LEFT);
-            cell.setBorder(Rectangle.NO_BORDER);
+            cell.setBorder(Rectangle.BOTTOM);
             cell.setPaddingBottom(10);
-            table.addCell(cell);
+            titlePacienteTable.addCell(cell);
             
-            cell = new PdfPCell(new Phrase("Fecha de Cita:"));
+            // Datos del Paciente
+            // 1
+            cell = new PdfPCell(new Phrase("Nombre:"));
             cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
             cell.setHorizontalAlignment(Element.ALIGN_LEFT);
             cell.setBorder(Rectangle.NO_BORDER);
-            cell.setPaddingBottom(10);
-            table.addCell(cell);
+            //cell.setPaddingBottom(10);
+            tablePaciente.addCell(cell);
             
-            cell = new PdfPCell(new Phrase(new DateHandler().getStringFromDate(cita.getFechaCita(),"dd/MM/yyyy")));
+            cell = new PdfPCell(new Phrase(paciente.getIdPersona().getNomberCompleto()));
             cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
             cell.setHorizontalAlignment(Element.ALIGN_LEFT);
             cell.setBorder(Rectangle.NO_BORDER);
-            cell.setPaddingBottom(10);
-            table.addCell(cell);
+            //cell.setPaddingBottom(10);
+            tablePaciente.addCell(cell);
             
-            cell = new PdfPCell(new Phrase("Hora de Cita:"));
+            cell = new PdfPCell(new Phrase("Fuma:"));
             cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
             cell.setHorizontalAlignment(Element.ALIGN_LEFT);
             cell.setBorder(Rectangle.NO_BORDER);
-            cell.setPaddingBottom(10);
-            table.addCell(cell);
+            //cell.setPaddingBottom(10);
+            tablePaciente.addCell(cell);
             
-            cell = new PdfPCell(new Phrase(new DateHandler().getStringFromDate(cita.getHoraCita(),"HH:MM")));
+            cell = new PdfPCell(new Phrase(paciente.getFuma()));
             cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
             cell.setHorizontalAlignment(Element.ALIGN_LEFT);
             cell.setBorder(Rectangle.NO_BORDER);
-            cell.setPaddingBottom(10);
-            table.addCell(cell);
+            //cell.setPaddingBottom(10);
+            tablePaciente.addCell(cell);
             
-            cell = new PdfPCell(new Phrase("Paciente:"));
+            //2
+            cell = new PdfPCell(new Phrase("No. Seguro:"));
             cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
             cell.setHorizontalAlignment(Element.ALIGN_LEFT);
             cell.setBorder(Rectangle.NO_BORDER);
-            cell.setPaddingBottom(10);
-            table.addCell(cell);
+            //cell.setPaddingBottom(10);
+            tablePaciente.addCell(cell);
             
-            cell = new PdfPCell(new Phrase(cita.getIdPaciente().getIdPersona().getNomberCompleto()));
+            cell = new PdfPCell(new Phrase(paciente.getNumeroSeguro().toString()));
             cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
             cell.setHorizontalAlignment(Element.ALIGN_LEFT);
             cell.setBorder(Rectangle.NO_BORDER);
-            cell.setPaddingBottom(10);
-            table.addCell(cell);
+            //cell.setPaddingBottom(10);
+            tablePaciente.addCell(cell);
             
-            cell = new PdfPCell(new Phrase("Hospital:"));
+            cell = new PdfPCell(new Phrase("Tipo de Sangre:"));
             cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
             cell.setHorizontalAlignment(Element.ALIGN_LEFT);
             cell.setBorder(Rectangle.NO_BORDER);
-            cell.setPaddingBottom(10);
-            table.addCell(cell);
+            //cell.setPaddingBottom(10);
+            tablePaciente.addCell(cell);
             
-            cell = new PdfPCell(new Phrase(cita.getIdHospital().getNombre()));
+            cell = new PdfPCell(new Phrase(paciente.getTipoSangre()));
             cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
             cell.setHorizontalAlignment(Element.ALIGN_LEFT);
             cell.setBorder(Rectangle.NO_BORDER);
-            cell.setPaddingBottom(10);
-            table.addCell(cell);
+            //cell.setPaddingBottom(10);
+            tablePaciente.addCell(cell);
             
-            cell = new PdfPCell(new Phrase("Clinica:"));
+            // 3
+            cell = new PdfPCell(new Phrase("Fecha de Alta:"));
             cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
             cell.setHorizontalAlignment(Element.ALIGN_LEFT);
             cell.setBorder(Rectangle.NO_BORDER);
-            cell.setPaddingBottom(10);
-            table.addCell(cell);
+            //cell.setPaddingBottom(10);
+            tablePaciente.addCell(cell);
             
-            cell = new PdfPCell(new Phrase(clinica.getDescripcion()));
+            cell = new PdfPCell(new Phrase(new DateHandler().getStringFromDate(paciente.getFecAlta(), "dd/MM/yyyy")));
             cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
             cell.setHorizontalAlignment(Element.ALIGN_LEFT);
             cell.setBorder(Rectangle.NO_BORDER);
-            cell.setPaddingBottom(10);
-            table.addCell(cell);
+            //cell.setPaddingBottom(10);
+            tablePaciente.addCell(cell);
+            
+            cell = new PdfPCell(new Phrase("Contacto:"));
+            cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+            cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+            cell.setBorder(Rectangle.NO_BORDER);
+            //cell.setPaddingBottom(10);
+            tablePaciente.addCell(cell);
+            
+            if(paciente.getIdPersonaContacto() != null){
+                cell = new PdfPCell(new Phrase(paciente.getIdPersonaContacto().getNomberCompleto()));
+            } else {
+                cell = new PdfPCell(new Phrase(""));
+            }
+            cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+            cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+            cell.setBorder(Rectangle.NO_BORDER);
+            //cell.setPaddingBottom(10);
+            tablePaciente.addCell(cell);
+            
             
             PdfWriter.getInstance(document, bout);
             
             document.open();
             document.add(titleTable);
             document.add(new Phrase("\n"));
-            document.add(table);
+            document.add(titlePacienteTable);
+            document.add(new Phrase("\n"));
+            document.add(tablePaciente);
             
             document.close();
             
