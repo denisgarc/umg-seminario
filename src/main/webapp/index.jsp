@@ -12,11 +12,7 @@
     </head>
     <body>
         <div class="container">
-            <div class="card">
-                <div class="card-body text-center">
-                    BIENVENIDO!
-                </div>
-            </div>
+            <img src="images/bienvenido.png" class="img-fluid" style="max-width: 70%" alt=""/>
         </div>
     </body>
 </html>
