@@ -6,6 +6,7 @@
         request.getSession().removeAttribute("session");
         request.getSession().removeAttribute("usuario");
         request.getSession().removeAttribute("nombreUsuario");
+        request.getSession().removeAttribute("roles");
     }
 %>
 <!DOCTYPE html>

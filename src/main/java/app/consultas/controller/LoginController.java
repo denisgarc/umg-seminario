@@ -10,6 +10,7 @@ import app.consultas.entities.Usuario;
 import com.google.gson.JsonObject;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -57,6 +58,14 @@ public class LoginController extends HttpServlet {
                     request.getSession().setAttribute("session", usr);
                     request.getSession().setAttribute("usuario", usr.getUsuario());
                     request.getSession().setAttribute("nombreUsuario", usr.getIdPersona().getNomberCompleto());
+                    
+                    ArrayList<String> roles = new ArrayList<String>();
+                    
+                    for(Integer iRol = 0; iRol < usr.getRolList().size(); iRol++){
+                        roles.add(usr.getRolList().get(iRol).getDescripcion());
+                    }
+                    
+                    request.getSession().setAttribute("roles", roles);
                 }
             } else {
                 result.addProperty("error", true);

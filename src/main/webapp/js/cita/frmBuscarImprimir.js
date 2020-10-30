@@ -1,11 +1,13 @@
-var $controllerConsultaList = '/consultas/ConsultaBusquedaController';
+var $tableClinicaId = 'tblCitas';
+var $controllerCitaList = '/consultas/CitaConsultaController';
 var $searchFormId = 'frmBuscar';
 var $modalId = 'mainCitaModal';
 var $formId = 'frmCitaMant';
-var $tableId = 'tblConsultas';
+var $tableId = 'tblCitas';
 var $citaController = 'CitaController';
 
 $(document).ready(function (e) {
+    loadEstados();
     loadDataTable();
 
     $(`#${$tableId} tbody`).on('click', 'button', function () {
@@ -13,15 +15,10 @@ $(document).ready(function (e) {
         var data = $(`#${$tableId}`).DataTable().row($(this).parents('tr')).data();
 
         switch (action) {
-            case "update":
-                ShowWaitingAnimation();
-                window.location.href = $BaseUrl + 'cita/Consulta.jsp?idConsulta=' + data.idConsulta;
-                break;
             case "print":
-                debugger;
                 var link = document.createElement('a');
                 document.body.appendChild(link);
-                link.href = '/consultas/ConsultaImpresionController?codigo='+ data.idConsulta;
+                link.href = '/consultas/CitaReporteController?cita='+ data.idCita;
                 link.target = '_blank';
                 link.click();
                 break;
@@ -29,12 +26,42 @@ $(document).ready(function (e) {
     });
 });
 
+
 function search() {
     if (ValidarFormulario('frmBuscar')) {
         var param = '?' + $('#frmBuscar').serialize(); //`?idHospital=${$('#ddlHospital').val()}`;
-        $(`#${$tableId}`).attr('data-url', $controllerConsultaList + param);
-        $(`#${$tableId}`).DataTable().ajax.url($controllerConsultaList + param);
-        $(`#${$tableId}`).DataTable().ajax.reload();
+        $(`#${$tableClinicaId}`).attr('data-url', $controllerCitaList + param);
+        $(`#${$tableClinicaId}`).DataTable().ajax.url($controllerCitaList + param);
+        $(`#${$tableClinicaId}`).DataTable().ajax.reload();
+    }
+}
+
+function loadEstados() {
+    try {
+        ShowWaitingAnimation();
+        $.ajax({
+            url: $BaseUrl + 'EstadoController',
+            type: 'GET',
+            dataType: 'json'
+        }).done((result) => {
+            var options = $("#idEstado");
+            options.find('option')
+                    .remove()
+                    .end()
+                    .append('<option value="-1">- Seleccione uno -</option>')
+                    .val('-1');
+            $.each(result, function (index, item) {
+                options.append($("<option />").val(item.idEstado).text(item.descripcion));
+            });
+        }).fail((err) => {
+            console.error(err);
+            ShowErrorDialog('Lo sentimos ha ocurrido un error');
+        }).always(() => {
+            HideWaitingAnimation();
+        });
+    } catch (e) {
+        console.error(e);
+        ShowErrorDialog('Lo sentimos ha ocurrido un error');
     }
 }
 
@@ -47,7 +74,7 @@ function dataButtons() {
 
 function loadDataTable() {
     var allSelection = 'Todos';
-    $('.isDataTableConsulta').each(function (tabIndex) {
+    $('.isDataTableCita').each(function (tabIndex) {
         var $curTable = $(this);
         if ($curTable.attr('role') == undefined) {
             var withOutPagin = $curTable.hasClass("withOutPagin");
@@ -182,9 +209,4 @@ function loadDataTable() {
         }
 
     });
-}
-
-function loadNew() {
-    ShowWaitingAnimation();
-    window.location.href = $BaseUrl + 'cita/Agendar.jsp';
 }
