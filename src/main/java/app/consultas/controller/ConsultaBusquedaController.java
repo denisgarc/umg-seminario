@@ -5,21 +5,21 @@
  */
 package app.consultas.controller;
 
-import app.consultas.dal.PacienteFacade;
+import app.consultas.dal.ConsultaFacade;
 import app.consultas.entities.Cita;
-import app.consultas.entities.CitaReporte;
-import app.consultas.entities.FichaMedica;
-import app.consultas.entities.HospitalClinica;
-import app.consultas.entities.HospitalClinicaPK;
-import app.consultas.entities.Paciente;
-import java.io.ByteArrayOutputStream;
+import app.consultas.entities.Consulta;
+import app.consultas.util.DateHandler;
+import app.consultas.util.JsonHandler;
+import com.google.gson.JsonArray;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
-import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -28,10 +28,10 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author DOxlaj
  */
-public class FichaMedicaController extends HttpServlet {
+public class ConsultaBusquedaController extends HttpServlet {
 
     @EJB
-    private PacienteFacade pacienteService;
+    private ConsultaFacade consultaService;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -43,33 +43,25 @@ public class FichaMedicaController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //response.setContentType("text/html;charset=UTF-8");
-        try{
-            String typeVisor = request.getParameter("type") == null ? "" : request.getParameter("type");
-            response.setContentType("application/pdf;charset=UTF-8");
-            if(typeVisor.equalsIgnoreCase("mobile")){
-                response.addHeader("Content-Disposition", "attached; filename=" + "fichaMedica.pdf");
-            } else {
-                response.addHeader("Content-Disposition", "inline; filename=" + "fichaMedica.pdf");
-            }
-            
-            ServletOutputStream out = response.getOutputStream();
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            if(request.getMethod() == "GET"){
+                if(request.getParameterMap().size() > 1){
+                    Long idPaciente = Long.parseLong(request.getParameter("idPaciente"));
+                    Date fechaDesde = new DateHandler().getDateFromString(request.getParameter("fechaDesde"));
+                    Date fechaHasta = new DateHandler().getDateFromString(request.getParameter("fechaHasta"));
 
-            // Para obtener la cita
-            Long idPaciente = 0L;
-            if(request.getParameter("codigo") != null){
-                idPaciente = Long.parseLong(request.getParameter("codigo"));
-                Paciente paciente = pacienteService.find(idPaciente);
-                //HospitalClinica clinica = clinicaService.find(new HospitalClinicaPK(cita.getIdHospital().getIdHospital(), cita.getIdClinica()));
-
-                ByteArrayOutputStream baos = FichaMedica.getFichaMedica(paciente);
-                baos.writeTo(out);
-            } else {
-                PrintWriter writer = response.getWriter();
-                writer.write("Código inválido");
+                    List<Consulta> listado = consultaService.findByPacienteDate(idPaciente, fechaDesde, fechaHasta);
+                    JsonArray jarray = new JsonHandler().ToJsonArray(listado);
+                    out.write(jarray.toString());
+                } else {
+                    List<Consulta> listado = new ArrayList<Consulta>();
+                    JsonArray jarray = new JsonHandler().ToJsonArray(listado);
+                    out.write(jarray.toString());
+                }
             }
-        } catch(Exception ex){
-            Logger.getLogger(CitaController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(CitaConsultaController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

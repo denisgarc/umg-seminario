@@ -1,16 +1,15 @@
+package app.consultas.controller;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package app.consultas.controller;
 
-import app.consultas.dal.PacienteFacade;
-import app.consultas.entities.Cita;
-import app.consultas.entities.CitaReporte;
+import app.consultas.dal.ConsultaFacade;
+import app.consultas.entities.Consulta;
+import app.consultas.entities.ConsultaImpresion;
 import app.consultas.entities.FichaMedica;
-import app.consultas.entities.HospitalClinica;
-import app.consultas.entities.HospitalClinicaPK;
 import app.consultas.entities.Paciente;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -28,10 +27,10 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author DOxlaj
  */
-public class FichaMedicaController extends HttpServlet {
+public class ConsultaImpresionController extends HttpServlet {
 
     @EJB
-    private PacienteFacade pacienteService;
+    private ConsultaFacade consultaService;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -43,7 +42,6 @@ public class FichaMedicaController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //response.setContentType("text/html;charset=UTF-8");
         try{
             String typeVisor = request.getParameter("type") == null ? "" : request.getParameter("type");
             response.setContentType("application/pdf;charset=UTF-8");
@@ -55,14 +53,13 @@ public class FichaMedicaController extends HttpServlet {
             
             ServletOutputStream out = response.getOutputStream();
 
-            // Para obtener la cita
-            Long idPaciente = 0L;
+            // Para obtener la Consulta
+            Long idConsulta = 0L;
             if(request.getParameter("codigo") != null){
-                idPaciente = Long.parseLong(request.getParameter("codigo"));
-                Paciente paciente = pacienteService.find(idPaciente);
-                //HospitalClinica clinica = clinicaService.find(new HospitalClinicaPK(cita.getIdHospital().getIdHospital(), cita.getIdClinica()));
+                idConsulta = Long.parseLong(request.getParameter("codigo"));
+                Consulta consulta = consultaService.find(idConsulta);
 
-                ByteArrayOutputStream baos = FichaMedica.getFichaMedica(paciente);
+                ByteArrayOutputStream baos = ConsultaImpresion.getResume(consulta);
                 baos.writeTo(out);
             } else {
                 PrintWriter writer = response.getWriter();

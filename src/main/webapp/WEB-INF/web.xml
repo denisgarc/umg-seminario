@@ -132,6 +132,14 @@
         <servlet-name>FichaMedicaController</servlet-name>
         <servlet-class>app.consultas.controller.FichaMedicaController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ConsultaImpresionController</servlet-name>
+        <servlet-class>app.consultas.controller.ConsultaImpresionController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ConsultaBusquedaController</servlet-name>
+        <servlet-class>app.consultas.controller.ConsultaBusquedaController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/LoginController</url-pattern>
@@ -263,6 +271,14 @@
     <servlet-mapping>
         <servlet-name>FichaMedicaController</servlet-name>
         <url-pattern>/FichaMedicaController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ConsultaImpresionController</servlet-name>
+        <url-pattern>/ConsultaImpresionController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ConsultaBusquedaController</servlet-name>
+        <url-pattern>/ConsultaBusquedaController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

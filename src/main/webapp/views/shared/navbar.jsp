@@ -22,6 +22,7 @@
                         <a class="dropdown-item" href="${req.contextPath}/cita/Agendar.jsp">Crear Cita</a>
                         <a class="dropdown-item" href="${req.contextPath}/cita/Buscar.jsp">Buscar Citas</a>
                         <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="${req.contextPath}/cita/BuscarConsulta.jsp">Buscar Consulta Médica</a>
                         <a class="dropdown-item" href="${req.contextPath}/cita/Consulta.jsp">Consulta Médica</a>
                     </div>
                 </li>
