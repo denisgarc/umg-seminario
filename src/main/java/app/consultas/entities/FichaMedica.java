@@ -413,27 +413,22 @@ public class FichaMedica {
             document.add(new Phrase("\n", normalFont));
             
             document.add(titlePacienteTable);
-            document.add(new Phrase("\n", normalFont));
             document.add(tablePaciente);
             document.add(new Phrase("\n", normalFont));
             
             document.add(titleConsultaTable);
-            document.add(new Phrase("\n", normalFont));
             document.add(tableConsulta);
             document.add(new Phrase("\n", normalFont));
             
             document.add(titleDiagnosticoTable);
-            document.add(new Phrase("\n", normalFont));
             document.add(tableDiagnostico);
             document.add(new Phrase("\n", normalFont));
             
             document.add(titleTratamientoTable);
-            document.add(new Phrase("\n", normalFont));
             document.add(tableTratamiento);
             document.add(new Phrase("\n", normalFont));
             
             document.add(titleMedicamentoTable);
-            document.add(new Phrase("\n", normalFont));
             document.add(tableMedicamento);
             
             document.close();

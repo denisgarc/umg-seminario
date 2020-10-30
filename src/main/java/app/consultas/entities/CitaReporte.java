@@ -137,6 +137,20 @@ public class CitaReporte {
             cell.setPaddingBottom(10);
             table.addCell(cell);
             
+            cell = new PdfPCell(new Phrase("Estado:"));
+            cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+            cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+            cell.setBorder(Rectangle.NO_BORDER);
+            cell.setPaddingBottom(10);
+            table.addCell(cell);
+            
+            cell = new PdfPCell(new Phrase(cita.getIdEstado().getDescripcion()));
+            cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+            cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+            cell.setBorder(Rectangle.NO_BORDER);
+            cell.setPaddingBottom(10);
+            table.addCell(cell);
+            
             PdfWriter.getInstance(document, bout);
             
             document.open();
