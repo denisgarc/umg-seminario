@@ -58,7 +58,7 @@
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="#">Resumen de Citas</a>
-                        <a class="dropdown-item" href="#">Ficha Médica</a>
+                        <a class="dropdown-item" href="${req.contextPath}/reporte/FichaMedica.jsp">Ficha Médica</a>
                         <a class="dropdown-item" href="#">Asignación de Roles</a>
                     </div>
                 </li>

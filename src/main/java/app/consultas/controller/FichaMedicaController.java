@@ -45,8 +45,14 @@ public class FichaMedicaController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try{
+            String typeVisor = request.getParameter("type") == null ? "" : request.getParameter("type");
             response.setContentType("application/pdf;charset=UTF-8");
-            response.addHeader("Content-Disposition", "inline; filename=" + "cita.pdf");
+            if(typeVisor.equalsIgnoreCase("mobile")){
+                response.addHeader("Content-Disposition", "attached; filename=" + "fichaMedica.pdf");
+            } else {
+                response.addHeader("Content-Disposition", "inline; filename=" + "fichaMedica.pdf");
+            }
+            
             ServletOutputStream out = response.getOutputStream();
 
             // Para obtener la cita
