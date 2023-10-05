@@ -5,6 +5,7 @@
  */
 package app.consultas.entities;
 
+import com.google.gson.annotations.Expose;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
@@ -43,26 +44,31 @@ public class Medicamento implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "ID_MEDICAMENTO")
+    @Expose
     private Integer idMedicamento;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 50)
     @Column(name = "NOMBRE")
+    @Expose
     private String nombre;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
     @Column(name = "NOMBRE_COMERCIAL")
+    @Expose
     private String nombreComercial;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Basic(optional = false)
     @NotNull
     @Column(name = "PRECIO")
+    @Expose
     private BigDecimal precio;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 1)
     @Column(name = "ACTIVO")
+    @Expose
     private String activo;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "medicamento")
     private List<RecetaDetalle> recetaDetalleList;

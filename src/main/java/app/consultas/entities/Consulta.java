@@ -5,6 +5,7 @@
  */
 package app.consultas.entities;
 
+import com.google.gson.annotations.Expose;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -47,37 +48,47 @@ public class Consulta implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "ID_CONSULTA")
+    @Expose
     private Long idConsulta;
     @Basic(optional = false)
     @NotNull
     @Column(name = "FECHA_CONSULTA")
     @Temporal(TemporalType.TIMESTAMP)
+    @Expose
     private Date fechaConsulta;
     @Size(max = 250)
     @Column(name = "DESCRIPCION")
+    @Expose
     private String descripcion;
     @Size(max = 500)
     @Column(name = "OBSERVACIONES")
+    @Expose
     private String observaciones;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 1)
+    @Expose
     @Column(name = "ACTIVO")
     private String activo;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idConsulta")
+    @Expose
     private List<ConsultaDiagnostico> consultaDiagnosticoList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idConsulta")
+    @Expose
     private List<ConsultaTratamiento> consultaTratamientoList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idConsulta")
     private List<Receta> recetaList;
     @JoinColumn(name = "ID_CITA", referencedColumnName = "ID_CITA")
     @ManyToOne
+    @Expose
     private Cita idCita;
     @JoinColumn(name = "ID_EMPLEADO", referencedColumnName = "ID_EMPLEADO")
     @ManyToOne(optional = false)
+    @Expose
     private Empleado idEmpleado;
     @JoinColumn(name = "ID_TIPO_CONSULTA", referencedColumnName = "ID_TIPO_CONSULTA")
     @ManyToOne(optional = false)
+    @Expose
     private TipoConsulta idTipoConsulta;
 
     public Consulta() {

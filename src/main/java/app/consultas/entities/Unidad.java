@@ -5,6 +5,7 @@
  */
 package app.consultas.entities;
 
+import com.google.gson.annotations.Expose;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
@@ -30,7 +31,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Unidad.findAll", query = "SELECT u FROM Unidad u"),
-    @NamedQuery(name = "Unidad.findByIdUnidad", query = "SELECT u FROM Unidad u WHERE u.idUnidad = :idUnidad"),
+    //@NamedQuery(name = "Unidad.findByIdUnidad", query = "SELECT u FROM Unidad u WHERE u.idUnidad = :idUnidad"),
     @NamedQuery(name = "Unidad.findByDescripcion", query = "SELECT u FROM Unidad u WHERE u.descripcion = :descripcion"),
     @NamedQuery(name = "Unidad.findByAbreviatura", query = "SELECT u FROM Unidad u WHERE u.abreviatura = :abreviatura"),
     @NamedQuery(name = "Unidad.findByActivo", query = "SELECT u FROM Unidad u WHERE u.activo = :activo")})
@@ -41,22 +42,26 @@ public class Unidad implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "ID_UNIDAD")
+    @Expose
     private Short idUnidad;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 50)
     @Column(name = "DESCRIPCION")
+    @Expose
     private String descripcion;
     @Size(max = 10)
     @Column(name = "ABREVIATURA")
+    @Expose
     private String abreviatura;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 1)
     @Column(name = "ACTIVO")
+    @Expose
     private String activo;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUnidad")
-    private List<RecetaDetalle> recetaDetalleList;
+    /*@OneToMany(cascade = CascadeType.ALL, mappedBy = "idUnidad")
+    private List<RecetaDetalle> recetaDetalleList;*/
 
     public Unidad() {
     }
@@ -103,14 +108,14 @@ public class Unidad implements Serializable {
         this.activo = activo;
     }
 
-    @XmlTransient
+    /*@XmlTransient
     public List<RecetaDetalle> getRecetaDetalleList() {
         return recetaDetalleList;
     }
 
     public void setRecetaDetalleList(List<RecetaDetalle> recetaDetalleList) {
         this.recetaDetalleList = recetaDetalleList;
-    }
+    }*/
 
     @Override
     public int hashCode() {

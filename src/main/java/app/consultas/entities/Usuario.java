@@ -5,12 +5,15 @@
  */
 package app.consultas.entities;
 
+import com.google.gson.annotations.Expose;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
@@ -35,7 +38,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Usuario.findAll", query = "SELECT u FROM Usuario u"),
     @NamedQuery(name = "Usuario.findByIdUsuario", query = "SELECT u FROM Usuario u WHERE u.idUsuario = :idUsuario"),
-    @NamedQuery(name = "Usuario.findByUsuario", query = "SELECT u FROM Usuario u WHERE u.usuario = :usuario"),
+    @NamedQuery(name = "Usuario.findByUsuario", query = "SELECT u FROM Usuario u WHERE u.usuario = UPPER(:usuario)"),
     @NamedQuery(name = "Usuario.findByContrasena", query = "SELECT u FROM Usuario u WHERE u.contrasena = :contrasena"),
     @NamedQuery(name = "Usuario.findByFecVtoContrasena", query = "SELECT u FROM Usuario u WHERE u.fecVtoContrasena = :fecVtoContrasena"),
     @NamedQuery(name = "Usuario.findByActivo", query = "SELECT u FROM Usuario u WHERE u.activo = :activo")})
@@ -46,29 +49,35 @@ public class Usuario implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "ID_USUARIO")
+    @Expose
     private Long idUsuario;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 25)
     @Column(name = "USUARIO")
+    @Expose
     private String usuario;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 25)
     @Column(name = "CONTRASENA")
+    @Expose
     private String contrasena;
     @Column(name = "FEC_VTO_CONTRASENA")
     @Temporal(TemporalType.TIMESTAMP)
+    @Expose
     private Date fecVtoContrasena;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 1)
     @Column(name = "ACTIVO")
+    @Expose
     private String activo;
-    @ManyToMany(mappedBy = "usuarioList")
+    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "usuarioList", fetch = FetchType.LAZY)
     private List<Rol> rolList;
     @JoinColumn(name = "ID_PERSONA", referencedColumnName = "ID_PERSONA")
     @ManyToOne(optional = false)
+    @Expose
     private Persona idPersona;
 
     public Usuario() {

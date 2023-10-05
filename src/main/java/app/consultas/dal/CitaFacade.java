@@ -6,9 +6,16 @@
 package app.consultas.dal;
 
 import app.consultas.entities.Cita;
+import app.consultas.entities.Usuario;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -28,5 +35,27 @@ public class CitaFacade extends AbstractFacade<Cita> {
     public CitaFacade() {
         super(Cita.class);
     }
+ 
+    public Long generateNewId(){
+        try {
+            Query q = em.createNativeQuery("SELECT CITA_SEQ.NEXTVAL FROM DUAL");
+            Long result = Long.parseLong(q.getSingleResult().toString());
+            return result;
+        } catch(Exception e) {
+            return Long.parseLong("0");
+        }
+    }
     
+    public List<Cita> findByPacienteDate(Long idPaciente, Date fecDesde, Date fecHasta){
+        try {
+            TypedQuery<Cita> query = em.createNamedQuery("Cita.findByPacienteDate", Cita.class);
+            query.setParameter("idPaciente", idPaciente);
+            query.setParameter("fecDesde", fecDesde);
+            query.setParameter("fecHasta", fecHasta);
+            List<Cita> result = query.getResultList();
+            return result;
+        } catch(NoResultException nr){
+            return new ArrayList<Cita>();
+        }
+    }
 }

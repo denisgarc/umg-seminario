@@ -5,6 +5,7 @@
  */
 package app.consultas.entities;
 
+import com.google.gson.annotations.Expose;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -35,7 +36,8 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Receta.findAll", query = "SELECT r FROM Receta r"),
     @NamedQuery(name = "Receta.findByIdReceta", query = "SELECT r FROM Receta r WHERE r.idReceta = :idReceta"),
-    @NamedQuery(name = "Receta.findByFechaVencimiento", query = "SELECT r FROM Receta r WHERE r.fechaVencimiento = :fechaVencimiento")})
+    @NamedQuery(name = "Receta.findByFechaVencimiento", query = "SELECT r FROM Receta r WHERE r.fechaVencimiento = :fechaVencimiento"),
+    @NamedQuery(name = "Receta.findByIdConsulta", query = "SELECT r FROM Receta r WHERE r.idConsulta = :idConsulta")})
 public class Receta implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -43,13 +45,16 @@ public class Receta implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "ID_RECETA")
+    @Expose
     private Long idReceta;
     @Basic(optional = false)
     @NotNull
     @Column(name = "FECHA_VENCIMIENTO")
     @Temporal(TemporalType.TIMESTAMP)
+    @Expose
     private Date fechaVencimiento;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "receta")
+    @Expose
     private List<RecetaDetalle> recetaDetalleList;
     @JoinColumn(name = "ID_CONSULTA", referencedColumnName = "ID_CONSULTA")
     @ManyToOne(optional = false)

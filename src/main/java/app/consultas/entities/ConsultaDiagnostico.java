@@ -5,6 +5,7 @@
  */
 package app.consultas.entities;
 
+import com.google.gson.annotations.Expose;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -29,7 +30,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "ConsultaDiagnostico.findAll", query = "SELECT c FROM ConsultaDiagnostico c"),
     @NamedQuery(name = "ConsultaDiagnostico.findByIdDiagnostico", query = "SELECT c FROM ConsultaDiagnostico c WHERE c.idDiagnostico = :idDiagnostico"),
-    @NamedQuery(name = "ConsultaDiagnostico.findByDescripcion", query = "SELECT c FROM ConsultaDiagnostico c WHERE c.descripcion = :descripcion")})
+    @NamedQuery(name = "ConsultaDiagnostico.findByDescripcion", query = "SELECT c FROM ConsultaDiagnostico c WHERE c.descripcion = :descripcion"),
+    @NamedQuery(name = "ConsultaDiagnostico.findByIdConsulta", query = "SELECT c FROM ConsultaDiagnostico c WHERE c.idConsulta = :idConsulta")})
 public class ConsultaDiagnostico implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -37,17 +39,26 @@ public class ConsultaDiagnostico implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "ID_DIAGNOSTICO")
+    @Expose
     private Long idDiagnostico;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
     @Column(name = "DESCRIPCION")
+    @Expose
     private String descripcion;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 1)
+    @Column(name = "ACTIVO")
+    @Expose
+    private String activo;
     @JoinColumn(name = "ID_CONSULTA", referencedColumnName = "ID_CONSULTA")
     @ManyToOne(optional = false)
     private Consulta idConsulta;
     @JoinColumn(name = "ID_TIPO_DIAGNOSTICO", referencedColumnName = "ID_TIPO_DIAGNOSTICO")
     @ManyToOne(optional = false)
+    @Expose
     private TipoDiagnostico idTipoDiagnostico;
 
     public ConsultaDiagnostico() {
@@ -94,6 +105,14 @@ public class ConsultaDiagnostico implements Serializable {
         this.idTipoDiagnostico = idTipoDiagnostico;
     }
 
+    public String getActivo() {
+        return activo;
+    }
+
+    public void setActivo(String activo) {
+        this.activo = activo;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 0;

@@ -5,6 +5,7 @@
  */
 package app.consultas.entities;
 
+import com.google.gson.annotations.Expose;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -51,38 +52,47 @@ public class Persona implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "ID_PERSONA")
+    @Expose
     private Long idPersona;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
     @Column(name = "NOMBRES")
+    @Expose
     private String nombres;
     @Size(max = 100)
     @Column(name = "APELLIDOS")
+    @Expose
     private String apellidos;
     @Basic(optional = false)
     @NotNull
     @Column(name = "FEC_NACIMIENTO")
     @Temporal(TemporalType.TIMESTAMP)
+    @Expose
     private Date fecNacimiento;
     @Size(max = 30)
     @Column(name = "DOCUMENTO_ID")
+    @Expose
     private String documentoId;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 1)
     @Column(name = "SEXO")
+    @Expose
     private String sexo;
     @Size(max = 200)
     @Column(name = "DIRECCION")
+    @Expose
     private String direccion;
     @Size(max = 100)
     @Column(name = "TELEFONOS")
+    @Expose
     private String telefonos;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 1)
     @Column(name = "ACTIVO")
+    @Expose
     private String activo;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idPersona")
     private List<Empleado> empleadoList;
@@ -90,6 +100,7 @@ public class Persona implements Serializable {
     private List<Usuario> usuarioList;
     @JoinColumn(name = "ID_TIPO_DOCUMENTO", referencedColumnName = "ID_TIPO_DOCUMENTO")
     @ManyToOne
+    @Expose
     private TipoDocumento idTipoDocumento;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idPersona")
     private List<Paciente> pacienteList;
@@ -128,11 +139,15 @@ public class Persona implements Serializable {
     }
 
     public String getApellidos() {
-        return apellidos;
+        return apellidos == null ? "" : apellidos;
     }
 
     public void setApellidos(String apellidos) {
         this.apellidos = apellidos;
+    }
+    
+    public String getNomberCompleto(){
+        return this.nombres + (this.apellidos == null ? "" : " " + this.apellidos);
     }
 
     public Date getFecNacimiento() {
@@ -144,7 +159,7 @@ public class Persona implements Serializable {
     }
 
     public String getDocumentoId() {
-        return documentoId;
+        return documentoId == null ? "" : documentoId;
     }
 
     public void setDocumentoId(String documentoId) {
@@ -160,7 +175,7 @@ public class Persona implements Serializable {
     }
 
     public String getDireccion() {
-        return direccion;
+        return direccion == null ? "" : direccion;
     }
 
     public void setDireccion(String direccion) {
@@ -168,7 +183,7 @@ public class Persona implements Serializable {
     }
 
     public String getTelefonos() {
-        return telefonos;
+        return telefonos == null ? "" : telefonos;
     }
 
     public void setTelefonos(String telefonos) {

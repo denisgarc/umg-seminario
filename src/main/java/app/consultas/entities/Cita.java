@@ -5,6 +5,7 @@
  */
 package app.consultas.entities;
 
+import com.google.gson.annotations.Expose;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -13,12 +14,10 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -37,7 +36,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Cita.findAll", query = "SELECT c FROM Cita c"),
     @NamedQuery(name = "Cita.findByIdCita", query = "SELECT c FROM Cita c WHERE c.idCita = :idCita"),
     @NamedQuery(name = "Cita.findByFechaCita", query = "SELECT c FROM Cita c WHERE c.fechaCita = :fechaCita"),
-    @NamedQuery(name = "Cita.findByHoraCita", query = "SELECT c FROM Cita c WHERE c.horaCita = :horaCita")})
+    @NamedQuery(name = "Cita.findByHoraCita", query = "SELECT c FROM Cita c WHERE c.horaCita = :horaCita"),
+    @NamedQuery(name = "Cita.findByPacienteDate", query = "SELECT c FROM Cita c WHERE (c.idPaciente.idPaciente = :idPaciente OR :idPaciente = 0) AND c.fechaCita BETWEEN :fecDesde AND :fecHasta")})
+
 public class Cita implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -45,29 +46,54 @@ public class Cita implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "ID_CITA")
+    @Expose
     private Long idCita;
     @Basic(optional = false)
     @NotNull
     @Column(name = "FECHA_CITA")
     @Temporal(TemporalType.TIMESTAMP)
+    @Expose
     private Date fechaCita;
     @Basic(optional = false)
     @NotNull
     @Column(name = "HORA_CITA")
     @Temporal(TemporalType.TIMESTAMP)
+    @Expose
     private Date horaCita;
     @JoinColumn(name = "ID_ESTADO", referencedColumnName = "ID_ESTADO")
     @ManyToOne(optional = false)
+    @Expose
     private Estado idEstado;
-    @JoinColumn(name = "ID_HOSPITAL", referencedColumnName = "ID_HOSPITAL", 
-            insertable = false, updatable = false)
+    @JoinColumn(name = "ID_HOSPITAL", referencedColumnName = "ID_HOSPITAL")
     @ManyToOne(optional = false)
+    @Expose
     private Hospital idHospital;
+//    @JoinColumns({
+//        @JoinColumn(name = "ID_HOSPITAL", referencedColumnName = "ID_HOSPITAL"),
+//        @JoinColumn(name = "ID_CLINICA", referencedColumnName = "ID_CLINICA")})
+//    @ManyToOne(optional = false)
+//    private HospitalClinica hospitalClinica;
+//    @JoinColumns({
+//        @JoinColumn(name = "ID_HOSPITAL", referencedColumnName = "ID_HOSPITAL"),
+//        @JoinColumn(name = "ID_SALA", referencedColumnName = "ID_SALA")})
+//    @ManyToOne(optional = false)
+//    private HospitalSala hospitalSala;
     @JoinColumn(name = "ID_PACIENTE", referencedColumnName = "ID_PACIENTE")
     @ManyToOne(optional = false)
+    @Expose
     private Paciente idPaciente;
     @OneToMany(mappedBy = "idCita")
     private List<Consulta> consultaList;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "ID_CLINICA")
+    @Expose
+    private Short idClinica;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "ID_SALA")
+    @Expose
+    private Short idSala;
 
     public Cita() {
     }
@@ -137,6 +163,22 @@ public class Cita implements Serializable {
 //    public void setHospitalSala(HospitalSala hospitalSala) {
 //        this.hospitalSala = hospitalSala;
 //    }
+
+    public Short getIdClinica() {
+        return idClinica;
+    }
+
+    public Short getIdSala() {
+        return idSala;
+    }
+
+    public void setIdClinica(Short idClinica) {
+        this.idClinica = idClinica;
+    }
+
+    public void setIdSala(Short idSala) {
+        this.idSala = idSala;
+    }
 
     public Paciente getIdPaciente() {
         return idPaciente;

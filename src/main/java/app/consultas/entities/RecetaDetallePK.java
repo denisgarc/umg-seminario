@@ -5,6 +5,7 @@
  */
 package app.consultas.entities;
 
+import com.google.gson.annotations.Expose;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -21,10 +22,12 @@ public class RecetaDetallePK implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "ID_RECETA")
+    @Expose
     private long idReceta;
     @Basic(optional = false)
     @NotNull
     @Column(name = "ID_MEDICAMENTO")
+    @Expose
     private int idMedicamento;
 
     public RecetaDetallePK() {

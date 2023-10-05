@@ -1,0 +1,4 @@
+<sitemesh>
+    <mapping path="/user/*" decorator="/views/shared/layout-login.jsp"/>
+    <mapping path="/*" decorator="/views/shared/layout.jsp"/>
+</sitemesh>
