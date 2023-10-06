@@ -58,4 +58,10 @@ public class CitaFacade extends AbstractFacade<Cita> {
             return new ArrayList<Cita>();
         }
     }
+    
+    public long createWithId(Cita entity) {
+        em.persist(entity);
+        em.flush();
+        return entity.getIdCita();
+    }
 }

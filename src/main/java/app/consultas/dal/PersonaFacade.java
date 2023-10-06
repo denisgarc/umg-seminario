@@ -35,7 +35,7 @@ public class PersonaFacade extends AbstractFacade<Persona> {
     
     public List<Persona> findBySearch(String filter){
         try {
-            Query q = em.createNativeQuery("SELECT p.* FROM PERSONA p WHERE UPPER(p.NOMBRES || NVL(' ' || p.APELLIDOS,'')) LIKE '%' || UPPER(?) || '%'", Persona.class);
+            Query q = em.createNativeQuery("SELECT p.* FROM PERSONA p WHERE UPPER(CONCAT(p.NOMBRES,IFNULL(CONCAT(' ',p.APELLIDOS),''))) LIKE CONCAT('%',UPPER(?),'%');", Persona.class);
             q.setParameter(1, filter.replace(' ', '%'));
             List<Persona> result = q.getResultList();
             return result;
@@ -52,5 +52,11 @@ public class PersonaFacade extends AbstractFacade<Persona> {
         } catch(Exception e) {
             return Long.parseLong("0");
         }
+    }
+    
+    public long createWithId(Persona entity) {
+        em.persist(entity);
+        em.flush();
+        return entity.getIdPersona();
     }
 }

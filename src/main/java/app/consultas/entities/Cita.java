@@ -10,8 +10,11 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -47,6 +50,7 @@ public class Cita implements Serializable {
     @NotNull
     @Column(name = "ID_CITA")
     @Expose
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long idCita;
     @Basic(optional = false)
     @NotNull
@@ -61,7 +65,7 @@ public class Cita implements Serializable {
     @Expose
     private Date horaCita;
     @JoinColumn(name = "ID_ESTADO", referencedColumnName = "ID_ESTADO")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, cascade = CascadeType.REMOVE)
     @Expose
     private Estado idEstado;
     @JoinColumn(name = "ID_HOSPITAL", referencedColumnName = "ID_HOSPITAL")

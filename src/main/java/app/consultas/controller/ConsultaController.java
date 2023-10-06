@@ -78,8 +78,9 @@ public class ConsultaController extends HttpServlet {
                 modelo.setActivo(activo);
 
                 if (modelo.getIdConsulta()== 0) {
-                    modelo.setIdConsulta(consultaService.generateNewId());
-                    consultaService.create(modelo);
+                    //modelo.setIdConsulta(consultaService.generateNewId());
+                    long newIdConsulta = consultaService.createWithId(modelo);
+                    modelo.setIdConsulta(newIdConsulta);
                 } else {
                     consultaService.edit(modelo);
                 }

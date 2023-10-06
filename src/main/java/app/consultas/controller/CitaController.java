@@ -71,8 +71,9 @@ public class CitaController extends HttpServlet {
                 modelo.setIdEstado(new Estado(idEstado));
 
                 if (modelo.getIdCita() == 0) {
-                    modelo.setIdCita(citaService.generateNewId());
-                    citaService.create(modelo);
+                    //modelo.setIdCita(citaService.generateNewId());
+                    long newIdCita = citaService.createWithId(modelo);
+                    modelo.setIdCita(newIdCita);
                 } else {
                     citaService.edit(modelo);
                 }

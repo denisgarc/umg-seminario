@@ -38,7 +38,7 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
     
     public List<Usuario> GetUsuarioByFilter(String filter){
         try {
-            Query q = em.createNativeQuery("SELECT u.ID_USUARIO, u.ID_PERSONA, u.USUARIO, u.CONTRASENA, u.FEC_VTO_CONTRASENA, u.ACTIVO FROM USUARIO u INNER JOIN PERSONA p ON p.ID_PERSONA = u.ID_PERSONA WHERE UPPER(u.USUARIO || ' - ' || p.NOMBRES || NVL(' ' || p.APELLIDOS,'')) LIKE '%' || UPPER(?) || '%'", Usuario.class);
+            Query q = em.createNativeQuery("SELECT u.ID_USUARIO, u.ID_PERSONA, u.USUARIO, u.CONTRASENA, u.FEC_VTO_CONTRASENA, u.ACTIVO FROM USUARIO u INNER JOIN PERSONA p ON p.ID_PERSONA = u.ID_PERSONA WHERE UPPER(CONCAT(u.USUARIO,' - ',p.NOMBRES,IFNULL(CONCAT(' ',p.APELLIDOS),''))) LIKE CONCAT('%',UPPER(?),'%')", Usuario.class);
             //q.setParameter("filter", filter.replace(' ', '%'));
             q.setParameter(1, filter.replace(' ', '%'));
             List<Usuario> result = q.getResultList();

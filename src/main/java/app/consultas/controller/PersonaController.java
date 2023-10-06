@@ -70,8 +70,9 @@ public class PersonaController extends HttpServlet {
                 modelo.setActivo(activo);
 
                 if (modelo.getIdPersona() == 0) {
-                    modelo.setIdPersona(personaService.generateNewId());
-                    personaService.create(modelo);
+                    //modelo.setIdPersona(personaService.generateNewId());
+                    long newIdPersona = personaService.createWithId(modelo);
+                    modelo.setIdPersona(newIdPersona);
                 } else {
                     personaService.edit(modelo);
                 }

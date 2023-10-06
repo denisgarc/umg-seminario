@@ -71,8 +71,9 @@ public class PacienteController extends HttpServlet {
                 }
 
                 if (modelo.getIdPaciente() == 0) {
-                    modelo.setIdPaciente(pacienteService.generateNewId());
-                    pacienteService.create(modelo);
+                    //modelo.setIdPaciente(pacienteService.generateNewId());
+                    long newidPaciente = pacienteService.createWithId(modelo);
+                    modelo.setIdPaciente(newidPaciente);
                 } else {
                     pacienteService.edit(modelo);
                 }
