@@ -56,4 +56,10 @@ public class RecetaFacade extends AbstractFacade<Receta> {
             return Long.parseLong("0");
         }
     }
+    
+    public long createWithId(Receta entity) {
+        em.persist(entity);
+        em.flush();
+        return entity.getIdReceta();
+    }
 }

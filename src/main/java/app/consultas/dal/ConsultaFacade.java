@@ -60,4 +60,10 @@ public class ConsultaFacade extends AbstractFacade<Consulta> {
         }
     }
     
+    public long createWithId(Consulta entity) {
+        em.persist(entity);
+        em.flush();
+        return entity.getIdConsulta();
+    }
+    
 }
