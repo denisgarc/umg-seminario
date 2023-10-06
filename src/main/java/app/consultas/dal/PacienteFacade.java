@@ -35,7 +35,7 @@ public class PacienteFacade extends AbstractFacade<Paciente> {
     
     public List<Paciente> findBySearch(String filter){
         try {
-            Query q = em.createNativeQuery("SELECT m.* FROM PACIENTE m INNER JOIN PERSONA p ON p.ID_PERSONA = m.ID_PERSONA WHERE UPPER(p.NOMBRES || NVL(' ' || p.APELLIDOS,'')) LIKE '%' || UPPER(?) || '%'", Paciente.class);
+            Query q = em.createNativeQuery("SELECT m.* FROM PACIENTE m INNER JOIN PERSONA p ON p.ID_PERSONA = m.ID_PERSONA WHERE UPPER(CONCAT(p.NOMBRES,IFNULL(CONCAT(' ',p.APELLIDOS),''))) LIKE CONCAT('%',UPPER(?),'%')", Paciente.class);
             q.setParameter(1, filter.replace(' ', '%'));
             List<Paciente> result = q.getResultList();
             return result;
@@ -52,5 +52,11 @@ public class PacienteFacade extends AbstractFacade<Paciente> {
         } catch(Exception e) {
             return Long.parseLong("0");
         }
+    }
+    
+    public long createWithId(Paciente entity) {
+        em.persist(entity);
+        em.flush();
+        return entity.getIdPaciente();
     }
 }

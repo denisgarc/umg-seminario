@@ -306,6 +306,7 @@ function saveConsulta(){
             }).then((result) => {
                 $('#idConsulta').val($idConsulta);
                 $('.idConsulta').val($idConsulta);
+                return postReceta();
             }).then((result) => {
                 return sendRecetaDetalles(result.idReceta);
             }).then((result) => {
@@ -458,6 +459,12 @@ function postReceta(selectedItem){
         try {
             //ShowWaitingAnimation();
             var payload = selectedItem == undefined ? $(`#${$formRecetaId}`).serialize() : selectedItem;
+            var list = Array.from($(`#${$tableRecetaDetalle}`).DataTable().data());
+            debugger;
+            if(list.length == 0){
+                resolve({ idReceta: 0 });
+            }
+            
             $.ajax({
                 method: 'POST',
                 url: $BaseUrl + 'RecetaController',
@@ -524,10 +531,11 @@ function sendTratamientos(idConsulta){
 function sendRecetaDetalles(idReceta){
     var list = Array.from($(`#${$tableRecetaDetalle}`).DataTable().data());
     var operation = [];
-    list.forEach((item) => {
-        item.idReceta = idReceta;
-        operation.push(postRecetaDetalle(item));
-    });
-
+    if(idReceta != 0) {
+        list.forEach((item) => {
+            item.idReceta = idReceta;
+            operation.push(postRecetaDetalle(item));
+        });
+    }
     return Promise.all(operation);
 }

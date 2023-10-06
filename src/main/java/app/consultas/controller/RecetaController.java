@@ -59,8 +59,9 @@ public class RecetaController extends HttpServlet {
                 modelo.setFechaVencimiento(fechaVencimiento);
 
                 if(codigo == 0){
-                    modelo.setIdReceta(recetaService.generateNewId());
-                    recetaService.create(modelo);
+                    //modelo.setIdReceta(recetaService.generateNewId());
+                    long newIdReceta = recetaService.createWithId(modelo);
+                    modelo.setIdReceta(newIdReceta);
                 } else {
                     recetaService.edit(modelo);
                 }
