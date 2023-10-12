@@ -73,14 +73,15 @@ public class FichaMedica {
             cell.setHorizontalAlignment(Element.ALIGN_LEFT);
             cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
             cell.setBorder(Rectangle.NO_BORDER);
-            cell.setPadding(0);
+            cell.setPadding(1);
+            cell.setPaddingBottom(5);
             titleTable.addCell(cell);
             
             cell = new PdfPCell(new Paragraph("Ficha Médica", title));
             cell.setHorizontalAlignment(Element.ALIGN_CENTER);
             cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
             cell.setBorder(Rectangle.NO_BORDER);
-            cell.setPadding(0);
+            cell.setPadding(5);
             titleTable.addCell(cell);
             
             // Titulo Paciente
@@ -860,10 +861,8 @@ public class FichaMedica {
             
             document.open();
             document.add(headerTable);
-            document.add(new Phrase("\n", normalFont));
             
             document.add(titleTable);
-            document.add(new Phrase("\n", normalFont));
             
             document.add(titlePacienteTable);
             document.add(tablePaciente);

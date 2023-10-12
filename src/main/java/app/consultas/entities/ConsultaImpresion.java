@@ -75,14 +75,15 @@ public class ConsultaImpresion {
             cell.setHorizontalAlignment(Element.ALIGN_LEFT);
             cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
             cell.setBorder(Rectangle.NO_BORDER);
-            cell.setPadding(0);
+            cell.setPadding(1);
+            cell.setPaddingBottom(5);
             titleTable.addCell(cell);
             
             cell = new PdfPCell(new Paragraph("Resumen Consulta Médica", title));
             cell.setHorizontalAlignment(Element.ALIGN_CENTER);
             cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
             cell.setBorder(Rectangle.NO_BORDER);
-            cell.setPadding(0);
+            cell.setPadding(5);
             titleTable.addCell(cell);
             
             // Titulo Consulta
@@ -626,10 +627,8 @@ public class ConsultaImpresion {
             
             document.open();
             document.add(headerTable);
-            document.add(new Phrase("\n", normalFont));
             
             document.add(titleTable);
-            document.add(new Phrase("\n", normalFont));
             
             //document.add(titleConsultaTable);
             document.add(tableConsulta);
