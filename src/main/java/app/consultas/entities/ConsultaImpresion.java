@@ -41,9 +41,11 @@ public class ConsultaImpresion {
             Font headFont = FontFactory.getFont(FontFactory.getFont("Calibri").getFamilyname(), 14, Font.NORMAL);
             Font headTableFont = FontFactory.getFont(FontFactory.getFont("Calibri").getFamilyname(), 12, Font.BOLD);
             Font title = FontFactory.getFont(FontFactory.getFont("Calibri").getFamilyname(), 16, Font.BOLD);
-            Font headerTitleFont = FontFactory.getFont(FontFactory.getFont("Calibri").getFamilyname(), 18, Font.NORMAL);
-            Font subHeaderTitleFont = FontFactory.getFont(FontFactory.getFont("Calibri").getFamilyname(), 15, Font.NORMAL);
+            Font headerTitleFont = FontFactory.getFont(FontFactory.getFont("Calibri").getFamilyname(), 18, Font.BOLD);
+            Font subHeaderTitleFont = FontFactory.getFont(FontFactory.getFont("Calibri").getFamilyname(), 15, Font.BOLD);
             headFont.setColor(BaseColor.WHITE);
+            headerTitleFont.setColor(new BaseColor(144, 71, 153));
+            subHeaderTitleFont.setColor(new BaseColor(96, 180, 210));
             
             // Encabezado
             PdfPTable headerTable = new PdfPTable(1);
@@ -89,9 +91,10 @@ public class ConsultaImpresion {
             
             cell = new PdfPCell(new Paragraph("Datos de la Consulta", headFont));
             cell.setHorizontalAlignment(Element.ALIGN_LEFT);
-            cell.setBorder(Rectangle.BOTTOM);
-            cell.setBackgroundColor(BaseColor.DARK_GRAY);
-            cell.setPaddingBottom(10);
+            cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+            cell.setBorder(Rectangle.NO_BORDER);
+            cell.setBackgroundColor(new BaseColor(144, 71, 153));
+            cell.setPadding(5);
             titleConsultaTable.addCell(cell);
             
             // Datos de la consulta
@@ -135,6 +138,7 @@ public class ConsultaImpresion {
             cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
             cell.setHorizontalAlignment(Element.ALIGN_LEFT);
             cell.setBorder(Rectangle.NO_BORDER);
+            cell.setColspan(3);
             tableConsulta.addCell(cell);
             
             cell = new PdfPCell(new Phrase("Motivo de Consulta:"));
@@ -147,6 +151,7 @@ public class ConsultaImpresion {
             cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
             cell.setHorizontalAlignment(Element.ALIGN_LEFT);
             cell.setBorder(Rectangle.NO_BORDER);
+            cell.setColspan(3);
             tableConsulta.addCell(cell);
             
             // Titulo Paciente
@@ -155,9 +160,10 @@ public class ConsultaImpresion {
             
             cell = new PdfPCell(new Paragraph("1. Datos de Identificación", headFont));
             cell.setHorizontalAlignment(Element.ALIGN_LEFT);
-            cell.setBorder(Rectangle.BOTTOM);
-            cell.setBackgroundColor(BaseColor.DARK_GRAY);
-            cell.setPaddingBottom(10);
+            cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+            cell.setBorder(Rectangle.NO_BORDER);
+            cell.setBackgroundColor(new BaseColor(144, 71, 153));
+            cell.setPadding(5);
             titlePacienteTable.addCell(cell);
             
             PdfPTable tablePaciente = new PdfPTable(4);
@@ -224,6 +230,7 @@ public class ConsultaImpresion {
             cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
             cell.setHorizontalAlignment(Element.ALIGN_LEFT);
             cell.setBorder(Rectangle.NO_BORDER);
+            cell.setColspan(3);
             tablePaciente.addCell(cell);
             
             cell = new PdfPCell(new Phrase("Dirección:"));
@@ -236,6 +243,7 @@ public class ConsultaImpresion {
             cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
             cell.setHorizontalAlignment(Element.ALIGN_LEFT);
             cell.setBorder(Rectangle.NO_BORDER);
+            cell.setColspan(3);
             tablePaciente.addCell(cell);
             
             // Titulo Contacto
@@ -244,9 +252,10 @@ public class ConsultaImpresion {
             
             cell = new PdfPCell(new Paragraph("1.1 Datos del Familiar", headFont));
             cell.setHorizontalAlignment(Element.ALIGN_LEFT);
-            cell.setBorder(Rectangle.BOTTOM);
-            cell.setBackgroundColor(BaseColor.DARK_GRAY);
-            cell.setPaddingBottom(10);
+            cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+            cell.setBorder(Rectangle.NO_BORDER);
+            cell.setBackgroundColor(new BaseColor(144, 71, 153));
+            cell.setPadding(5);
             titleContactoTable.addCell(cell);
             
             PdfPTable tableContacto = new PdfPTable(4);
@@ -299,6 +308,7 @@ public class ConsultaImpresion {
             cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
             cell.setHorizontalAlignment(Element.ALIGN_LEFT);
             cell.setBorder(Rectangle.NO_BORDER);
+            cell.setColspan(3);
             tableContacto.addCell(cell);
             
             cell = new PdfPCell(new Phrase("Dirección:"));
@@ -315,6 +325,7 @@ public class ConsultaImpresion {
             cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
             cell.setHorizontalAlignment(Element.ALIGN_LEFT);
             cell.setBorder(Rectangle.NO_BORDER);
+            cell.setColspan(3);
             tableContacto.addCell(cell);
             
             // Descripcion
@@ -323,9 +334,10 @@ public class ConsultaImpresion {
             
             cell = new PdfPCell(new Paragraph("2. Motivo de la Consulta", headFont));
             cell.setHorizontalAlignment(Element.ALIGN_LEFT);
-            cell.setBorder(Rectangle.BOTTOM);
-            cell.setBackgroundColor(BaseColor.DARK_GRAY);
-            cell.setPaddingBottom(10);
+            cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+            cell.setBorder(Rectangle.NO_BORDER);
+            cell.setBackgroundColor(new BaseColor(144, 71, 153));
+            cell.setPadding(5);
             titleDescripcionTable.addCell(cell);
             
             cell = new PdfPCell(new Phrase(consulta.getDescripcion()));
@@ -341,9 +353,10 @@ public class ConsultaImpresion {
             
             cell = new PdfPCell(new Paragraph("3. Antecedentes de Enfermedad Actual", headFont));
             cell.setHorizontalAlignment(Element.ALIGN_LEFT);
-            cell.setBorder(Rectangle.BOTTOM);
-            cell.setBackgroundColor(BaseColor.DARK_GRAY);
-            cell.setPaddingBottom(10);
+            cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+            cell.setBorder(Rectangle.NO_BORDER);
+            cell.setBackgroundColor(new BaseColor(144, 71, 153));
+            cell.setPadding(5);
             titleObservacionTable.addCell(cell);
             
             cell = new PdfPCell(new Phrase(consulta.getObservaciones()));
@@ -359,9 +372,10 @@ public class ConsultaImpresion {
             
             cell = new PdfPCell(new Paragraph("4. Antecedentes de Interés Como Hábitos Tóxicos, Fisiológicos, Enfermedades de Infancia, Heredofamiliares, etc.", headFont));
             cell.setHorizontalAlignment(Element.ALIGN_LEFT);
-            cell.setBorder(Rectangle.BOTTOM);
-            cell.setBackgroundColor(BaseColor.DARK_GRAY);
-            cell.setPaddingBottom(10);
+            cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+            cell.setBorder(Rectangle.NO_BORDER);
+            cell.setBackgroundColor(new BaseColor(144, 71, 153));
+            cell.setPadding(5);
             titleAntecedenteTable.addCell(cell);
             
             cell = new PdfPCell(new Phrase(consulta.getAntecedentes()));
@@ -377,9 +391,10 @@ public class ConsultaImpresion {
             
             cell = new PdfPCell(new Paragraph("5. Anamnesis y Exploración Física", headFont));
             cell.setHorizontalAlignment(Element.ALIGN_LEFT);
-            cell.setBorder(Rectangle.BOTTOM);
-            cell.setBackgroundColor(BaseColor.DARK_GRAY);
-            cell.setPaddingBottom(10);
+            cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+            cell.setBorder(Rectangle.NO_BORDER);
+            cell.setBackgroundColor(new BaseColor(144, 71, 153));
+            cell.setPadding(5);
             titleAnamnesisTable.addCell(cell);
             
             cell = new PdfPCell(new Phrase(consulta.getAnamnesis()));
@@ -395,12 +410,13 @@ public class ConsultaImpresion {
             
             cell = new PdfPCell(new Paragraph("6. Exámenes Complementarios de Laboratorio", headFont));
             cell.setHorizontalAlignment(Element.ALIGN_LEFT);
-            cell.setBorder(Rectangle.BOTTOM);
-            cell.setBackgroundColor(BaseColor.DARK_GRAY);
-            cell.setPaddingBottom(10);
+            cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+            cell.setBorder(Rectangle.NO_BORDER);
+            cell.setBackgroundColor(new BaseColor(144, 71, 153));
+            cell.setPadding(5);
             titleExamenesComplementariosTable.addCell(cell);
             
-            cell = new PdfPCell(new Phrase(consulta.getAnamnesis()));
+            cell = new PdfPCell(new Phrase(consulta.getExamenesComplementarios()));
             cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
             cell.setHorizontalAlignment(Element.ALIGN_LEFT);
             cell.setBorder(Rectangle.NO_BORDER);
@@ -413,9 +429,10 @@ public class ConsultaImpresion {
             
             cell = new PdfPCell(new Paragraph("7. Diagnóstico", headFont));
             cell.setHorizontalAlignment(Element.ALIGN_LEFT);
-            cell.setBorder(Rectangle.BOTTOM);
-            cell.setBackgroundColor(BaseColor.DARK_GRAY);
-            cell.setPaddingBottom(10);
+            cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+            cell.setBorder(Rectangle.NO_BORDER);
+            cell.setBackgroundColor(new BaseColor(144, 71, 153));
+            cell.setPadding(5);
             titleDiagnosticoTable.addCell(cell);
             
             // Para los diagnosticos
@@ -457,9 +474,10 @@ public class ConsultaImpresion {
             
             cell = new PdfPCell(new Paragraph("8. Datos Sobre Evaluación Clínica de la Enfermedad", headFont));
             cell.setHorizontalAlignment(Element.ALIGN_LEFT);
-            cell.setBorder(Rectangle.BOTTOM);
-            cell.setBackgroundColor(BaseColor.DARK_GRAY);
-            cell.setPaddingBottom(10);
+            cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+            cell.setBorder(Rectangle.NO_BORDER);
+            cell.setBackgroundColor(new BaseColor(144, 71, 153));
+            cell.setPadding(5);
             titleEvaluacionClinicaTable.addCell(cell);
             
             cell = new PdfPCell(new Phrase(consulta.getEvaluacionClinica()));
@@ -475,9 +493,10 @@ public class ConsultaImpresion {
             
             cell = new PdfPCell(new Paragraph("9. Ordenes médicas", headFont));
             cell.setHorizontalAlignment(Element.ALIGN_LEFT);
-            cell.setBorder(Rectangle.BOTTOM);
-            cell.setBackgroundColor(BaseColor.DARK_GRAY);
-            cell.setPaddingBottom(10);
+            cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+            cell.setBorder(Rectangle.NO_BORDER);
+            cell.setBackgroundColor(new BaseColor(144, 71, 153));
+            cell.setPadding(5);
             titleOrdenesMedicasTable.addCell(cell);
             
             cell = new PdfPCell(new Phrase(consulta.getOrdenesMedicas()));
@@ -493,9 +512,10 @@ public class ConsultaImpresion {
             
             cell = new PdfPCell(new Paragraph("10. Tratamiento Farmacológico", headFont));
             cell.setHorizontalAlignment(Element.ALIGN_LEFT);
-            cell.setBorder(Rectangle.BOTTOM);
-            cell.setBackgroundColor(BaseColor.DARK_GRAY);
-            cell.setPaddingBottom(10);
+            cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+            cell.setBorder(Rectangle.NO_BORDER);
+            cell.setBackgroundColor(new BaseColor(144, 71, 153));
+            cell.setPadding(5);
             titleTratamientoTable.addCell(cell);
             
             // Para los Tratamientos
@@ -535,11 +555,12 @@ public class ConsultaImpresion {
             PdfPTable titleMedicamentoTable = new PdfPTable(1);
             titleMedicamentoTable.setWidthPercentage(100);
             
-            cell = new PdfPCell(new Paragraph("Medicamentos", headFont));
+            cell = new PdfPCell(new Paragraph("Medicamentos Recetados", headFont));
             cell.setHorizontalAlignment(Element.ALIGN_LEFT);
-            cell.setBorder(Rectangle.BOTTOM);
-            cell.setBackgroundColor(BaseColor.DARK_GRAY);
-            cell.setPaddingBottom(10);
+            cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+            cell.setBorder(Rectangle.NO_BORDER);
+            cell.setBackgroundColor(new BaseColor(144, 71, 153));
+            cell.setPadding(5);
             titleMedicamentoTable.addCell(cell);
             
             // Para los Tratamientos
@@ -590,7 +611,7 @@ public class ConsultaImpresion {
                 }
             }
             
-            // Ordenes Medicas
+            // Pie de Página
             PdfPTable footerTable = new PdfPTable(1);
             footerTable.setWidthPercentage(100);
             

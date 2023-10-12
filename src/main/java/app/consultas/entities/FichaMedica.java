@@ -12,6 +12,7 @@ import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.FontFactory;
+import com.itextpdf.text.Image;
 import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;
@@ -20,6 +21,7 @@ import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -28,27 +30,57 @@ import java.util.logging.Logger;
  * @author DOxlaj
  */
 public class FichaMedica {
-    public static ByteArrayOutputStream getFichaMedica(Paciente paciente){
+    public static ByteArrayOutputStream getFichaMedica(Paciente paciente) throws IOException{
         Document document = new Document(PageSize.LETTER, 10, 10, 10, 10);
         ByteArrayOutputStream bout = new ByteArrayOutputStream();
         PdfPCell cell;
         
         try {
             Font normalFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 10, Font.NORMAL);
-            Font headFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 14, Font.BOLD);
-            Font headTableFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 12, Font.BOLD);
-            Font title = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 16, Font.BOLD);
+            Font headFont = FontFactory.getFont(FontFactory.getFont("Calibri").getFamilyname(), 14, Font.NORMAL);
+            Font headTableFont = FontFactory.getFont(FontFactory.getFont("Calibri").getFamilyname(), 12, Font.BOLD);
+            Font title = FontFactory.getFont(FontFactory.getFont("Calibri").getFamilyname(), 16, Font.BOLD);
+            Font headerTitleFont = FontFactory.getFont(FontFactory.getFont("Calibri").getFamilyname(), 18, Font.BOLD);
+            Font subHeaderTitleFont = FontFactory.getFont(FontFactory.getFont("Calibri").getFamilyname(), 15, Font.BOLD);
             headFont.setColor(BaseColor.WHITE);
-            headTableFont.setColor(BaseColor.WHITE);
+            headerTitleFont.setColor(new BaseColor(144, 71, 153));
+            subHeaderTitleFont.setColor(new BaseColor(96, 180, 210));
             
-            // Titulo
-            PdfPTable titleTable = new PdfPTable(1);
-            titleTable.setWidthPercentage(100);
+            // Encabezado
+            PdfPTable headerTable = new PdfPTable(1);
+            headerTable.setWidthPercentage(100);
             
-            cell = new PdfPCell(new Paragraph("Ficha Médica", title));
+            cell = new PdfPCell(new Paragraph("ASOCIACION GRUPO ERMITA", headerTitleFont));
+            cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            cell.setBorder(Rectangle.NO_BORDER);
+            headerTable.addCell(cell);
+            
+            cell = new PdfPCell(new Paragraph("ALZHEIMER DE GUATEMALA", subHeaderTitleFont));
             cell.setHorizontalAlignment(Element.ALIGN_CENTER);
             cell.setBorder(Rectangle.BOTTOM);
             cell.setPaddingBottom(10);
+            headerTable.addCell(cell);
+            
+            // Titulo
+            PdfPTable titleTable = new PdfPTable(2);
+            titleTable.setWidthPercentage(100);
+            titleTable.setWidths(new int[]{1, 7});
+            
+            String imagepath = "/media/denox/D2DCA259DCA2381D/Proyectos/Universidad/Seminario/umg-seminario/src/main/webapp/images/logo.png";
+            Image img = Image.getInstance(imagepath);
+            img.setAbsolutePosition(0f, 0f);
+            cell.addElement(img);
+            cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+            cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+            cell.setBorder(Rectangle.NO_BORDER);
+            cell.setPadding(0);
+            titleTable.addCell(cell);
+            
+            cell = new PdfPCell(new Paragraph("Ficha Médica", title));
+            cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+            cell.setBorder(Rectangle.NO_BORDER);
+            cell.setPadding(0);
             titleTable.addCell(cell);
             
             // Titulo Paciente
@@ -57,72 +89,63 @@ public class FichaMedica {
             
             cell = new PdfPCell(new Paragraph("Datos del Paciente", headFont));
             cell.setHorizontalAlignment(Element.ALIGN_LEFT);
-            cell.setBorder(Rectangle.BOTTOM);
-            cell.setBackgroundColor(BaseColor.DARK_GRAY);
-            cell.setPaddingBottom(10);
+            cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+            cell.setBorder(Rectangle.NO_BORDER);
+            cell.setBackgroundColor(new BaseColor(144, 71, 153));
+            cell.setPadding(5);
             titlePacienteTable.addCell(cell);
             
-            // Datos del Paciente
             PdfPTable tablePaciente = new PdfPTable(4);
             tablePaciente.setWidthPercentage(100);
             tablePaciente.setWidths(new int[]{2,3,2,3});
             
             // 1
-            cell = new PdfPCell(new Phrase("Nombre:"));
+            cell = new PdfPCell(new Phrase("Nombres:"));
             cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
             cell.setHorizontalAlignment(Element.ALIGN_LEFT);
             cell.setBorder(Rectangle.NO_BORDER);
-            //cell.setPaddingBottom(10);
             tablePaciente.addCell(cell);
             
-            cell = new PdfPCell(new Phrase(paciente.getIdPersona().getNomberCompleto()));
+            cell = new PdfPCell(new Phrase(paciente.getIdPersona().getNombres()));
             cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
             cell.setHorizontalAlignment(Element.ALIGN_LEFT);
             cell.setBorder(Rectangle.NO_BORDER);
-            //cell.setPaddingBottom(10);
             tablePaciente.addCell(cell);
             
-            cell = new PdfPCell(new Phrase("Fuma:"));
+            cell = new PdfPCell(new Phrase("Apellidos:"));
             cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
             cell.setHorizontalAlignment(Element.ALIGN_LEFT);
             cell.setBorder(Rectangle.NO_BORDER);
-            //cell.setPaddingBottom(10);
             tablePaciente.addCell(cell);
             
-            cell = new PdfPCell(new Phrase(paciente.getFuma()));
+            cell = new PdfPCell(new Phrase(paciente.getIdPersona().getApellidos()));
             cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
             cell.setHorizontalAlignment(Element.ALIGN_LEFT);
             cell.setBorder(Rectangle.NO_BORDER);
-            //cell.setPaddingBottom(10);
             tablePaciente.addCell(cell);
             
-            //2
-            cell = new PdfPCell(new Phrase("No. Seguro:"));
+            cell = new PdfPCell(new Phrase("DPI:"));
             cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
             cell.setHorizontalAlignment(Element.ALIGN_LEFT);
             cell.setBorder(Rectangle.NO_BORDER);
-            //cell.setPaddingBottom(10);
             tablePaciente.addCell(cell);
             
-            cell = new PdfPCell(new Phrase(paciente.getNumeroSeguro()));
+            cell = new PdfPCell(new Phrase(paciente.getIdPersona().getDocumentoId()));
             cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
             cell.setHorizontalAlignment(Element.ALIGN_LEFT);
             cell.setBorder(Rectangle.NO_BORDER);
-            //cell.setPaddingBottom(10);
             tablePaciente.addCell(cell);
             
             cell = new PdfPCell(new Phrase("Tipo de Sangre:"));
             cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
             cell.setHorizontalAlignment(Element.ALIGN_LEFT);
             cell.setBorder(Rectangle.NO_BORDER);
-            //cell.setPaddingBottom(10);
             tablePaciente.addCell(cell);
             
             cell = new PdfPCell(new Phrase(paciente.getTipoSangre()));
             cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
             cell.setHorizontalAlignment(Element.ALIGN_LEFT);
             cell.setBorder(Rectangle.NO_BORDER);
-            //cell.setPaddingBottom(10);
             tablePaciente.addCell(cell);
             
             // 3
@@ -130,33 +153,109 @@ public class FichaMedica {
             cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
             cell.setHorizontalAlignment(Element.ALIGN_LEFT);
             cell.setBorder(Rectangle.NO_BORDER);
-            //cell.setPaddingBottom(10);
             tablePaciente.addCell(cell);
             
             cell = new PdfPCell(new Phrase(new DateHandler().getStringFromDate(paciente.getFecAlta(), "dd/MM/yyyy")));
             cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
             cell.setHorizontalAlignment(Element.ALIGN_LEFT);
             cell.setBorder(Rectangle.NO_BORDER);
-            //cell.setPaddingBottom(10);
+            cell.setColspan(3);
             tablePaciente.addCell(cell);
             
-            cell = new PdfPCell(new Phrase("Contacto:"));
+            cell = new PdfPCell(new Phrase("Dirección:"));
             cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
             cell.setHorizontalAlignment(Element.ALIGN_LEFT);
             cell.setBorder(Rectangle.NO_BORDER);
-            //cell.setPaddingBottom(10);
             tablePaciente.addCell(cell);
             
+            cell = new PdfPCell(new Phrase(paciente.getIdPersona().getDireccion()));
+            cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+            cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+            cell.setBorder(Rectangle.NO_BORDER);
+            cell.setColspan(3);
+            tablePaciente.addCell(cell);
+            
+            // Titulo Contacto
+            PdfPTable titleContactoTable = new PdfPTable(1);
+            titleContactoTable.setWidthPercentage(100);
+            
+            cell = new PdfPCell(new Paragraph("Datos del Familiar", headFont));
+            cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+            cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+            cell.setBorder(Rectangle.NO_BORDER);
+            cell.setBackgroundColor(new BaseColor(144, 71, 153));
+            cell.setPadding(5);
+            titleContactoTable.addCell(cell);
+            
+            PdfPTable tableContacto = new PdfPTable(4);
+            tableContacto.setWidthPercentage(100);
+            tableContacto.setWidths(new int[]{2,3,2,3});
+            
+            cell = new PdfPCell(new Phrase("Nombre:"));
+            cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+            cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+            cell.setBorder(Rectangle.NO_BORDER);
+            tableContacto.addCell(cell);
+            
             if(paciente.getIdPersonaContacto() != null){
-                cell = new PdfPCell(new Phrase(paciente.getIdPersonaContacto().getNomberCompleto()));
+                cell = new PdfPCell(new Phrase(paciente.getIdPersonaContacto().getNombres()));
             } else {
                 cell = new PdfPCell(new Phrase(""));
             }
             cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
             cell.setHorizontalAlignment(Element.ALIGN_LEFT);
             cell.setBorder(Rectangle.NO_BORDER);
-            //cell.setPaddingBottom(10);
-            tablePaciente.addCell(cell);
+            tableContacto.addCell(cell);
+            
+            cell = new PdfPCell(new Phrase("Apellidos:"));
+            cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+            cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+            cell.setBorder(Rectangle.NO_BORDER);
+            tableContacto.addCell(cell);
+            
+            if(paciente.getIdPersonaContacto() != null){
+                cell = new PdfPCell(new Phrase(paciente.getIdPersonaContacto().getApellidos()));
+            } else {
+                cell = new PdfPCell(new Phrase(""));
+            }
+            cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+            cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+            cell.setBorder(Rectangle.NO_BORDER);
+            tableContacto.addCell(cell);
+            
+            cell = new PdfPCell(new Phrase("Teléfonos:"));
+            cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+            cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+            cell.setBorder(Rectangle.NO_BORDER);
+            tableContacto.addCell(cell);
+            
+            if(paciente.getIdPersonaContacto() != null){
+                cell = new PdfPCell(new Phrase(paciente.getIdPersonaContacto().getTelefonos()));
+            } else {
+                cell = new PdfPCell(new Phrase(""));
+            }
+            cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+            cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+            cell.setBorder(Rectangle.NO_BORDER);
+            cell.setColspan(3);
+            tableContacto.addCell(cell);
+            
+            cell = new PdfPCell(new Phrase("Dirección:"));
+            cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+            cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+            cell.setBorder(Rectangle.NO_BORDER);
+            tableContacto.addCell(cell);
+            
+            if(paciente.getIdPersonaContacto() != null){
+                cell = new PdfPCell(new Phrase(paciente.getIdPersonaContacto().getDireccion()));
+            } else {
+                cell = new PdfPCell(new Phrase(""));
+            }
+            cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+            cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+            cell.setBorder(Rectangle.NO_BORDER);
+            cell.setColspan(3);
+            tableContacto.addCell(cell);
             
             // Encabezado de Citas
             PdfPTable titleConsultaTable = new PdfPTable(1);
@@ -164,9 +263,10 @@ public class FichaMedica {
             
             cell = new PdfPCell(new Paragraph("Consultas", headFont));
             cell.setHorizontalAlignment(Element.ALIGN_LEFT);
-            cell.setBorder(Rectangle.BOTTOM);
-            cell.setBackgroundColor(BaseColor.DARK_GRAY);
-            cell.setPaddingBottom(10);
+            cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+            cell.setBorder(Rectangle.NO_BORDER);
+            cell.setBackgroundColor(new BaseColor(144, 71, 153));
+            cell.setPadding(5);
             titleConsultaTable.addCell(cell);
             
             // Para las consultas
@@ -180,7 +280,7 @@ public class FichaMedica {
             cell.setBackgroundColor(BaseColor.LIGHT_GRAY);
             tableConsulta.addCell(cell);
 
-            cell = new PdfPCell(new Phrase("Tipo de Consulta", headTableFont));
+            cell = new PdfPCell(new Phrase("Motivo de Consulta", headTableFont));
             cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
             cell.setHorizontalAlignment(Element.ALIGN_CENTER);
             cell.setBackgroundColor(BaseColor.LIGHT_GRAY);
@@ -217,15 +317,256 @@ public class FichaMedica {
                 }
             }
             
+            // Encabezado de Motivos de Consultas
+            PdfPTable titleDescripcionTable = new PdfPTable(1);
+            titleDescripcionTable.setWidthPercentage(100);
+            
+            cell = new PdfPCell(new Paragraph("Motivos de Consultas", headFont));
+            cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+            cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+            cell.setBorder(Rectangle.NO_BORDER);
+            cell.setBackgroundColor(new BaseColor(144, 71, 153));
+            cell.setPadding(5);
+            titleDescripcionTable.addCell(cell);
+            
+            // Para las Observaciones
+            PdfPTable tableDescripcion = new PdfPTable(2);
+            tableDescripcion.setWidthPercentage(100);
+            tableDescripcion.setWidths(new int[]{1,3});
+            
+            cell = new PdfPCell(new Phrase("Fecha Consulta", headTableFont));
+            cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+            cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            cell.setBackgroundColor(BaseColor.LIGHT_GRAY);
+            tableDescripcion.addCell(cell);
+
+            cell = new PdfPCell(new Phrase("Descripción", headTableFont));
+            cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+            cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            cell.setBackgroundColor(BaseColor.LIGHT_GRAY);
+            tableDescripcion.addCell(cell);
+
+            for(Integer iCita = 0; iCita < paciente.getCitaList().size(); iCita++){
+                Cita cita = paciente.getCitaList().get(iCita);
+                for(Integer iConsulta = 0; iConsulta < cita.getConsultaList().size(); iConsulta++){
+                    Consulta consult = cita.getConsultaList().get(iConsulta);
+
+                    cell = new PdfPCell(new Phrase(new DateHandler().getStringFromDate(consult.getFechaConsulta(),"dd/MM/yyyy")));
+                    cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                    cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+                    cell.setBorder(Rectangle.NO_BORDER);
+                    tableDescripcion.addCell(cell);
+
+                    cell = new PdfPCell(new Phrase(consult.getDescripcion()));
+                    cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                    cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+                    cell.setBorder(Rectangle.NO_BORDER);
+                    tableDescripcion.addCell(cell);
+                }
+            }
+            
+            // Encabezado de Observaciones
+            PdfPTable titleObservacionesTable = new PdfPTable(1);
+            titleObservacionesTable.setWidthPercentage(100);
+            
+            cell = new PdfPCell(new Paragraph("Antecedentes de Enfermedad Actual", headFont));
+            cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+            cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+            cell.setBorder(Rectangle.NO_BORDER);
+            cell.setBackgroundColor(new BaseColor(144, 71, 153));
+            cell.setPadding(5);
+            titleObservacionesTable.addCell(cell);
+            
+            // Para las Observaciones
+            PdfPTable tableObservaciones = new PdfPTable(2);
+            tableObservaciones.setWidthPercentage(100);
+            tableObservaciones.setWidths(new int[]{1,3});
+            
+            cell = new PdfPCell(new Phrase("Fecha Consulta", headTableFont));
+            cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+            cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            cell.setBackgroundColor(BaseColor.LIGHT_GRAY);
+            tableObservaciones.addCell(cell);
+
+            cell = new PdfPCell(new Phrase("Descripción", headTableFont));
+            cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+            cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            cell.setBackgroundColor(BaseColor.LIGHT_GRAY);
+            tableObservaciones.addCell(cell);
+
+            for(Integer iCita = 0; iCita < paciente.getCitaList().size(); iCita++){
+                Cita cita = paciente.getCitaList().get(iCita);
+                for(Integer iConsulta = 0; iConsulta < cita.getConsultaList().size(); iConsulta++){
+                    Consulta consult = cita.getConsultaList().get(iConsulta);
+
+                    cell = new PdfPCell(new Phrase(new DateHandler().getStringFromDate(consult.getFechaConsulta(),"dd/MM/yyyy")));
+                    cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                    cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+                    cell.setBorder(Rectangle.NO_BORDER);
+                    tableObservaciones.addCell(cell);
+
+                    cell = new PdfPCell(new Phrase(consult.getObservaciones()));
+                    cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                    cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+                    cell.setBorder(Rectangle.NO_BORDER);
+                    tableObservaciones.addCell(cell);
+                }
+            }
+            
+            // Encabezado de Antecedentes
+            PdfPTable titleAntecedentesTable = new PdfPTable(1);
+            titleAntecedentesTable.setWidthPercentage(100);
+            
+            cell = new PdfPCell(new Paragraph("Antecedentes de Interés", headFont));
+            cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+            cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+            cell.setBorder(Rectangle.NO_BORDER);
+            cell.setBackgroundColor(new BaseColor(144, 71, 153));
+            cell.setPadding(5);
+            titleAntecedentesTable.addCell(cell);
+            
+            // Para las Observaciones
+            PdfPTable tableAntecedentes = new PdfPTable(2);
+            tableAntecedentes.setWidthPercentage(100);
+            tableAntecedentes.setWidths(new int[]{1,3});
+            
+            cell = new PdfPCell(new Phrase("Fecha Consulta", headTableFont));
+            cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+            cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            cell.setBackgroundColor(BaseColor.LIGHT_GRAY);
+            tableAntecedentes.addCell(cell);
+
+            cell = new PdfPCell(new Phrase("Descripción", headTableFont));
+            cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+            cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            cell.setBackgroundColor(BaseColor.LIGHT_GRAY);
+            tableAntecedentes.addCell(cell);
+
+            for(Integer iCita = 0; iCita < paciente.getCitaList().size(); iCita++){
+                Cita cita = paciente.getCitaList().get(iCita);
+                for(Integer iConsulta = 0; iConsulta < cita.getConsultaList().size(); iConsulta++){
+                    Consulta consult = cita.getConsultaList().get(iConsulta);
+
+                    cell = new PdfPCell(new Phrase(new DateHandler().getStringFromDate(consult.getFechaConsulta(),"dd/MM/yyyy")));
+                    cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                    cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+                    cell.setBorder(Rectangle.NO_BORDER);
+                    tableAntecedentes.addCell(cell);
+
+                    cell = new PdfPCell(new Phrase(consult.getAntecedentes()));
+                    cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                    cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+                    cell.setBorder(Rectangle.NO_BORDER);
+                    tableAntecedentes.addCell(cell);
+                }
+            }
+            
+            // Encabezado de Anamnesis
+            PdfPTable titleAnamnesisTable = new PdfPTable(1);
+            titleAnamnesisTable.setWidthPercentage(100);
+            
+            cell = new PdfPCell(new Paragraph("Anamnesis y Exploraciones Físicas", headFont));
+            cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+            cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+            cell.setBorder(Rectangle.NO_BORDER);
+            cell.setBackgroundColor(new BaseColor(144, 71, 153));
+            cell.setPadding(5);
+            titleAnamnesisTable.addCell(cell);
+            
+            // Para las Anamnesis
+            PdfPTable tableAnamnesis = new PdfPTable(2);
+            tableAnamnesis.setWidthPercentage(100);
+            tableAnamnesis.setWidths(new int[]{1,3});
+            
+            cell = new PdfPCell(new Phrase("Fecha Consulta", headTableFont));
+            cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+            cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            cell.setBackgroundColor(BaseColor.LIGHT_GRAY);
+            tableAnamnesis.addCell(cell);
+
+            cell = new PdfPCell(new Phrase("Descripción", headTableFont));
+            cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+            cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            cell.setBackgroundColor(BaseColor.LIGHT_GRAY);
+            tableAnamnesis.addCell(cell);
+
+            for(Integer iCita = 0; iCita < paciente.getCitaList().size(); iCita++){
+                Cita cita = paciente.getCitaList().get(iCita);
+                for(Integer iConsulta = 0; iConsulta < cita.getConsultaList().size(); iConsulta++){
+                    Consulta consult = cita.getConsultaList().get(iConsulta);
+
+                    cell = new PdfPCell(new Phrase(new DateHandler().getStringFromDate(consult.getFechaConsulta(),"dd/MM/yyyy")));
+                    cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                    cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+                    cell.setBorder(Rectangle.NO_BORDER);
+                    tableAnamnesis.addCell(cell);
+
+                    cell = new PdfPCell(new Phrase(consult.getAnamnesis()));
+                    cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                    cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+                    cell.setBorder(Rectangle.NO_BORDER);
+                    tableAnamnesis.addCell(cell);
+                }
+            }
+            
+            // Encabezado de Examenes Complementarios
+            PdfPTable titleExamenesComplementariosTable = new PdfPTable(1);
+            titleExamenesComplementariosTable.setWidthPercentage(100);
+            
+            cell = new PdfPCell(new Paragraph("Exámenes Complementarios", headFont));
+            cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+            cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+            cell.setBorder(Rectangle.NO_BORDER);
+            cell.setBackgroundColor(new BaseColor(144, 71, 153));
+            cell.setPadding(5);
+            titleExamenesComplementariosTable.addCell(cell);
+            
+            // Para las Examenes Complementarios
+            PdfPTable tableExamenesComplementarios = new PdfPTable(2);
+            tableExamenesComplementarios.setWidthPercentage(100);
+            tableExamenesComplementarios.setWidths(new int[]{1,3});
+            
+            cell = new PdfPCell(new Phrase("Fecha Consulta", headTableFont));
+            cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+            cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            cell.setBackgroundColor(BaseColor.LIGHT_GRAY);
+            tableExamenesComplementarios.addCell(cell);
+
+            cell = new PdfPCell(new Phrase("Descripción", headTableFont));
+            cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+            cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            cell.setBackgroundColor(BaseColor.LIGHT_GRAY);
+            tableExamenesComplementarios.addCell(cell);
+
+            for(Integer iCita = 0; iCita < paciente.getCitaList().size(); iCita++){
+                Cita cita = paciente.getCitaList().get(iCita);
+                for(Integer iConsulta = 0; iConsulta < cita.getConsultaList().size(); iConsulta++){
+                    Consulta consult = cita.getConsultaList().get(iConsulta);
+
+                    cell = new PdfPCell(new Phrase(new DateHandler().getStringFromDate(consult.getFechaConsulta(),"dd/MM/yyyy")));
+                    cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                    cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+                    cell.setBorder(Rectangle.NO_BORDER);
+                    tableExamenesComplementarios.addCell(cell);
+
+                    cell = new PdfPCell(new Phrase(consult.getExamenesComplementarios()));
+                    cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                    cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+                    cell.setBorder(Rectangle.NO_BORDER);
+                    tableExamenesComplementarios.addCell(cell);
+                }
+            }
+            
             // Encabezado de dianosticos
             PdfPTable titleDiagnosticoTable = new PdfPTable(1);
             titleDiagnosticoTable.setWidthPercentage(100);
             
             cell = new PdfPCell(new Paragraph("Diagnosticos", headFont));
             cell.setHorizontalAlignment(Element.ALIGN_LEFT);
-            cell.setBorder(Rectangle.BOTTOM);
-            cell.setBackgroundColor(BaseColor.DARK_GRAY);
-            cell.setPaddingBottom(10);
+            cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+            cell.setBorder(Rectangle.NO_BORDER);
+            cell.setBackgroundColor(new BaseColor(144, 71, 153));
+            cell.setPadding(5);
             titleDiagnosticoTable.addCell(cell);
             
             // Para los diagnosticos
@@ -279,15 +620,112 @@ public class FichaMedica {
                 }
             }
             
+            // Encabezado de Evaluaciones Clinicas
+            PdfPTable titleEvaluacionClinicaTable = new PdfPTable(1);
+            titleEvaluacionClinicaTable.setWidthPercentage(100);
+            
+            cell = new PdfPCell(new Paragraph("Exámenes Complementarios", headFont));
+            cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+            cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+            cell.setBorder(Rectangle.NO_BORDER);
+            cell.setBackgroundColor(new BaseColor(144, 71, 153));
+            cell.setPadding(5);
+            titleEvaluacionClinicaTable.addCell(cell);
+            
+            // Para las Evaluaciones Clinicas
+            PdfPTable tableEvaluacionClinica = new PdfPTable(2);
+            tableEvaluacionClinica.setWidthPercentage(100);
+            tableEvaluacionClinica.setWidths(new int[]{1,3});
+            
+            cell = new PdfPCell(new Phrase("Fecha Consulta", headTableFont));
+            cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+            cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            cell.setBackgroundColor(BaseColor.LIGHT_GRAY);
+            tableEvaluacionClinica.addCell(cell);
+
+            cell = new PdfPCell(new Phrase("Descripción", headTableFont));
+            cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+            cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            cell.setBackgroundColor(BaseColor.LIGHT_GRAY);
+            tableEvaluacionClinica.addCell(cell);
+
+            for(Integer iCita = 0; iCita < paciente.getCitaList().size(); iCita++){
+                Cita cita = paciente.getCitaList().get(iCita);
+                for(Integer iConsulta = 0; iConsulta < cita.getConsultaList().size(); iConsulta++){
+                    Consulta consult = cita.getConsultaList().get(iConsulta);
+
+                    cell = new PdfPCell(new Phrase(new DateHandler().getStringFromDate(consult.getFechaConsulta(),"dd/MM/yyyy")));
+                    cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                    cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+                    cell.setBorder(Rectangle.NO_BORDER);
+                    tableEvaluacionClinica.addCell(cell);
+
+                    cell = new PdfPCell(new Phrase(consult.getExamenesComplementarios()));
+                    cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                    cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+                    cell.setBorder(Rectangle.NO_BORDER);
+                    tableEvaluacionClinica.addCell(cell);
+                }
+            }
+            
+            // Encabezado de Ordenes Médicas
+            PdfPTable titleOrdenesMedicasTable = new PdfPTable(1);
+            titleOrdenesMedicasTable.setWidthPercentage(100);
+            
+            cell = new PdfPCell(new Paragraph("Exámenes Complementarios", headFont));
+            cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+            cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+            cell.setBorder(Rectangle.NO_BORDER);
+            cell.setBackgroundColor(new BaseColor(144, 71, 153));
+            cell.setPadding(5);
+            titleOrdenesMedicasTable.addCell(cell);
+            
+            // Para las Examenes Complementarios
+            PdfPTable tableOrdenesMedicas = new PdfPTable(2);
+            tableOrdenesMedicas.setWidthPercentage(100);
+            tableOrdenesMedicas.setWidths(new int[]{1,3});
+            
+            cell = new PdfPCell(new Phrase("Fecha Consulta", headTableFont));
+            cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+            cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            cell.setBackgroundColor(BaseColor.LIGHT_GRAY);
+            tableOrdenesMedicas.addCell(cell);
+
+            cell = new PdfPCell(new Phrase("Descripción", headTableFont));
+            cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+            cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            cell.setBackgroundColor(BaseColor.LIGHT_GRAY);
+            tableOrdenesMedicas.addCell(cell);
+
+            for(Integer iCita = 0; iCita < paciente.getCitaList().size(); iCita++){
+                Cita cita = paciente.getCitaList().get(iCita);
+                for(Integer iConsulta = 0; iConsulta < cita.getConsultaList().size(); iConsulta++){
+                    Consulta consult = cita.getConsultaList().get(iConsulta);
+
+                    cell = new PdfPCell(new Phrase(new DateHandler().getStringFromDate(consult.getFechaConsulta(),"dd/MM/yyyy")));
+                    cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                    cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+                    cell.setBorder(Rectangle.NO_BORDER);
+                    tableOrdenesMedicas.addCell(cell);
+
+                    cell = new PdfPCell(new Phrase(consult.getExamenesComplementarios()));
+                    cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                    cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+                    cell.setBorder(Rectangle.NO_BORDER);
+                    tableOrdenesMedicas.addCell(cell);
+                }
+            }
+            
             // Encabezado de tratamientos
             PdfPTable titleTratamientoTable = new PdfPTable(1);
             titleTratamientoTable.setWidthPercentage(100);
             
             cell = new PdfPCell(new Paragraph("Tratamientos", headFont));
             cell.setHorizontalAlignment(Element.ALIGN_LEFT);
-            cell.setBorder(Rectangle.BOTTOM);
-            cell.setBackgroundColor(BaseColor.DARK_GRAY);
-            cell.setPaddingBottom(10);
+            cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+            cell.setBorder(Rectangle.NO_BORDER);
+            cell.setBackgroundColor(new BaseColor(144, 71, 153));
+            cell.setPadding(5);
             titleTratamientoTable.addCell(cell);
             
             // Para los Tratamientos
@@ -345,11 +783,12 @@ public class FichaMedica {
             PdfPTable titleMedicamentoTable = new PdfPTable(1);
             titleMedicamentoTable.setWidthPercentage(100);
             
-            cell = new PdfPCell(new Paragraph("Medicamentos", headFont));
+            cell = new PdfPCell(new Paragraph("Medicamentos Recetados", headFont));
             cell.setHorizontalAlignment(Element.ALIGN_LEFT);
-            cell.setBorder(Rectangle.BOTTOM);
-            cell.setBackgroundColor(BaseColor.DARK_GRAY);
-            cell.setPaddingBottom(10);
+            cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+            cell.setBorder(Rectangle.NO_BORDER);
+            cell.setBackgroundColor(new BaseColor(144, 71, 153));
+            cell.setPadding(5);
             titleMedicamentoTable.addCell(cell);
             
             // Para los Tratamientos
@@ -406,9 +845,23 @@ public class FichaMedica {
                 }
             }
             
+            // Pie de Página
+            PdfPTable footerTable = new PdfPTable(1);
+            footerTable.setWidthPercentage(100);
+            
+            cell = new PdfPCell(new Paragraph("\"SI TE OLVIDO NO ME OLVIDES\"", title));
+            cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+            cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            cell.setBorder(Rectangle.NO_BORDER);
+            cell.setPadding(5);
+            footerTable.addCell(cell);
+            
             PdfWriter.getInstance(document, bout);
             
             document.open();
+            document.add(headerTable);
+            document.add(new Phrase("\n", normalFont));
+            
             document.add(titleTable);
             document.add(new Phrase("\n", normalFont));
             
@@ -416,12 +869,44 @@ public class FichaMedica {
             document.add(tablePaciente);
             document.add(new Phrase("\n", normalFont));
             
+            document.add(titleContactoTable);
+            document.add(tableContacto);
+            document.add(new Phrase("\n", normalFont));
+            
             document.add(titleConsultaTable);
             document.add(tableConsulta);
             document.add(new Phrase("\n", normalFont));
             
+            document.add(titleDescripcionTable);
+            document.add(tableDescripcion);
+            document.add(new Phrase("\n", normalFont));
+            
+            document.add(titleObservacionesTable);
+            document.add(tableObservaciones);
+            document.add(new Phrase("\n", normalFont));
+            
+            document.add(titleAntecedentesTable);
+            document.add(tableAntecedentes);
+            document.add(new Phrase("\n", normalFont));
+            
+            document.add(titleAnamnesisTable);
+            document.add(tableAnamnesis);
+            document.add(new Phrase("\n", normalFont));
+            
+            document.add(titleExamenesComplementariosTable);
+            document.add(tableExamenesComplementarios);
+            document.add(new Phrase("\n", normalFont));
+            
             document.add(titleDiagnosticoTable);
             document.add(tableDiagnostico);
+            document.add(new Phrase("\n", normalFont));
+            
+            document.add(titleEvaluacionClinicaTable);
+            document.add(tableEvaluacionClinica);
+            document.add(new Phrase("\n", normalFont));
+            
+            document.add(titleOrdenesMedicasTable);
+            document.add(tableOrdenesMedicas);
             document.add(new Phrase("\n", normalFont));
             
             document.add(titleTratamientoTable);
@@ -430,6 +915,9 @@ public class FichaMedica {
             
             document.add(titleMedicamentoTable);
             document.add(tableMedicamento);
+            document.add(new Phrase("\n\n", normalFont));
+            
+            document.add(footerTable);
             
             document.close();
             
