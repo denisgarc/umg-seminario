@@ -169,7 +169,7 @@ public class ConsultaImpresion {
             
             PdfPTable tablePaciente = new PdfPTable(4);
             tablePaciente.setWidthPercentage(100);
-            tablePaciente.setWidths(new int[]{2,3,2,3});
+            tablePaciente.setWidths(new int[]{3,3,3,3});
             
             // 1
             cell = new PdfPCell(new Phrase("Nombres:"));
@@ -196,7 +196,7 @@ public class ConsultaImpresion {
             cell.setBorder(Rectangle.NO_BORDER);
             tablePaciente.addCell(cell);
             
-            cell = new PdfPCell(new Phrase("DPI:"));
+            cell = new PdfPCell(new Phrase(consulta.getIdCita().getIdPaciente().getIdPersona().getIdTipoDocumento().getAbreviatura() + ":"));
             cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
             cell.setHorizontalAlignment(Element.ALIGN_LEFT);
             cell.setBorder(Rectangle.NO_BORDER);
@@ -221,6 +221,30 @@ public class ConsultaImpresion {
             tablePaciente.addCell(cell);
             
             // 3
+            cell = new PdfPCell(new Phrase("Fecha de Nacimiento:"));
+            cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+            cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+            cell.setBorder(Rectangle.NO_BORDER);
+            tablePaciente.addCell(cell);
+            
+            cell = new PdfPCell(new Phrase(new DateHandler().getStringFromDate(consulta.getIdCita().getIdPaciente().getIdPersona().getFecNacimiento(), "dd/MM/yyyy")));
+            cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+            cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+            cell.setBorder(Rectangle.NO_BORDER);
+            tablePaciente.addCell(cell);
+            
+            cell = new PdfPCell(new Phrase("Género:"));
+            cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+            cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+            cell.setBorder(Rectangle.NO_BORDER);
+            tablePaciente.addCell(cell);
+            
+            cell = new PdfPCell(new Phrase(consulta.getIdCita().getIdPaciente().getIdPersona().getSexo()));
+            cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+            cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+            cell.setBorder(Rectangle.NO_BORDER);
+            tablePaciente.addCell(cell);
+            
             cell = new PdfPCell(new Phrase("Fecha de Alta:"));
             cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
             cell.setHorizontalAlignment(Element.ALIGN_LEFT);
@@ -261,7 +285,7 @@ public class ConsultaImpresion {
             
             PdfPTable tableContacto = new PdfPTable(4);
             tableContacto.setWidthPercentage(100);
-            tableContacto.setWidths(new int[]{2,3,2,3});
+            tableContacto.setWidths(new int[]{3,3,3,3});
             
             cell = new PdfPCell(new Phrase("Nombre:"));
             cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
