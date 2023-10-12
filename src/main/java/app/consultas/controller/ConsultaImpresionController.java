@@ -58,6 +58,7 @@ public class ConsultaImpresionController extends HttpServlet {
             if(request.getParameter("codigo") != null){
                 idConsulta = Long.parseLong(request.getParameter("codigo"));
                 Consulta consulta = consultaService.find(idConsulta);
+                String path = getServletContext().getRealPath("/");
 
                 ByteArrayOutputStream baos = ConsultaImpresion.getResume(consulta);
                 baos.writeTo(out);

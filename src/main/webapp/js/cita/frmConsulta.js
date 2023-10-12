@@ -22,6 +22,11 @@ var newConsulta = {
     empleadoNombre: '',
     descripcion: '',
     observaciones: '',
+    antecedentes: '',
+    anamnesis: '',
+    examenesComplementarios: '',
+    evaluacionClinica: '',
+    ordenesMedicas: '',
     activo: 'S'
 };
 
