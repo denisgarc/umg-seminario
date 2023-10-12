@@ -7,7 +7,7 @@
     </head>
     <body>
         <script src="../js/persona/frmPaciente.js" type="text/javascript"></script>
-        <div class="">
+        <div class="container-fluid">
             <div class="card">
                 <h3 class="card-header text-center bg-secondary text-white">Mantenimiento de Pacientes</h3>
                 <div class="card-body border border-secondary">
@@ -20,7 +20,7 @@
                     <div class="row">
                         <div class="col-12 col-sm-12 col-md-12 col-lg-12">
                             <div class="table-responsive">
-                                <table id="tblPaciente" class="table table-hover table-sm isDataTable withOutAutoFit isAjaxTable" 
+                                <table id="tblPaciente" class="table table-hover table-sm isDataTable isResponsiveTable withOutAutoFit isAjaxTable" 
                                        data-url="<%= request.getContextPath()%>/PacienteController" data-method="GET" data-src=""
                                        data-show-buttons="true">
                                     <thead class="bg-blue-light text-white">
