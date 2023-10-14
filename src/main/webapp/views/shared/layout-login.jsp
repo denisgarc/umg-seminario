@@ -11,7 +11,7 @@
         <!-- imports -->
         <%@include file="./vendor.jsp" %>
     </head>
-    <body class="text-center bg-blue-dark">
+    <body class="text-center bg-primary">
         <sitemesh:write property='body'></sitemesh:write>
     </body>
 </html>

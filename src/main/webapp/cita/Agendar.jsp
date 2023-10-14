@@ -11,7 +11,7 @@
             <form id="frmCita" >
                 <div class="card">
                     <div class="card-body">
-                        <div id="smartwizard" class="isStepWizard withOutButton">
+                            <div id="smartwizard" class="isStepWizard withOutButton">
                             <ul>
                                 <li><a href="#step-1">Cita<br />
                                         <small>Datos de la Cita</small></a></li>
@@ -84,7 +84,7 @@
                                         </div>
                                     </div>
                                     <div class="card">
-                                        <h4 class="card-header bg-blue-dark text-white">Datos Médicos</h4>
+                                        <h4 class="card-header bg-secondary">Datos Médicos</h4>
                                         <div class="card-body">
                                             <form></form>
                                             <form id="frmPaciente">
@@ -186,7 +186,7 @@
                                         </div>
                                     </div>
                                     <div class="card">
-                                        <h4 class="card-header bg-blue-dark text-white">Datos Personales</h4>
+                                        <h4 class="card-header bg-secondary">Datos Personales</h4>
                                         <div class="card-body">
                                             <%@include file="../views/shared/person-maintenance.jsp" %>
                                         </div>
@@ -213,7 +213,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row">
+                                    <!--div class="row">
                                         <div class="col-12 col-sm-12 col-md-12 col-lg-12">
                                             <div class="form-group" id="frmSelectHospital">
                                                 <label for="idClinica" class="label">Seleccione una Clinica del Hospital</label>
@@ -250,7 +250,7 @@
                                                 <span id="idSala_error_msg" class="validator_error"></span>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div-->
                                 </div>
                             </div>
                         </div>

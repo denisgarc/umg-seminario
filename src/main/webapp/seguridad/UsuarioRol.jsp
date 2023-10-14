@@ -9,7 +9,7 @@
         <script src="../js/seguridad/frmUsuarioRol.js" type="text/javascript"></script>
         <div class="container">
             <div class="card">
-                <h5 class="card-header bg-secondary text-white">Usuario Seleccionado</h5>
+                <h5 class="card-header bg-secondary">Usuario Seleccionado</h5>
                 <div class="card-body border border-secondary">
                     <form id="frmBusqueda">
                         <div class="row" >
@@ -36,7 +36,7 @@
                 </div>
             </div>
             <div class="card" id="divRoles">
-                <h5 class="card-header bg-secondary text-white">Roles Asignados</h5>
+                <h5 class="card-header bg-secondary">Roles Asignados</h5>
                 <div class="card-body border border-secondary">
                     <div class="row">
                         <div class="col-12">

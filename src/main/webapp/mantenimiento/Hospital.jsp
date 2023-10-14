@@ -9,52 +9,37 @@
         <script src="../js/mantenimiento/frmHospital.js" type="text/javascript"></script>
         <div class="container">
             <div class="row">
-                <div class="col-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <ul class="nav nav-tabs nav-fill card-header-tabs" id="opcionesTab" role="tablist">
-                                <li class="nav-item" role="presentation">
-                                    <a class="nav-link active" id="listado-tab" data-toggle="tab" href="#listado" role="tab" aria-controls="listado" aria-selected="true">Listado de Hospitales</a>
-                                </li>
-                                <li class="nav-item" role="presentation">
-                                    <a class="nav-link" id="mantenimiento-tab" data-toggle="tab" href="#mantenimiento" role="tab" aria-controls="mantenimiento" aria-selected="false">Detalle</a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="card-body">
-                            <div class="tab-content" id="listadoTabContent">
-                                <div class="tab-pane fade show active" id="listado" role="tabpanel" aria-labelledby="evaluaciones-tab">
-                                    <div class="container-fluid">
-                                        <div class="row">
-                                            <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-                                                <div class="card">
-                                                    <h3 class="card-header text-center bg-secondary text-white">Mantenimiento de Hospitales</h3>
-                                                    <div class="card-body border border-secondary">
-                                                        <div class="row">
-                                                            <div class="col-12 col-sm-6 col-md-3 col-lg-3">
-                                                                <button id="btnAdd" class="btn btn-outline-info btn-block" onclick="loadNew();"><i class="fas fa-plus"></i> Agregar</button>
-                                                            </div>
-                                                        </div>
-                                                        <hr>
-                                                        <div class="row">
-                                                            <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-                                                                <div class="table-responsive">
-                                                                    <table id="tblHospital" class="table table-hover table-sm isDataTable withOutAutoFit isAjaxTable" 
-                                                                           data-url="<%= request.getContextPath()%>/HospitalController" data-method="GET" data-src=""
-                                                                           data-show-buttons="true">
-                                                                        <thead class="bg-blue-light text-white">
-                                                                            <tr>
-                                                                                <th class="text-center" data-key="idHospital">Código</th>
-                                                                                <th class="text-center" data-key="nombre">Nombre</th>
-                                                                                <th class="text-center" data-key="direccion">Dirección</th>
-                                                                                <th class="text-center" data-key="telefonos">Telefonos</th>
-                                                                                <th class="text-center" data-key="activo">Activo</th>
-                                                                                <th class="text-center">Acciones</th>
-                                                                            </tr>
-                                                                        </thead>
-                                                                    </table>
-                                                                </div>
-                                                            </div>
+                <div class="col-12">                   
+                    <div class="card-body">
+                       <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                                        <div class="card">
+                                            <h3 class="card-header text-center bg-secondary">Mantenimiento de Hospitales</h3>
+                                            <div class="card-body border border-secondary">
+                                                <div class="row">
+                                                    <div class="col-12 col-sm-6 col-md-3 col-lg-3">
+                                                        <button id="btnAdd" class="btn btn-outline-info btn-block" onclick="loadNew();"><i class="fas fa-plus"></i> Agregar</button>
+                                                    </div>
+                                                </div>
+                                                <hr>
+                                                <div class="row">
+                                                    <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                                                        <div class="table-responsive">
+                                                            <table id="tblHospital" class="table table-hover table-sm isDataTable withOutAutoFit isAjaxTable" 
+                                                                   data-url="<%= request.getContextPath()%>/HospitalController" data-method="GET" data-src=""
+                                                                   data-show-buttons="true">
+                                                                <thead class="bg-blue-light text-white">
+                                                                    <tr>
+                                                                        <th class="text-center" data-key="idHospital">Código</th>
+                                                                        <th class="text-center" data-key="nombre">Nombre</th>
+                                                                        <th class="text-center" data-key="direccion">Dirección</th>
+                                                                        <th class="text-center" data-key="telefonos">Telefonos</th>
+                                                                        <th class="text-center" data-key="activo">Activo</th>
+                                                                        <th class="text-center">Acciones</th>
+                                                                    </tr>
+                                                                </thead>
+                                                            </table>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -62,141 +47,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="tab-pane fade" id="mantenimiento" role="tabpanel" aria-labelledby="cuestionarios-tab">
-                                    <div class="container-fluid">
-                                        <div class="row">
-                                            <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-                                                <div class="card">
-                                                    <div class="card-body border border-secondary">
-                                                        <div class="row">
-                                                            <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-                                                                <div class="form-group" id="frmSelectHospital">
-                                                                    <label for="ddlHospital" class="label text-danger">Seleccione un Hospital</label>
-                                                                    <div class="input-group">
-                                                                        <select id="ddlHospital" 
-                                                                                name="idHospital" 
-                                                                                class="form-control"
-                                                                                data-message-control="ddlHospital_error_msg_data_required"
-                                                                                data-required data-required-msg="El campo Especialización es requerido"
-                                                                                data-select-value-different="0"
-                                                                                data-select-value-different-msg="Por favor seleccione un Hospital">
-                                                                            <option value="-1" selected>- Seleccione uno -</option>
-                                                                        </select>
-                                                                        <button type="button" class="btn btn-outline-info" onclick="loadDetail();"><i class="fas fa-info-circle"></i> Detalles</button>
-                                                                    </div>
-                                                                    <span id="ddlHospital_error_msg_data_required" class="validator_error"></span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <hr>
-                                        <div class="row">
-                                            <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-                                                <div class="card">
-                                                    <h3 class="card-header text-center bg-secondary text-white">Salas del Hospital</h3>
-                                                    <div class="card-body border border-secondary">
-                                                        <div class="row">
-                                                            <div class="col-12 col-sm-6 col-md-3 col-lg-3">
-                                                                <button id="btnAdd" class="btn btn-outline-info btn-block" onclick="loadNewSala();"><i class="fas fa-plus"></i> Agregar</button>
-                                                            </div>
-                                                        </div>
-                                                        <hr>
-                                                        <div class="row">
-                                                            <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-                                                                <div class="table-responsive">
-                                                                    <table id="tblHospitalSala" class="table table-hover table-sm isDataTable withOutAutoFit isAjaxTable" 
-                                                                           data-url="<%= request.getContextPath()%>/HospitalSalaController" data-method="GET" data-src=""
-                                                                           data-show-buttons="true">
-                                                                        <thead class="bg-blue-light text-white">
-                                                                            <tr>
-                                                                                <th class="text-center" data-key="hospitalSalaPK.idSala">Código</th>
-                                                                                <th class="text-center" data-key="descripcion">Descripcion</th>
-                                                                                <th class="text-center" data-key="activo">Activo</th>
-                                                                                <th class="text-center">Acciones</th>
-                                                                            </tr>
-                                                                        </thead>
-                                                                    </table>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <hr>                         
-                                        <div class="row">
-                                            <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-                                                <div class="card">
-                                                    <h3 class="card-header text-center bg-secondary text-white">Clinicas del Hospital</h3>
-                                                    <div class="card-body border border-secondary">
-                                                        <div class="row">
-                                                            <div class="col-12 col-sm-6 col-md-3 col-lg-3">
-                                                                <button id="btnAdd" class="btn btn-outline-info btn-block" onclick="loadNewClinica();"><i class="fas fa-plus"></i> Agregar</button>
-                                                            </div>
-                                                        </div>
-                                                        <hr>
-                                                        <div class="row">
-                                                            <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-                                                                <div class="table-responsive">
-                                                                    <table id="tblHospitalClinica" class="table table-hover table-sm isDataTable withOutAutoFit isAjaxTable" 
-                                                                           data-url="<%= request.getContextPath()%>/HospitalClinicaController" data-method="GET" data-src=""
-                                                                           data-show-buttons="true">
-                                                                        <thead class="bg-blue-light text-white">
-                                                                            <tr>
-                                                                                <th class="text-center" data-key="hospitalClinicaPK.idClinica">Código</th>
-                                                                                <th class="text-center" data-key="descripcion">Descripcion</th>
-                                                                                <th class="text-center" data-key="activo">Activo</th>
-                                                                                <th class="text-center">Acciones</th>
-                                                                            </tr>
-                                                                        </thead>
-                                                                    </table>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <hr>             
-                                        <div class="row">
-                                            <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-                                                <div class="card">
-                                                    <h3 class="card-header text-center bg-secondary text-white">Horarios del Hospital</h3>
-                                                    <div class="card-body border border-secondary">
-                                                        <div class="row">
-                                                            <div class="col-12 col-sm-6 col-md-3 col-lg-3">
-                                                                <button id="btnAdd" class="btn btn-outline-info btn-block" onclick="loadNewHorario();"><i class="fas fa-plus"></i> Agregar</button>
-                                                            </div>
-                                                        </div>
-                                                        <hr>
-                                                        <div class="row">
-                                                            <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-                                                                <div class="table-responsive">
-                                                                    <table id="tblHospitalHorario" class="table table-hover table-sm isDataTable withOutAutoFit isAjaxTable" 
-                                                                           data-url="<%= request.getContextPath()%>/HospitalHorarioController" data-method="GET" data-src=""
-                                                                           data-show-buttons="true">
-                                                                        <thead class="bg-blue-light text-white">
-                                                                            <tr>
-                                                                                <th class="text-center" data-key="hospitalHorarioPK.idHorario">Código</th>
-                                                                                <th class="text-center" data-key="descripcion">Descripcion</th>
-                                                                                <th class="text-center" data-key="activo">Activo</th>
-                                                                                <th class="text-center">Acciones</th>
-                                                                            </tr>
-                                                                        </thead>
-                                                                    </table>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                             </div>
                         </div>
                     </div>
                 </div>
