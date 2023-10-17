@@ -25,7 +25,7 @@
                     <input type="text" id="inputUser" class="form-control" name="user" placeholder="Usuario" autocomplete="off" required min="1" autofocus data-required data-required-msg="El campo Nombre es requerido" >
                     <label for="inputPassword" class="sr-only">Contraseña</label>
                     <input type="password" id="inputPassword" class="form-control" name="password" placeholder="Contraseña" min="1" required data-required data-required-msg="El campo Nombre es requerido" >
-                    <button class="btn btn-lg btn-success btn-block" type="button" onclick="submitForm()">Iniciar Sesión</button>
+                    <button class="btn btn-lg btn-info btn-block " type="button" onclick="submitForm()">Iniciar Sesión</button>
                     <p class="mt-5 mb-3 text-muted">&copy; 2020-2021</p>
 
                 </div>

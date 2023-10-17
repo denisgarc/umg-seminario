@@ -9,7 +9,7 @@
         <script src="../js/seguridad/frmRol.js" type="text/javascript"></script>
         <div class="container">
             <div class="card">
-                <h3 class="card-header text-center bg-secondary text-white">Mantenimiento de Roles</h3>
+                <h3 class="card-header text-center bg-secondary">Mantenimiento de Roles</h3>
                 <div class="card-body border border-secondary">
                     <div class="row">
                         <div class="col-6 col-sm-6 col-md-3 col-lg-3">
