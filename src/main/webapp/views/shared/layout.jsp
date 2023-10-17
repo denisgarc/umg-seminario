@@ -17,8 +17,10 @@
         
         <div class="container-fluid">
             <!-- content -->
-            <main role="main" class="col-12">
-                <sitemesh:write property='body'></sitemesh:write>
+            <main role="main" class="row">
+                <div class="col-12">
+                    <sitemesh:write property='body'></sitemesh:write>
+                </div>
             </main>
         </div>
     

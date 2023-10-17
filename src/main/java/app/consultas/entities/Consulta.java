@@ -59,14 +59,29 @@ public class Consulta implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     @Expose
     private Date fechaConsulta;
-    @Size(max = 250)
+    /*@Size(max = 250)*/
     @Column(name = "DESCRIPCION")
     @Expose
     private String descripcion;
-    @Size(max = 500)
+    /*@Size(max = 500)*/
     @Column(name = "OBSERVACIONES")
     @Expose
     private String observaciones;
+    @Column(name = "ANTECEDENTES")
+    @Expose
+    private String antecedentes;
+    @Column(name = "ANAMNESIS")
+    @Expose
+    private String anamnesis;
+    @Column(name = "EXAMENES_COMPLEMENTARIOS")
+    @Expose
+    private String examenesComplementarios;
+    @Column(name = "EVALUACION_CLINICA")
+    @Expose
+    private String evaluacionClinica;
+    @Column(name = "ORDENES_MEDICAS")
+    @Expose
+    private String ordenesMedicas;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 1)
@@ -139,6 +154,46 @@ public class Consulta implements Serializable {
         this.observaciones = observaciones;
     }
 
+    public String getAntecedentes() {
+        return antecedentes;
+    }
+
+    public void setAntecedentes(String antecedentes) {
+        this.antecedentes = antecedentes;
+    }
+
+    public String getAnamnesis() {
+        return anamnesis;
+    }
+
+    public void setAnamnesis(String amnesis) {
+        this.anamnesis = amnesis;
+    }
+
+    public String getExamenesComplementarios() {
+        return examenesComplementarios;
+    }
+
+    public void setExamenesComplementarios(String examenesComplementarios) {
+        this.examenesComplementarios = examenesComplementarios;
+    }
+
+    public String getEvaluacionClinica() {
+        return evaluacionClinica;
+    }
+
+    public void setEvaluacionClinica(String evaluacionClinica) {
+        this.evaluacionClinica = evaluacionClinica;
+    }
+
+    public String getOrdenesMedicas() {
+        return ordenesMedicas;
+    }
+
+    public void setOrdenesMedicas(String ordenesMedicas) {
+        this.ordenesMedicas = ordenesMedicas;
+    }
+    
     public String getActivo() {
         return activo;
     }

@@ -76,7 +76,7 @@
                     <div class="row">
                         <div class="col-12 col-sm-12 col-md-12 col-lg-12">
                             <div class="table-responsive">
-                                <table id="tblConsultas" class="table table-hover table-sm isDataTableConsulta withOutAutoFit isAjaxTable" 
+                                <table id="tblConsultas" class="table table-hover table-sm isDataTableConsulta isResponsiveTable withOutAutoFit isAjaxTable" 
                                        data-url="<%= request.getContextPath()%>/ConsultaBusquedaController" data-method="GET" data-src=""
                                        data-show-buttons="true"
                                        data-buttons="true">

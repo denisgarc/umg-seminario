@@ -64,7 +64,7 @@
                                                         </div>
                                                         <div class="col-12 col-sm-6 col-md-6 col-lg-6">
                                                             <div class="form-group">
-                                                                <label for="fechaConsulta" class="label">Fecha de Consulta</label>
+                                                                <label for="fechaConsulta" class="label">Fecha de Consulta (*)</label>
                                                                 <input type="text" class="form-control isDatePicker" 
                                                                        id="fechaConsulta" 
                                                                        name="fechaConsulta"
@@ -102,7 +102,7 @@
                                                     <div class="row">
                                                         <div class="col-12 col-sm-3 col-md-3 col-lg-3">
                                                             <div class="form-group" id="frmSelectHospital">
-                                                                <label for="idHospital" class="label">Tipo de Consulta</label>
+                                                                <label for="idHospital" class="label">Motivo de Consulta (*)</label>
                                                                 <div class="input-group">
                                                                     <select id="idTipoConsulta" 
                                                                             name="idTipoConsulta" 
@@ -119,7 +119,7 @@
                                                         </div>
                                                         <div class="col-12 col-sm-9 col-md-9 col-lg-9">
                                                             <div class="form-group">
-                                                                <label for="">Médico que Atiende</label>
+                                                                <label for="">Médico que Atiende (*)</label>
                                                                 <div class="input-group">
                                                                     <input id="idEmpleado" name="idEmpleado" style="display:none">
                                                                     <span class="input-group-text"><i class="fas fa-search"></i></span>
@@ -138,23 +138,79 @@
                                                     <div class="row">
                                                         <div class="col-12 col-sm-6 col-md-6 col-lg-6">
                                                             <div class="form-group">
-                                                                <label for="descripcion">Descripción</label>
+                                                                <label for="descripcion">Descripción de Consulta (*)</label>
                                                                 <textarea id="descripcion" name="descripcion" rows="5"
                                                                           class="form-control"
-                                                                          maxlength="250" 
-                                                                          data-required data-required-msg="El campo Fecha de Consulta es requerido"
-                                                                          data-max-length="250"
-                                                                          data-max-length-msg="Solo se pueden ingresar 250 caracteres"></textarea>
+                                                                          maxlength="5000" 
+                                                                          data-required data-required-msg="El campo Descripción de Consulta es requerido"
+                                                                          data-max-length="5000"
+                                                                          data-max-length-msg="Solo se pueden ingresar 5000 caracteres"></textarea>
                                                             </div>
                                                         </div>
                                                         <div class="col-12 col-sm-6 col-md-6 col-lg-6">
                                                             <div class="form-group">
-                                                                <label for="observaciones">Observaciones</label>
-                                                                <textarea id="descripcion" name="observaciones" rows="5"
+                                                                <label for="observaciones">Antecedentes de Enfermadad Actual</label>
+                                                                <textarea id="observaciones" name="observaciones" rows="5"
                                                                           class="form-control"
-                                                                          maxlength="250" 
-                                                                          data-max-length="250"
-                                                                          data-max-length-msg="Solo se pueden ingresar 250 caracteres"></textarea>
+                                                                          maxlength="5000" 
+                                                                          data-max-length="5000"
+                                                                          data-max-length-msg="Solo se pueden ingresar 5000 caracteres"></textarea>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-12 col-sm-6 col-md-6 col-lg-6">
+                                                            <div class="form-group">
+                                                                <label for="descripcion">Antecedentes de Interés</label>
+                                                                <textarea id="antecedentes" name="antecedentes" rows="5"
+                                                                          class="form-control"
+                                                                          maxlength="5000" 
+                                                                          data-max-length="5000"
+                                                                          data-max-length-msg="Solo se pueden ingresar 5000 caracteres"></textarea>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-12 col-sm-6 col-md-6 col-lg-6">
+                                                            <div class="form-group">
+                                                                <label for="observaciones">Anamnesis y Exploración Física</label>
+                                                                <textarea id="anamnesis" name="anamnesis" rows="5"
+                                                                          class="form-control"
+                                                                          maxlength="5000" 
+                                                                          data-max-length="5000"
+                                                                          data-max-length-msg="Solo se pueden ingresar 5000 caracteres"></textarea>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-12 col-sm-6 col-md-6 col-lg-6">
+                                                            <div class="form-group">
+                                                                <label for="descripcion">Exámenes Complementarios de Laboratorio</label>
+                                                                <textarea id="examenesComplementarios" name="examenesComplementarios" rows="5"
+                                                                          class="form-control"
+                                                                          maxlength="5000" 
+                                                                          data-max-length="5000"
+                                                                          data-max-length-msg="Solo se pueden ingresar 5000 caracteres"></textarea>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-12 col-sm-6 col-md-6 col-lg-6">
+                                                            <div class="form-group">
+                                                                <label for="observaciones">Datos Sobre Evaluación Clínica</label>
+                                                                <textarea id="evaluacionClinica" name="evaluacionClinica" rows="5"
+                                                                          class="form-control"
+                                                                          maxlength="5000" 
+                                                                          data-max-length="5000"
+                                                                          data-max-length-msg="Solo se pueden ingresar 5000 caracteres"></textarea>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-12 col-sm-6 col-md-6 col-lg-6">
+                                                            <div class="form-group">
+                                                                <label for="descripcion">Ordenes Médicas</label>
+                                                                <textarea id="ordenesMedicas" name="ordenesMedicas" rows="5"
+                                                                          class="form-control"
+                                                                          maxlength="5000" 
+                                                                          data-max-length="5000"
+                                                                          data-max-length-msg="Solo se pueden ingresar 5000 caracteres"></textarea>
                                                             </div>
                                                         </div>
                                                     </div>
