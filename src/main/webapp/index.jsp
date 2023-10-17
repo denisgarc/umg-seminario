@@ -12,7 +12,7 @@
     </head>
     <body>
         <div class="container">
-            <img src="images/bienvenido.png" class="img-fluid" style="max-width: 70%" alt=""/>
+            <img src="images/logoErmita.png" class="img-fluid" style="max-width: 50%;" alt=""/>
         </div>
     </body>
 </html>
