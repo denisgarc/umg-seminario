@@ -6,6 +6,7 @@
 package app.consultas.dal;
 
 import app.consultas.entities.Paciente;
+import app.consultas.entities.PacienteStatistics;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -59,4 +60,24 @@ public class PacienteFacade extends AbstractFacade<Paciente> {
         em.flush();
         return entity.getIdPaciente();
     }
+    
+    public PacienteStatistics getPacienteStatistics() {
+    try {
+        Query q = em.createNativeQuery("SELECT COUNT(T1.SEXO) AS TOTAL, " +
+                "SUM(CASE WHEN T1.SEXO = 'M' THEN 1 ELSE 0 END) AS HOMBRES, " +
+                "SUM(CASE WHEN T1.SEXO = 'F' THEN 1 ELSE 0 END) AS MUJERES " +
+                "FROM DOXLAJ.PACIENTE T0 " +
+                "INNER JOIN DOXLAJ.PERSONA T1 ON T0.ID_PERSONA = T1.ID_PERSONA");
+        
+        Object[] result = (Object[]) q.getSingleResult();
+        int total = ((Number) result[0]).intValue();
+        int hombres = ((Number) result[1]).intValue();
+        int mujeres = ((Number) result[2]).intValue();
+
+        return new PacienteStatistics(total, hombres, mujeres);
+    } catch (NoResultException nr) {
+        return new PacienteStatistics(0, 0, 0);
+    }
+}
+    
 }

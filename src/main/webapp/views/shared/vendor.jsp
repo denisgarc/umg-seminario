@@ -62,3 +62,6 @@
 
 <!-- jquery treegrid -->
 
+<!--Francisco Lopez - dependencia de graficas-->
+<script src="${req.contextPath}/scripts/canvasjs-chart-3.7.23/canvasjs.min.js" type="text/javascript"></script>
+

@@ -43,13 +43,18 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Paciente.findByNumeroSeguro", query = "SELECT p FROM Paciente p WHERE p.numeroSeguro = :numeroSeguro"),
     @NamedQuery(name = "Paciente.findByTipoSangre", query = "SELECT p FROM Paciente p WHERE p.tipoSangre = :tipoSangre"),
     @NamedQuery(name = "Paciente.findByFuma", query = "SELECT p FROM Paciente p WHERE p.fuma = :fuma"),
-    @NamedQuery(name = "Paciente.findByActivo", query = "SELECT p FROM Paciente p WHERE p.activo = :activo")})
+    @NamedQuery(name = "Paciente.findByActivo", query = "SELECT p FROM Paciente p WHERE p.activo = :activo")
+        
+        
+}
+)
 public class Paciente implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @NotNull
+    @NotNull      
+    
     @Column(name = "ID_PACIENTE")
     @Expose
     @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -100,8 +105,8 @@ public class Paciente implements Serializable {
         this.idPaciente = idPaciente;
         this.fuma = fuma;
         this.activo = activo;
-    }
-
+    }   
+    
     public Long getIdPaciente() {
         return idPaciente;
     }
