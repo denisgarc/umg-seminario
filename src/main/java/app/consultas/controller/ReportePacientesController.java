@@ -4,8 +4,15 @@
  */
 package app.consultas.controller;
 
+import app.consultas.dal.PacienteFacade;
+import app.consultas.entities.PacienteStatistics;
+import app.consultas.util.JsonHandler;
+import com.google.gson.JsonObject;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.ejb.EJB;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -20,8 +27,11 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Francisco Lopez
  */
-@WebServlet(name = "ReportePacientesController", urlPatterns = {"/ReportePacientes"})
+//@WebServlet(name = "ReportePacientesController", urlPatterns = {"/ReportePacientes"})
 public class ReportePacientesController extends HttpServlet {
+    
+    @EJB
+    private PacienteFacade pacienteService;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,45 +45,53 @@ public class ReportePacientesController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
-// Crear una instancia de EntityManagerFactory y EntityManager
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("my_persistence_unit");
-        EntityManager em = emf.createEntityManager();
-
-        // Realizar la consulta SQL
-        String sql = "SELECT"+
-    "COUNT(T1.SEXO) AS TOTAL,"+
-"sum(CASE WHEN T1.SEXO =  'M' THEN 1 ELSE 0 END) AS HOMBRES,"+
-"sum(CASE WHEN T1.SEXO =  'F' THEN 1 ELSE 0 END) AS MUJERES"+
-    "FROM DOXLAJ.PACIENTE T0 "+
-"INNER JOIN DOXLAJ.PERSONA T1 ON T0.ID_PERSONA = T1.ID_PERSONA";
-
-
-        Query query = em.createNativeQuery(sql);
-        Object[] result = (Object[]) query.getSingleResult();
-        
-        int total = ((Number) result[0]).intValue();
-        int hombres = ((Number) result[1]).intValue();
-        int mujeres = ((Number) result[2]).intValue();
-
-        // Almacenar los resultados como atributos en el objeto request
-        request.setAttribute("total", total);
-        request.setAttribute("hombres", hombres);
-        request.setAttribute("mujeres", mujeres);
-
-        // Redirigir a la vista JSP
-        request.getRequestDispatcher("/ReportePacientes.jsp").forward(request, response);
+        try (PrintWriter out = response.getWriter()) {
+            JsonObject result = null;
+            if (request.getMethod() == "GET") {
+                PacienteStatistics pacienteStatistics = pacienteService.getPacienteStatistics();
+                result = new JsonHandler().ToJson(pacienteStatistics);
+            }
+        out.write(result.toString());
+        } catch (Exception ex) {
+            Logger.getLogger(CitaController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
-
+    
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    /**
+     * Handles the HTTP <code>GET</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
 
+    /**
+     * Handles the HTTP <code>POST</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
+    /**
+     * Returns a short description of the servlet.
+     *
+     * @return a String containing servlet description
+     */
+    @Override
+    public String getServletInfo() {
+        return "Short description";
+    }// </editor-fold>
 }

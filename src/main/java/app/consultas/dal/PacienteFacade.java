@@ -63,18 +63,21 @@ public class PacienteFacade extends AbstractFacade<Paciente> {
     
     public PacienteStatistics getPacienteStatistics() {
     try {
-        Query q = em.createNativeQuery("SELECT COUNT(T1.SEXO) AS TOTAL, " +
+        Query query = em.createNativeQuery("SELECT COUNT(T1.SEXO) AS TOTAL, " +
                 "SUM(CASE WHEN T1.SEXO = 'M' THEN 1 ELSE 0 END) AS HOMBRES, " +
                 "SUM(CASE WHEN T1.SEXO = 'F' THEN 1 ELSE 0 END) AS MUJERES " +
-                "FROM DOXLAJ.PACIENTE T0 " +
-                "INNER JOIN DOXLAJ.PERSONA T1 ON T0.ID_PERSONA = T1.ID_PERSONA");
-        
-        Object[] result = (Object[]) q.getSingleResult();
+                "FROM ErmitaCitasDB.PACIENTE T0 " +
+                "INNER JOIN ErmitaCitasDB.PERSONA T1 ON T0.ID_PERSONA = T1.ID_PERSONA");
+       
+        Object[] result = (Object[]) query.getSingleResult();
         int total = ((Number) result[0]).intValue();
         int hombres = ((Number) result[1]).intValue();
         int mujeres = ((Number) result[2]).intValue();
 
         return new PacienteStatistics(total, hombres, mujeres);
+        
+        /*List<PacienteStatistics> result = query.getResultList();
+        return result.get(0);*/
     } catch (NoResultException nr) {
         return new PacienteStatistics(0, 0, 0);
     }

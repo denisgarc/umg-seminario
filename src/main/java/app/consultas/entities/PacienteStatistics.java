@@ -1,8 +1,16 @@
 package app.consultas.entities;
 
-public class PacienteStatistics {
+import com.google.gson.annotations.Expose;
+import java.io.Serializable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+
+public class PacienteStatistics implements Serializable {
+    @Expose
     private int total;
+    @Expose
     private int hombres;
+    @Expose
     private int mujeres;
 
     public PacienteStatistics(int total, int hombres, int mujeres) {
