@@ -6,6 +6,7 @@
 package app.consultas.dal;
 
 import app.consultas.entities.Empleado;
+import app.consultas.entities.PersonalStatistics;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -43,4 +44,30 @@ public class EmpleadoFacade extends AbstractFacade<Empleado> {
             return new ArrayList<Empleado>();
         }
     }
+    
+    /* -------------------- Cambios de Francisco Lopez -------------------- */
+    
+            public PersonalStatistics getPersonalStatistics() {
+    try {
+        Query query = em.createNativeQuery("SELECT COUNT(T1.SEXO) AS TOTAL, " +
+                "SUM(CASE WHEN T1.SEXO = 'M' THEN 1 ELSE 0 END) AS HOMBRES, " +
+                "SUM(CASE WHEN T1.SEXO = 'F' THEN 1 ELSE 0 END) AS MUJERES " +
+                "FROM DOXLAJ.EMPLEADO T0 " +
+                "INNER JOIN DOXLAJ.PERSONA T1 ON T0.ID_PERSONA = T1.ID_PERSONA");
+       
+        Object[] result = (Object[]) query.getSingleResult();
+        int total = ((Number) result[0]).intValue();
+        int hombres = ((Number) result[1]).intValue();
+        int mujeres = ((Number) result[2]).intValue();
+
+        return new PersonalStatistics(total, hombres, mujeres);
+        
+        /*List<PacienteStatistics> result = query.getResultList();
+        return result.get(0);*/
+    } catch (NoResultException nr) {
+        return new PersonalStatistics(0, 0, 0);
+    }
+}
+            
+            /* -------------------- Cambios de Francisco Lopez -------------------- */
 }

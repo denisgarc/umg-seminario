@@ -144,10 +144,6 @@
         <servlet-name>ReportePacientesController</servlet-name>
         <servlet-class>app.consultas.controller.ReportePacientesController</servlet-class>
     </servlet>
-    <servlet>
-        <servlet-name>ResultadosServlet</servlet-name>
-        <servlet-class>app.consultas.controller.ResultadosServlet</servlet-class>
-    </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/LoginController</url-pattern>
@@ -291,10 +287,6 @@
     <servlet-mapping>
         <servlet-name>ReportePacientesController</servlet-name>
         <url-pattern>/ReportePacientes</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ResultadosServlet</servlet-name>
-        <url-pattern>/ResultadosServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

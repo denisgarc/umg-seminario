@@ -79,7 +79,7 @@
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="${req.contextPath}/reporte/FichaMedica.jsp">Ficha Médica</a>
                             <a class="dropdown-item" href="${req.contextPath}/cita/BuscarConsulta.jsp">Imprimir Consultas Médicas</a>
-                            <a class="dropdown-item" href="${req.contextPath}/reporte/ReportePacientes.jsp">Reporte de Pacientes</a>
+                            <a class="dropdown-item" href="${req.contextPath}/reporte/ReportePacientes.jsp">Estadísticas</a>
                             
                         </div>
                     </li>

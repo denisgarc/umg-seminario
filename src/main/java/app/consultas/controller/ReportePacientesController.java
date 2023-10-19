@@ -4,8 +4,10 @@
  */
 package app.consultas.controller;
 
+import app.consultas.dal.EmpleadoFacade;
 import app.consultas.dal.PacienteFacade;
 import app.consultas.entities.PacienteStatistics;
+import app.consultas.entities.PersonalStatistics;
 import app.consultas.util.JsonHandler;
 import com.google.gson.JsonObject;
 import java.io.IOException;
@@ -32,6 +34,8 @@ public class ReportePacientesController extends HttpServlet {
     
     @EJB
     private PacienteFacade pacienteService;
+    private EmpleadoFacade personalService;
+    
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -54,8 +58,8 @@ public class ReportePacientesController extends HttpServlet {
                     PacienteStatistics pacienteStatistics = pacienteService.getPacienteStatistics();
                     result = new JsonHandler().ToJson(pacienteStatistics);
                 } else if(idGrafico  == 2) {
-                    PacienteStatistics pacienteStatistics = pacienteService.getPacienteStatistics();
-                    result = new JsonHandler().ToJson(pacienteStatistics);
+                    PersonalStatistics personalStatistics = personalService.getPersonalStatistics();
+                    result = new JsonHandler().ToJson(personalStatistics);
                 }
             }
         out.write(result.toString());

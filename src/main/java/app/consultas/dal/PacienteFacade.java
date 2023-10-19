@@ -7,6 +7,7 @@ package app.consultas.dal;
 
 import app.consultas.entities.Paciente;
 import app.consultas.entities.PacienteStatistics;
+import app.consultas.entities.PersonalStatistics;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -61,13 +62,14 @@ public class PacienteFacade extends AbstractFacade<Paciente> {
         return entity.getIdPaciente();
     }
     
+    /* -------------------- Cambios de Francisco Lopez -------------------- */
     public PacienteStatistics getPacienteStatistics() {
     try {
         Query query = em.createNativeQuery("SELECT COUNT(T1.SEXO) AS TOTAL, " +
                 "SUM(CASE WHEN T1.SEXO = 'M' THEN 1 ELSE 0 END) AS HOMBRES, " +
                 "SUM(CASE WHEN T1.SEXO = 'F' THEN 1 ELSE 0 END) AS MUJERES " +
-                "FROM ErmitaCitasDB.PACIENTE T0 " +
-                "INNER JOIN ErmitaCitasDB.PERSONA T1 ON T0.ID_PERSONA = T1.ID_PERSONA");
+                "FROM DOXLAJ.PACIENTE T0 " +
+                "INNER JOIN DOXLAJ.PERSONA T1 ON T0.ID_PERSONA = T1.ID_PERSONA");
        
         Object[] result = (Object[]) query.getSingleResult();
         int total = ((Number) result[0]).intValue();
@@ -82,5 +84,9 @@ public class PacienteFacade extends AbstractFacade<Paciente> {
         return new PacienteStatistics(0, 0, 0);
     }
 }
+    
+
+    
+    /* -------------------- Cambios de Francisco Lopez -------------------- */
     
 }
