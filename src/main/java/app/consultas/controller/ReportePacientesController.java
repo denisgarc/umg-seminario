@@ -45,11 +45,18 @@ public class ReportePacientesController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        int idGrafico = Integer.parseInt(request.getParameter("idgrafico"));
         try (PrintWriter out = response.getWriter()) {
             JsonObject result = null;
             if (request.getMethod() == "GET") {
-                PacienteStatistics pacienteStatistics = pacienteService.getPacienteStatistics();
-                result = new JsonHandler().ToJson(pacienteStatistics);
+                
+                if(idGrafico  == 1) {
+                    PacienteStatistics pacienteStatistics = pacienteService.getPacienteStatistics();
+                    result = new JsonHandler().ToJson(pacienteStatistics);
+                } else if(idGrafico  == 2) {
+                    PacienteStatistics pacienteStatistics = pacienteService.getPacienteStatistics();
+                    result = new JsonHandler().ToJson(pacienteStatistics);
+                }
             }
         out.write(result.toString());
         } catch (Exception ex) {
