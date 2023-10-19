@@ -66,6 +66,7 @@
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="${req.contextPath}/persona/Paciente.jsp">Pacientes</a>
                             <a class="dropdown-item" href="${req.contextPath}/persona/Empleado.jsp">Empleados</a>
+                            <a class="dropdown-item" href="${req.contextPath}/persona/Persona.jsp">Personas</a>
                         </div>
                     </li>
                 <%}%>
