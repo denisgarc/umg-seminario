@@ -4,7 +4,7 @@ var newRecord = {
     "tipoSangre": '',
     "fuma": '',
     "fecAlta": new Date(),
-    "activo": 'S',
+    "activo": '',
     "nombre": '',
     "idPersona": {
         "idPersona": 0,
@@ -18,7 +18,7 @@ var newRecord = {
         "idTipoDocumento": {
             "idTipoDocumento": -1,
             "descripcion": "",
-            "activo": "S",
+            "activo": "",
             "abreviatura": ""
         }
     },
@@ -34,7 +34,7 @@ var newRecord = {
         "idTipoDocumento": {
             "idTipoDocumento": -1,
             "descripcion": "",
-            "activo": "S",
+            "activo": "",
             "abreviatura": ""
         }
     }
@@ -149,6 +149,15 @@ $(document).ready(function (e) {
             }
         });
     });
+    
+    // Validación para habilitar fecha de deceso solo cuando el estado se haya seleccionado
+    $('#activo').change(function() {
+        if ($(this).val() === "Deceso") {
+            $('#fecDeceso').prop('disabled', false);
+        } else {
+            $('#fecDeceso').prop('disabled', true);
+        }
+    });
 });
 
 function loadData(selectedItem) {
@@ -212,7 +221,7 @@ function save(selectedItem, action = 'N') {
                     });
                 }).catch((err) => {
                     console.error(err);
-                    ShowErrorDialog('Lo sentimos, ha ocurrido une error');
+                    ShowErrorDialog('Error');
                 }).finally(() => {
                     HideWaitingAnimation();
                 });
@@ -230,7 +239,7 @@ function aaveDelete(selectedItem, action = 'N'){
         });
     }).catch((err) => {
         console.error(err);
-        ShowErrorDialog('Lo sentimos, ha ocurrido une error');
+        ShowErrorDialog('Lo sentimos, ha ocurrido un error');
     }).finally(() => {
         HideWaitingAnimation();
     });

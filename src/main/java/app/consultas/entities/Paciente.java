@@ -25,6 +25,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -43,7 +44,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Paciente.findByNumeroSeguro", query = "SELECT p FROM Paciente p WHERE p.numeroSeguro = :numeroSeguro"),
     @NamedQuery(name = "Paciente.findByTipoSangre", query = "SELECT p FROM Paciente p WHERE p.tipoSangre = :tipoSangre"),
     @NamedQuery(name = "Paciente.findByFuma", query = "SELECT p FROM Paciente p WHERE p.fuma = :fuma"),
-    @NamedQuery(name = "Paciente.findByActivo", query = "SELECT p FROM Paciente p WHERE p.activo = :activo")})
+    @NamedQuery(name = "Paciente.findByActivo", query = "SELECT p FROM Paciente p WHERE p.activo = :activo"),
+    @NamedQuery(name = "Paciente.findByFecDeceso", query = "SELECT p FROM Paciente p WHERE p.fecDeceso = :fecDeceso")})
 public class Paciente implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -74,10 +76,18 @@ public class Paciente implements Serializable {
     private String fuma;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 1)
+    @Size(min = 1, max = 25)
     @Column(name = "ACTIVO")
     @Expose
     private String activo;
+    
+    @Column(name = "FEC_DECESO")
+    @Temporal(TemporalType.TIMESTAMP)
+    @Expose
+    //@Null
+    //@Basic(optional = true)
+    private Date fecDeceso;
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idPaciente")
     private List<Cita> citaList;
     @JoinColumn(name = "ID_PERSONA", referencedColumnName = "ID_PERSONA")
@@ -148,6 +158,14 @@ public class Paciente implements Serializable {
 
     public void setActivo(String activo) {
         this.activo = activo;
+    }
+    
+    public Date getFecDeceso(){
+        return fecDeceso;
+    }
+    
+    public void setFecDeceso(Date fecDeceso){
+        this.fecDeceso = fecDeceso;
     }
 
     @XmlTransient
