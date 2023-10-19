@@ -1,0 +1,47 @@
+-- Tabla de pacientes con columna de activo sea varchar y que no tenga check
+CREATE TABLE ErmitaCitasDB.PACIENTE
+(
+  ID_PACIENTE          INT                NOT NULL AUTO_INCREMENT,
+  ID_PERSONA           INT                NOT NULL,
+  FEC_ALTA             DATE,
+  NUMERO_SEGURO        VARCHAR(25),
+  TIPO_SANGRE          VARCHAR(25),
+  FUMA                 CHAR(1)                DEFAULT 'N' NOT NULL,
+  ID_PERSONA_CONTACTO  INT,
+  ACTIVO               VARCHAR(30)        NOT NULL,
+  PRIMARY KEY (ID_PACIENTE),
+  CONSTRAINT CK_PACIENTE_FUMA
+    CHECK (FUMA IN ('S', 'N')),
+  CONSTRAINT FK_PACIENTE_PERSONA 
+    FOREIGN KEY (ID_PERSONA) 
+    REFERENCES ErmitaCitasDB.PERSONA (ID_PERSONA),
+  CONSTRAINT FK_PACIENTE_PERSONA_CON 
+    FOREIGN KEY (ID_PERSONA_CONTACTO) 
+    REFERENCES ErmitaCitasDB.PERSONA (ID_PERSONA)
+);
+-- Agregar fecha de deceso
+ALTER TABLE paciente
+ADD COLUMN FEC_DECESO DATE;
+
+-- TODO JUNTO !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+CREATE TABLE ErmitaCitasDB.PACIENTE
+(
+  ID_PACIENTE          INT                NOT NULL AUTO_INCREMENT,
+  ID_PERSONA           INT                NOT NULL,
+  FEC_ALTA             DATE,
+  NUMERO_SEGURO        VARCHAR(25),
+  TIPO_SANGRE          VARCHAR(25),
+  FUMA                 CHAR(1)                DEFAULT 'N' NOT NULL,
+  ID_PERSONA_CONTACTO  INT,
+  ACTIVO               VARCHAR(30)        NOT NULL,
+  FEC_DECESO		   DATE,
+  PRIMARY KEY (ID_PACIENTE),
+  CONSTRAINT CK_PACIENTE_FUMA
+    CHECK (FUMA IN ('S', 'N')),
+  CONSTRAINT FK_PACIENTE_PERSONA 
+    FOREIGN KEY (ID_PERSONA) 
+    REFERENCES ErmitaCitasDB.PERSONA (ID_PERSONA),
+  CONSTRAINT FK_PACIENTE_PERSONA_CON 
+    FOREIGN KEY (ID_PERSONA_CONTACTO) 
+    REFERENCES ErmitaCitasDB.PERSONA (ID_PERSONA)
+);
