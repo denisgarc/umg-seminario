@@ -48,6 +48,8 @@ public class PacienteController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             if (request.getMethod() == "POST") {
+                Date fecDeceso = null;
+                String activo = "Creado";
                 Long idPaciente = Long.parseLong(request.getParameter("idPaciente"));
                 Long idPersona = Long.parseLong(request.getParameter("idPersona"));
                 Long idPersonaContacto = Long.parseLong(request.getParameter("idPersonaContacto").length() == 0 ? "0" : request.getParameter("idPersonaContacto"));
@@ -55,16 +57,24 @@ public class PacienteController extends HttpServlet {
                 String numeroSeguro = request.getParameter("numeroSeguro");
                 String tipoSangre = request.getParameter("tipoSangre");
                 String fuma = request.getParameter("fuma");
-                String activo = request.getParameter("activo");
-
+                if(request.getParameter("activo") != null)
+                {
+                    activo = request.getParameter("activo");
+                }
+                if(request.getParameter("fecDeceso") != null)
+                {
+                    fecDeceso = new DateHandler().getDateFromString(request.getParameter("fecDeceso"));
+                }
+                
                 Paciente modelo = new Paciente();
                 modelo.setIdPaciente(idPaciente);
                 modelo.setIdPersona(new Persona(idPersona));
                 modelo.setFecAlta(fecAlta);
                 modelo.setNumeroSeguro(numeroSeguro);
                 modelo.setTipoSangre(tipoSangre);
-                modelo.setFuma(fuma);
+                modelo.setFuma("N");
                 modelo.setActivo(activo);
+                modelo.setFecDeceso(fecDeceso);
                 
                 if(idPersonaContacto != 0){
                     modelo.setIdPersonaContacto(new Persona(idPersonaContacto));
