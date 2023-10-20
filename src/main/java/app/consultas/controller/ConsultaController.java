@@ -66,6 +66,11 @@ public class ConsultaController extends HttpServlet {
                 String descripcion = request.getParameter("descripcion");
                 String observaciones = request.getParameter("observaciones");
                 String activo = request.getParameter("activo");
+                String antecedentes = request.getParameter("antecedentes");
+                String anamnesis = request.getParameter("anamnesis");
+                String examenesComplementarios = request.getParameter("examenesComplementarios");
+                String evaluacionClinica = request.getParameter("evaluacionClinica");
+                String ordenesMedicas = request.getParameter("ordenesMedicas");
 
                 Consulta modelo = new Consulta();
                 modelo.setIdConsulta(idConsulta);
@@ -76,6 +81,11 @@ public class ConsultaController extends HttpServlet {
                 modelo.setDescripcion(descripcion);
                 modelo.setObservaciones(observaciones);
                 modelo.setActivo(activo);
+                modelo.setAntecedentes(antecedentes);
+                modelo.setAnamnesis(anamnesis);
+                modelo.setExamenesComplementarios(examenesComplementarios);
+                modelo.setEvaluacionClinica(evaluacionClinica);
+                modelo.setOrdenesMedicas(ordenesMedicas);
 
                 if (modelo.getIdConsulta()== 0) {
                     //modelo.setIdConsulta(consultaService.generateNewId());

@@ -11,8 +11,8 @@
         <title>Inicio</title>
     </head>
     <body>
-        <div class="container">
-            <img src="images/bienvenido.png" class="img-fluid" style="max-width: 70%" alt=""/>
+        <div class="container text-center">
+            <img src="images/logo-grande.png" class="img-fluid" style="max-width: 100%" alt=""/>
         </div>
     </body>
 </html>

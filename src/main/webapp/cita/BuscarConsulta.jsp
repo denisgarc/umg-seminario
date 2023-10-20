@@ -16,7 +16,7 @@
         <div class="container">
             <form id="frmBuscar">
                 <div class="card">
-                    <h5 class="card-header bg-blue-dark text-white">Criterios de Búsqueda</h5>
+                    <h5 class="card-header bg-secondary">Criterios de Búsqueda</h5>
                     <div class="card-body">
                         <div class="row">
                             <div class="col-12 col-sm-6 col-md-6 col-lg-6">
@@ -71,12 +71,12 @@
         <hr>
         <div class="container">
             <div class="card">
-                <h5 class="card-header bg-blue-dark text-white">Consultas Realizadas</h5>
+                <h5 class="card-header bg-secondary">Consultas Realizadas</h5>
                 <div class="card-body">
                     <div class="row">
                         <div class="col-12 col-sm-12 col-md-12 col-lg-12">
                             <div class="table-responsive">
-                                <table id="tblConsultas" class="table table-hover table-sm isDataTableConsulta withOutAutoFit isAjaxTable" 
+                                <table id="tblConsultas" class="table table-hover table-sm isDataTableConsulta isResponsiveTable withOutAutoFit isAjaxTable" 
                                        data-url="<%= request.getContextPath()%>/ConsultaBusquedaController" data-method="GET" data-src=""
                                        data-show-buttons="true"
                                        data-buttons="true">

@@ -17,7 +17,7 @@
         <form id="frmPaciente">
             <div ciass="container">
                 <div class="card">
-                    <h3 class="card-header bg-secondary text-white text-center">Ficha Médica de Paciente</h3>
+                    <h3 class="card-header bg-secondary text-center">Ficha Médica de Paciente</h3>
                     <div class="card-body">
                         <div class="row">
                             <div class="col-12 col-sm-12 col-md-12 col-lg-12">

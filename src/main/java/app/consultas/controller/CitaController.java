@@ -56,8 +56,8 @@ public class CitaController extends HttpServlet {
                 Date horaCita = new DateHandler().getDateFromString(request.getParameter("horaCita"),"HH:MM");
                 Long idPaciente = Long.parseLong(request.getParameter("idPaciente"));
                 Short idHospital = Short.parseShort(request.getParameter("idHospital"));
-                Short idClinica = Short.parseShort(request.getParameter("idClinica"));
-                Short idSala = Short.parseShort(request.getParameter("idSala"));
+                Short idClinica = 1;
+                Short idSala = 1;
                 Short idEstado = Short.parseShort(request.getParameter("idEstado"));
 
                 Cita modelo = new Cita();

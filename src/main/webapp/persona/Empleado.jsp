@@ -9,7 +9,7 @@
         <script src="../js/persona/frmEmpleado.js" type="text/javascript"></script>
         <div class="container">
             <div class="card">
-                <h3 class="card-header text-center bg-secondary text-white">Mantenimiento de Empleados</h3>
+                <h3 class="card-header text-center bg-secondary">Mantenimiento de Empleados</h3>
                 <div class="card-body border border-secondary">
                     <div class="row">
                         <div class="col-12 col-sm-6 col-md-3 col-lg-3">

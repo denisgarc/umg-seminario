@@ -43,13 +43,18 @@
 }
 .bg-blue-dark {
     /*background-color: #3365a3!important;*/
-    background-color: #124374!important;
-
+    /*background-color: #124374!important;*/
+    background-color: #904799;
 }
+
+
 .bg-blue-light {
-    background-color: #0466c8!important;
+    background-color: #60b4d2;
+    /*background-color: #0466c8!important;*/
     /*background-color: #2196F3!important;*/
 }
+
+
 .validator_error{
     color: red;
 }

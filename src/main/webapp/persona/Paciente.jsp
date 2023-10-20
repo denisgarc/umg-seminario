@@ -7,9 +7,9 @@
     </head>
     <body>
         <script src="../js/persona/frmPaciente.js" type="text/javascript"></script>
-        <div class="">
+        <div class="container-fluid">
             <div class="card">
-                <h3 class="card-header text-center bg-secondary text-white">Mantenimiento de Pacientes</h3>
+                <h3 class="card-header text-center bg-secondary">Mantenimiento de Pacientes</h3>
                 <div class="card-body border border-secondary">
                     <div class="row">
                         <div class="col-12 col-sm-6 col-md-3 col-lg-3">
@@ -20,7 +20,7 @@
                     <div class="row">
                         <div class="col-12 col-sm-12 col-md-12 col-lg-12">
                             <div class="table-responsive">
-                                <table id="tblPaciente" class="table table-hover table-sm isDataTable withOutAutoFit isAjaxTable" 
+                                <table id="tblPaciente" class="table table-hover table-sm isDataTable isResponsiveTable withOutAutoFit isAjaxTable" 
                                        data-url="<%= request.getContextPath()%>/PacienteController" data-method="GET" data-src=""
                                        data-show-buttons="true">
                                     <thead class="bg-blue-light text-white">
@@ -35,8 +35,8 @@
                                             <th class="text-center" data-key="idPersona.telefonos">Telefonos</th>
                                             <th class="text-center" data-key="numeroSeguro">No. Seguro</th>
                                             <th class="text-center" data-key="tipoSangre">Tipo de Sangre</th>
-                                            <th class="text-center" data-key="fuma">Es Fumador</th>
-                                            <th class="text-center" data-key="activo">Activo</th>
+                                            <th class="text-center" data-key="activo">Estado</th>
+                                            <th class="text-center" data-key="fecDeceso">Fecha Deceso</th>
                                             <th class="text-center">Acciones</th>
                                         </tr>
                                     </thead>
@@ -110,26 +110,36 @@
                                             </div>
                                             <div class="col-6 col-sm-4 col-md-4 col-lg-4">
                                                 <div class="form-group">
+                                                    <label for="activo" class="label">Estado</label>
+                                                    <select class="form-control" id="activo" name="activo">
+                                                        <option value="Creado">Creado</option>
+                                                        <option value="Hospitalizado">Hospitalizado</option>
+                                                        <option value="Inactivo">Inactivo</option>
+                                                        <option value="Deceso">Deceso</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-12 col-sm-4 col-md-4 col-lg-4">
+                                                <div class="form-group">
+                                                    <label for="fecDeceso" class="label">Fecha Deceso</label>
+                                                    <input type="text" class="form-control isDatePicker" 
+                                                           id="fecDeceso" 
+                                                           name="fecDeceso"
+                                                           autocomplete="off"
+                                                           disabled>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-12 col-sm-4 col-md-4 col-lg-4">
+                                                <div class="form-group" style="display: none">
                                                     <label for="fuma" class="label">Fuma</label><br>
                                                     <div class="btn-group btn-group-toggle" data-toggle="buttons">
                                                         <label class="btn btn-outline-secondary active">
-                                                            <input type="radio" name="fuma" id="activo" value="S" checked> Si
+                                                            <input type="radio" name="fuma" id="activo" value="S"> Si
                                                         </label>
                                                         <label class="btn btn-outline-secondary">
-                                                            <input type="radio" name="fuma" id="activo" value="N"> No
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-6 col-sm-4 col-md-4 col-lg-4">
-                                                <div class="form-group">
-                                                    <label for="activo" class="label">Activo</label><br>
-                                                    <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                                                        <label class="btn btn-outline-secondary active">
-                                                            <input type="radio" name="activo" id="activo" value="S" checked> Si
-                                                        </label>
-                                                        <label class="btn btn-outline-secondary">
-                                                            <input type="radio" name="activo" id="activo" value="N"> No
+                                                            <input type="radio" name="fuma" id="activo" value="N" checked> No
                                                         </label>
                                                     </div>
                                                 </div>
