@@ -59,6 +59,17 @@ public class CitaFacade extends AbstractFacade<Cita> {
         }
     }
     
+    public List<Cita> findByPaciente(Long idPaciente){
+        try {
+            TypedQuery<Cita> query = em.createNamedQuery("Cita.findByPaciente", Cita.class);
+            query.setParameter("idPaciente", idPaciente);
+            List<Cita> result = query.getResultList();
+            return result;
+        } catch(NoResultException nr){
+            return new ArrayList<Cita>();
+        }
+    }
+    
     public long createWithId(Cita entity) {
         em.persist(entity);
         em.flush();

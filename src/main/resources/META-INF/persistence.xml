@@ -29,10 +29,11 @@
     <class>app.consultas.entities.Especializacion</class>
     <class>app.consultas.entities.TipoDiagnostico</class>
     <properties>
-      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/DOXLAJ?zeroDateTimeBehavior=CONVERT_TO_NULL;autoReconnect=true;useSSL=false;allowPublicKeyRetrieval=true"/>
-      <property name="javax.persistence.jdbc.user" value="DOXLAJ"/>
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/ErmitaCitasDB?zeroDateTimeBehavior=CONVERT_TO_NULL;autoReconnect=true;useSSL=false;allowPublicKeyRetrieval=true"/>
+      <property name="javax.persistence.jdbc.user" value="usr_aplicacion"/>
       <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
-      <property name="javax.persistence.jdbc.password" value="DOXLAJ"/>
+      <property name="javax.persistence.jdbc.password" value="ermita123"/>
+      <property name="org.hibernate.flushMode" value="COMMIT"/>
     </properties>
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
   </persistence-unit>

@@ -7,8 +7,10 @@ package app.consultas.controller;
  */
 
 import app.consultas.dal.ConsultaFacade;
+import app.consultas.dal.EmpleadoFacade;
 import app.consultas.entities.Consulta;
 import app.consultas.entities.ConsultaImpresion;
+import app.consultas.entities.Empleado;
 import app.consultas.entities.FichaMedica;
 import app.consultas.entities.Paciente;
 import java.io.ByteArrayOutputStream;
@@ -31,6 +33,9 @@ public class ConsultaImpresionController extends HttpServlet {
 
     @EJB
     private ConsultaFacade consultaService;
+    
+    @EJB
+    private EmpleadoFacade empleadoService;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -59,6 +64,10 @@ public class ConsultaImpresionController extends HttpServlet {
                 idConsulta = Long.parseLong(request.getParameter("codigo"));
                 Consulta consulta = consultaService.find(idConsulta);
                 String path = getServletContext().getRealPath("/");
+                
+                if(consulta.getIdEmpleado().getIdPersona() == null) {
+                    Empleado empleado = empleadoService.find(consulta.getIdEmpleado().getIdEmpleado());
+                }
 
                 ByteArrayOutputStream baos = ConsultaImpresion.getResume(consulta);
                 baos.writeTo(out);
