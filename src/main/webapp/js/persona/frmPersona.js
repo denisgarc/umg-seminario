@@ -91,23 +91,8 @@ $(document).ready(function (e) {
 });
 
 function loadData(selectedItem) {
-    // Para el usuario
-    Object.keys(selectedItem).forEach((key) => {
-        if (key != 'idPersona') {
-            if (key == 'activo') {
-                $('input[name="' + key + '"]').attr('checked', false);
-                $('input[name="' + key + '"][value="' + selectedItem[key] + '"]').attr('checked', true);
-                $('input[name="' + key + '"][value="' + selectedItem[key] + '"]').click();
-            } else if (key == 'fecIngreso' || key == 'fecBaja') {
-                $(`#` + key).val(new Date(selectedItem[key]).toStringDMY());
-            } else {
-                $(`#` + key).val(selectedItem[key]);
-            }
-        }
-    });
-
     // Para la Persona
-    loadPerson(selectedItem.idPersona);
+    loadPerson(selectedItem);
 }
 
 function loadPerson(selectedItem) {
