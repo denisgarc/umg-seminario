@@ -5,6 +5,7 @@
  */
 package app.consultas.controller;
 
+import app.consultas.dal.CitaFacade;
 import app.consultas.dal.PacienteFacade;
 import app.consultas.entities.Cita;
 import app.consultas.entities.CitaReporte;
@@ -15,6 +16,7 @@ import app.consultas.entities.Paciente;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
@@ -32,6 +34,9 @@ public class FichaMedicaController extends HttpServlet {
 
     @EJB
     private PacienteFacade pacienteService;
+    
+    @EJB
+    private CitaFacade citaService;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -61,6 +66,10 @@ public class FichaMedicaController extends HttpServlet {
                 idPaciente = Long.parseLong(request.getParameter("codigo"));
                 Paciente paciente = pacienteService.find(idPaciente);
                 //HospitalClinica clinica = clinicaService.find(new HospitalClinicaPK(cita.getIdHospital().getIdHospital(), cita.getIdClinica()));
+                if(paciente.getCitaList().size() == 0) {
+                    List<Cita> citasList = citaService.findByPaciente(idPaciente);
+                    paciente.setCitaList(citasList);
+                }
 
                 ByteArrayOutputStream baos = FichaMedica.getFichaMedica(paciente);
                 baos.writeTo(out);

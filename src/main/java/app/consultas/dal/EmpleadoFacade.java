@@ -35,6 +35,7 @@ public class EmpleadoFacade extends AbstractFacade<Empleado> {
  
     public List<Empleado> findBySearch(String filter){
         try {
+            em.flush();
             Query q = em.createNativeQuery("SELECT m.* FROM EMPLEADO m INNER JOIN PERSONA p ON p.ID_PERSONA = m.ID_PERSONA WHERE UPPER(CONCAT(p.NOMBRES,IFNULL(CONCAT(' ',p.APELLIDOS),''))) LIKE CONCAT('%',UPPER(?),'%')", Empleado.class);
             q.setParameter(1, filter.replace(' ', '%'));
             List<Empleado> result = q.getResultList();
