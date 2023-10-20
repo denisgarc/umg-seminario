@@ -92,7 +92,7 @@
                                                     <div class="col-12 col-sm-4 col-md-4 col-lg-4">
                                                         <div class="form-group">
                                                             <label for="idPaciente" class="label">Código de Paciente</label>
-                                                            <input type="text" name="activo" value="S" style="display: none">
+                                                            <input type="text" name="activo" value="Creado" style="display: none">
                                                             <input type="text" class="form-control idPaciente" 
                                                                    id="idPaciente"
                                                                    name="idPaciente"
@@ -138,14 +138,14 @@
                                                         </div>
                                                     </div>
                                                     <div class="col-6 col-sm-4 col-md-4 col-lg-4">
-                                                        <div class="form-group">
+                                                        <div class="form-group" style="display: none">
                                                             <label for="fuma" class="label">Fuma</label><br>
                                                             <div class="btn-group btn-group-toggle" data-toggle="buttons">
                                                                 <label class="btn btn-outline-secondary active">
-                                                                    <input type="radio" name="fuma" id="activo" value="S" checked> Si
+                                                                    <input type="radio" name="fuma" id="activo" value="S"> Si
                                                                 </label>
                                                                 <label class="btn btn-outline-secondary">
-                                                                    <input type="radio" name="fuma" id="activo" value="N"> No
+                                                                    <input type="radio" name="fuma" id="activo" value="N" checked> No
                                                                 </label>
                                                             </div>
                                                         </div>
