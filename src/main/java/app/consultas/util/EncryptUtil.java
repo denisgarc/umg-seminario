@@ -19,7 +19,7 @@ public class EncryptUtil {
     
     public String encrypt(String inputText) {
         
-        SecretKeySpec claveSecreta = new SecretKeySpec(clave.getBytes("UTF-8"), "AES");
+        /*SecretKeySpec claveSecreta = new SecretKeySpec(clave.getBytes("UTF-8"), "AES");
         IvParameterSpec iv = new IvParameterSpec(vectorInicial.getBytes("UTF-8"));
 
         // Configurar el cifrador
@@ -32,7 +32,8 @@ public class EncryptUtil {
         // Convertir el texto encriptado a una representación en Base64
         String textoEncriptadoBase64 = Base64.getEncoder().encodeToString(textoEncriptado);
 
-        return textoEncriptadoBase64;
+        return textoEncriptadoBase64;*/
+        return "";
         
     }
 }
