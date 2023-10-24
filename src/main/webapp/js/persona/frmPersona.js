@@ -1,19 +1,17 @@
 var newRecord = {
-    "idPersona": {
-        "idPersona": 0,
-        "nombres": "",
-        "apellidos": '',
-        "fecNacimiento": new Date(),
-        "documentoId": '',
-        "sexo": "M",
-        "direccion": "",
-        "telefonos": '',
-        "idTipoDocumento": {
-            "idTipoDocumento": -1,
-            "descripcion": "",
-            "activo": "S",
-            "abreviatura": ""
-        }
+    "idPersona": 0,
+    "nombres": "",
+    "apellidos": '',
+    "fecNacimiento": new Date(),
+    "documentoId": '',
+    "sexo": "M",
+    "direccion": "",
+    "telefonos": '',
+    "idTipoDocumento": {
+        "idTipoDocumento": -1,
+        "descripcion": "",
+        "activo": "S",
+        "abreviatura": ""
     }
 };
 
@@ -59,35 +57,7 @@ $(document).ready(function (e) {
         }
     });
 
-    $('.isAutoCompleteCustome').on("focus", function () {
-        var _Url = $BaseUrl + 'PersonaConsultaController';
-        $(this).autocomplete({
-            source: function (request, response) {
-                $.ajax({
-                    type: 'GET',
-                    url: `${_Url}?filter=${request.term}&type=full`,
-                    contentType: 'application/json; charset=utf-8',
-                    dataType: 'json',
-                    success: function (data) {
-                        response($.map(data, function (item) {
-                            return {label: item["nombres"] + ' ' + item["apellidos"], value: item["idPersona"], model: item}
-                        }));
-                    },
-                    error: function (error) {
-                        console.error(error);
-                    }
-                });
-            },
-            minLength: 3,
-            delay: 1000,
-            select: function (e, selected) {
-                e.preventDefault();
-                $(this).val(selected.item.label);
-                $(Array.from($(this).parent().find('input')).filter(x => x.id != $(this)[0].id)).val(selected.item.value);
-                loadPerson(selected.item.model);
-            }
-        });
-    });
+    $('#rowBuscar').empty();
 });
 
 function loadData(selectedItem) {
