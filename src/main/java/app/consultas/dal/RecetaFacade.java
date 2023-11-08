@@ -5,6 +5,7 @@
  */
 package app.consultas.dal;
 
+import app.consultas.entities.Consulta;
 import app.consultas.entities.ConsultaDiagnostico;
 import app.consultas.entities.ConsultaTratamiento;
 import app.consultas.entities.Receta;
@@ -14,6 +15,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceContextType;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
@@ -44,6 +46,18 @@ public class RecetaFacade extends AbstractFacade<Receta> {
             return result;
         } catch(NoResultException nr){
             return null;
+        }
+    }
+    
+    public List<Receta> findListByIdConsulta(Long idConsulta){
+        try {
+            em.flush();
+            TypedQuery<Receta> query = em.createNamedQuery("Receta.findByIdConsulta", Receta.class);
+            query.setParameter("idConsulta", new Consulta(idConsulta));
+            List<Receta> result = query.getResultList();
+            return result;
+        } catch(NoResultException nr){
+            return new ArrayList<Receta>();
         }
     }
     

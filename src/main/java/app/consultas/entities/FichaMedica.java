@@ -67,7 +67,7 @@ public class FichaMedica {
             titleTable.setWidths(new int[]{1, 7});
             
             //String imagepath = "/media/denox/D2DCA259DCA2381D/Proyectos/Universidad/Seminario/umg-seminario/src/main/webapp/images/logo.png";
-            String imagepath = "/home/ermita/Publish/consultas/consultas-1.0-SNAPSHOT/images/logo.png";
+            String imagepath = "/var/sites/consultas/consultas-1.0-SNAPSHOT/images/logo.png";
             Image img = Image.getInstance(imagepath);
             img.setAbsolutePosition(0f, 0f);
             cell.addElement(img);
