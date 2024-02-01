@@ -174,6 +174,9 @@ function loadData(selectedItem) {
                 if(selectedItem[key] != null){
                     $(`#` + key).val(selectedItem[key].idPersona);
                     $(`#` + key + 'Nombre').val(selectedItem[key].nombres + ' ' + selectedItem[key].apellidos);
+                } else {
+                    $(`#` + key).val('');
+                    $(`#` + key + 'Nombre').val('');
                 }
             } else {
                 $(`#` + key).val(selectedItem[key]);

@@ -81,7 +81,7 @@ public class PersonaController extends HttpServlet {
                 out.write(result.toString());
 
             } else {
-                List<Persona> listado = personaService.findAll();
+                List<Persona> listado = personaService.getAll();
                 JsonArray jarray = new JsonHandler().ToJsonArray(listado);
                 out.write(jarray.toString());
             }

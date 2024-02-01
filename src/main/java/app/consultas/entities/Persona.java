@@ -37,16 +37,16 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "PERSONA")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Persona.findAll", query = "SELECT p FROM Persona p"),
-    @NamedQuery(name = "Persona.findByIdPersona", query = "SELECT p FROM Persona p WHERE p.idPersona = :idPersona"),
-    @NamedQuery(name = "Persona.findByNombres", query = "SELECT p FROM Persona p WHERE p.nombres = :nombres"),
-    @NamedQuery(name = "Persona.findByApellidos", query = "SELECT p FROM Persona p WHERE p.apellidos = :apellidos"),
-    @NamedQuery(name = "Persona.findByFecNacimiento", query = "SELECT p FROM Persona p WHERE p.fecNacimiento = :fecNacimiento"),
-    @NamedQuery(name = "Persona.findByDocumentoId", query = "SELECT p FROM Persona p WHERE p.documentoId = :documentoId"),
-    @NamedQuery(name = "Persona.findBySexo", query = "SELECT p FROM Persona p WHERE p.sexo = :sexo"),
-    @NamedQuery(name = "Persona.findByDireccion", query = "SELECT p FROM Persona p WHERE p.direccion = :direccion"),
-    @NamedQuery(name = "Persona.findByTelefonos", query = "SELECT p FROM Persona p WHERE p.telefonos = :telefonos"),
-    @NamedQuery(name = "Persona.findByActivo", query = "SELECT p FROM Persona p WHERE p.activo = :activo")})
+    @NamedQuery(name = "Persona.findAll", query = "SELECT p FROM Persona p WHERE p.idPersona <> 1"),
+    @NamedQuery(name = "Persona.findByIdPersona", query = "SELECT p FROM Persona p WHERE p.idPersona = :idPersona AND p.idPersona <> 1"),
+    @NamedQuery(name = "Persona.findByNombres", query = "SELECT p FROM Persona p WHERE p.nombres = :nombres AND p.idPersona <> 1"),
+    @NamedQuery(name = "Persona.findByApellidos", query = "SELECT p FROM Persona p WHERE p.apellidos = :apellidos AND p.idPersona <> 1"),
+    @NamedQuery(name = "Persona.findByFecNacimiento", query = "SELECT p FROM Persona p WHERE p.fecNacimiento = :fecNacimiento AND p.idPersona <> 1"),
+    @NamedQuery(name = "Persona.findByDocumentoId", query = "SELECT p FROM Persona p WHERE p.documentoId = :documentoId AND p.idPersona <> 1"),
+    @NamedQuery(name = "Persona.findBySexo", query = "SELECT p FROM Persona p WHERE p.sexo = :sexo AND p.idPersona <> 1"),
+    @NamedQuery(name = "Persona.findByDireccion", query = "SELECT p FROM Persona p WHERE p.direccion = :direccion AND p.idPersona <> 1"),
+    @NamedQuery(name = "Persona.findByTelefonos", query = "SELECT p FROM Persona p WHERE p.telefonos = :telefonos AND p.idPersona <> 1"),
+    @NamedQuery(name = "Persona.findByActivo", query = "SELECT p FROM Persona p WHERE p.activo = :activo AND p.idPersona <> 1")})
 public class Persona implements Serializable {
 
     private static final long serialVersionUID = 1L;

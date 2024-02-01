@@ -6,16 +6,22 @@ package app.consultas.controller;
  * and open the template in the editor.
  */
 
+import app.consultas.dal.ConsultaDiagnosticoFacade;
 import app.consultas.dal.ConsultaFacade;
+import app.consultas.dal.ConsultaTratamientoFacade;
 import app.consultas.dal.EmpleadoFacade;
+import app.consultas.dal.RecetaDetalleFacade;
+import app.consultas.dal.RecetaFacade;
 import app.consultas.entities.Consulta;
 import app.consultas.entities.ConsultaImpresion;
 import app.consultas.entities.Empleado;
 import app.consultas.entities.FichaMedica;
 import app.consultas.entities.Paciente;
+import app.consultas.entities.Receta;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
@@ -36,6 +42,18 @@ public class ConsultaImpresionController extends HttpServlet {
     
     @EJB
     private EmpleadoFacade empleadoService;
+    
+    @EJB
+    private ConsultaDiagnosticoFacade consultaDiagnosticoService;
+    
+    @EJB
+    private ConsultaTratamientoFacade consultaTratamientoService;
+    
+    @EJB
+    private RecetaFacade recetaService;
+    
+    @EJB
+    private RecetaDetalleFacade recetaDetalleService;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -67,6 +85,24 @@ public class ConsultaImpresionController extends HttpServlet {
                 
                 if(consulta.getIdEmpleado().getIdPersona() == null) {
                     Empleado empleado = empleadoService.find(consulta.getIdEmpleado().getIdEmpleado());
+                    consulta.setIdEmpleado(empleado);
+                }
+                
+                if(consulta.getConsultaDiagnosticoList().size() == 0) {
+                    consulta.setConsultaDiagnosticoList(consultaDiagnosticoService.findByIdConsulta(idConsulta));
+                }
+                
+                if(consulta.getConsultaTratamientoList().size() == 0) {
+                    consulta.setConsultaTratamientoList(consultaTratamientoService.findByIdConsulta(idConsulta));
+                }
+                
+                if(consulta.getRecetaList().size() == 0){
+                    consulta.setRecetaList(recetaService.findListByIdConsulta(idConsulta));
+                    for(Receta receta: consulta.getRecetaList()) {
+                        if(receta.getRecetaDetalleList().size() == 0) {
+                            receta.setRecetaDetalleList(recetaDetalleService.findByIdReceta(receta.getIdReceta()));
+                        }
+                    }
                 }
 
                 ByteArrayOutputStream baos = ConsultaImpresion.getResume(consulta);
