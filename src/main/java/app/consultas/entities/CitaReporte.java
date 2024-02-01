@@ -161,19 +161,19 @@ public class CitaReporte {
             cell.setPaddingBottom(10);
             table.addCell(cell);
             
-            /*cell = new PdfPCell(new Phrase("Clinica:"));
+            cell = new PdfPCell(new Phrase("Dirección:"));
             cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
             cell.setHorizontalAlignment(Element.ALIGN_LEFT);
             cell.setBorder(Rectangle.NO_BORDER);
             cell.setPaddingBottom(10);
             table.addCell(cell);
             
-            cell = new PdfPCell(new Phrase(clinica.getDescripcion()));
+            cell = new PdfPCell(new Phrase(clinica.getHospital().getDireccion()));
             cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
             cell.setHorizontalAlignment(Element.ALIGN_LEFT);
             cell.setBorder(Rectangle.NO_BORDER);
             cell.setPaddingBottom(10);
-            table.addCell(cell);*/
+            table.addCell(cell);
             
             cell = new PdfPCell(new Phrase("Estado:"));
             cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
@@ -183,6 +183,20 @@ public class CitaReporte {
             table.addCell(cell);
             
             cell = new PdfPCell(new Phrase(cita.getIdEstado().getDescripcion()));
+            cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+            cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+            cell.setBorder(Rectangle.NO_BORDER);
+            cell.setPaddingBottom(10);
+            table.addCell(cell);
+            
+            cell = new PdfPCell(new Phrase("Observaciones:"));
+            cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+            cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+            cell.setBorder(Rectangle.NO_BORDER);
+            cell.setPaddingBottom(10);
+            table.addCell(cell);
+            
+            cell = new PdfPCell(new Phrase(cita.getObservaciones()));
             cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
             cell.setHorizontalAlignment(Element.ALIGN_LEFT);
             cell.setBorder(Rectangle.NO_BORDER);

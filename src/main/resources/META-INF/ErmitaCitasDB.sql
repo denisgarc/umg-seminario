@@ -258,14 +258,15 @@ DROP TABLE ErmitaCitasDB.CITA
 
 CREATE TABLE ErmitaCitasDB.CITA
 (
-  ID_CITA      INT                           NOT NULL AUTO_INCREMENT,
-  FECHA_CITA   DATE                          NOT NULL,
-  HORA_CITA    DATETIME                      NOT NULL,
-  ID_PACIENTE  INT                           NOT NULL,
-  ID_HOSPITAL  INT                           NOT NULL,
-  ID_CLINICA   INT                           NOT NULL,
-  ID_SALA      INT                           NOT NULL,
-  ID_ESTADO    INT                           NOT NULL,
+  ID_CITA       INT                           NOT NULL AUTO_INCREMENT,
+  FECHA_CITA    DATE                          NOT NULL,
+  HORA_CITA     DATETIME                      NOT NULL,
+  ID_PACIENTE   INT                           NOT NULL,
+  ID_HOSPITAL   INT                           NOT NULL,
+  ID_CLINICA    INT                           NOT NULL,
+  ID_SALA       INT                           NOT NULL,
+  ID_ESTADO     INT                           NOT NULL,
+  OBSERVACIONES TEXT 			      NULL,
   PRIMARY KEY (ID_CITA),
   CONSTRAINT FK_CITA_ESTADO 
     FOREIGN KEY (ID_ESTADO) 
@@ -317,7 +318,7 @@ CREATE TABLE ErmitaCitasDB.CONSULTA
   EXAMENES_COMPLEMENTARIOS 	TEXT,
   EVALUACION_CLINICA 		TEXT,
   ORDENES_MEDICAS   		TEXT,
-  ID_CITA           		INT,
+  ID_CITA           		INT                     NULL,
   ACTIVO            		CHAR(1)                 DEFAULT 'S' NOT NULL,
   PRIMARY KEY (ID_CONSULTA),
   CONSTRAINT CK_CONSULTA_ACTIVO

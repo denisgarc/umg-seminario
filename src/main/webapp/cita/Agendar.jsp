@@ -38,7 +38,7 @@
                                     <div class="row">
                                         <div class="col-12 col-sm-6 col-md-6 col-lg-6">
                                             <div class="form-group">
-                                                <label for="fechaCita" class="label">Fecha de Cita</label>
+                                                <label for="fechaCita" class="label">Fecha de Cita (*)</label>
                                                 <input type="text" class="form-control isDatePicker" 
                                                        id="fechaCita" 
                                                        name="fechaCita"
@@ -48,12 +48,22 @@
                                         </div>
                                         <div class="col-12 col-sm-6 col-md-6 col-lg-6">
                                             <div class="form-group">
-                                                <label for="horaCita" class="label">Hora de Cita</label>
+                                                <label for="horaCita" class="label">Hora de Cita (*)</label>
                                                 <input type="time" class="form-control" 
                                                        id="horaCita" 
                                                        name="horaCita"
                                                        autocomplete="off"
                                                        data-required data-required-msg="El campo Hora de Cita es requerido" >
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                                            <div class="form-group">
+                                                <label for="fechaCita" class="label">Observaciones</label>
+                                                <textarea class="form-control" rows="4"
+                                                       id="observaciones" 
+                                                       name="observaciones"></textarea>
                                             </div>
                                         </div>
                                     </div>
