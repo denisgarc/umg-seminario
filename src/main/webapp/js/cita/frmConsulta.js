@@ -90,7 +90,7 @@ function loadDataConsulta(selectedItem){
 }
 
 function loadDataCita(selectedItem) {
-    Object.keys(selectedItem).forEach((key) => {
+    Object.keys(selectedItem).filter(x => x != 'observaciones').forEach((key) => {
         if(key == 'activo'){
             $(`#${$formId} input[name="${key}"]`).attr('checked', false);
             $(`#${$formId} input[name="${key}"][value="${selectedItem[key]}"]`).attr('checked', true);

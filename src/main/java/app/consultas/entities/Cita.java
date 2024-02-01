@@ -99,6 +99,11 @@ public class Cita implements Serializable {
     @Column(name = "ID_SALA")
     @Expose
     private Short idSala;
+    
+    @Basic(optional = false)
+    @Column(name = "OBSERVACIONES")
+    @Expose
+    private String observaciones;
 
     public Cita() {
     }
@@ -168,6 +173,14 @@ public class Cita implements Serializable {
 //    public void setHospitalSala(HospitalSala hospitalSala) {
 //        this.hospitalSala = hospitalSala;
 //    }
+    
+    public void setObservaciones(String observaciones) {
+        this.observaciones = observaciones;
+    }
+    
+    public String getObservaciones() {
+        return this.observaciones;
+    }
 
     public Short getIdClinica() {
         return idClinica;

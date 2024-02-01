@@ -59,6 +59,7 @@ public class CitaController extends HttpServlet {
                 Short idClinica = 1;
                 Short idSala = 1;
                 Short idEstado = Short.parseShort(request.getParameter("idEstado"));
+                String observaciones = request.getParameter("observaciones");
 
                 Cita modelo = new Cita();
                 modelo.setIdCita(idCita);
@@ -69,6 +70,7 @@ public class CitaController extends HttpServlet {
                 modelo.setIdClinica(idClinica);
                 modelo.setIdSala(idSala);
                 modelo.setIdEstado(new Estado(idEstado));
+                modelo.setObservaciones(observaciones);
 
                 if (modelo.getIdCita() == 0) {
                     //modelo.setIdCita(citaService.generateNewId());

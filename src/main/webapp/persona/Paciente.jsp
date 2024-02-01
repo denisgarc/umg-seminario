@@ -100,7 +100,7 @@
                                         <div class="row">
                                             <div class="col-12 col-sm-4 col-md-4 col-lg-4">
                                                 <div class="form-group">
-                                                    <label for="fecAlta" class="label">Fecha de Nacimiento</label>
+                                                    <label for="fecAlta" class="label">Fecha de Ingreso</label>
                                                     <input type="text" class="form-control isDatePicker" 
                                                            id="fecAlta" 
                                                            name="fecAlta"
@@ -148,7 +148,7 @@
                                         <div class="row">
                                             <div class="col-12 col-sm-12 col-md-12 col-lg-12">
                                                 <div class="form-group">
-                                                    <label for="">Persona Contacto (*)</label>
+                                                    <label for="">Familiar de Contacto (*)</label>
                                                     <div class="input-group">
                                                         <input id="idPersonaContacto" name="idPersonaContacto" style="display:none">
                                                         <span class="input-group-text"><i class="fas fa-search"></i></span>
