@@ -46,17 +46,16 @@
                             <i class="fas fa-cogs"></i> Mantenimientos
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="${req.contextPath}/mantenimiento/Especializacion.jsp">Especialización</a>
-                            <a class="dropdown-item" href="${req.contextPath}/mantenimiento/Puesto.jsp">Puesto</a>
+                            <a class="dropdown-item" href="${req.contextPath}/mantenimiento/Especializacion.jsp">Especialización de Empleado</a>
+                            <a class="dropdown-item" href="${req.contextPath}/mantenimiento/Puesto.jsp">Puesto de Empleado</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="${req.contextPath}/mantenimiento/TipoDocumento.jsp">Tipo de Documento</a>
-                            <a class="dropdown-item" href="${req.contextPath}/mantenimiento/TipoConsulta.jsp">Tipo de Consulta</a>
+                            <a class="dropdown-item" href="${req.contextPath}/mantenimiento/TipoConsulta.jsp">Motivos de Consulta</a>
                             <a class="dropdown-item" href="${req.contextPath}/mantenimiento/TipoDiagnostico.jsp">Tipo de Diagnostico</a>
                             <a class="dropdown-item" href="${req.contextPath}/mantenimiento/TipoTratamiento.jsp">Tipo de Tratamiento</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="${req.contextPath}/mantenimiento/Hospital.jsp">Hospitales</a>
                             <a class="dropdown-item" href="${req.contextPath}/mantenimiento/Medicamento.jsp">Medicamentos</a>
-                            <a class="dropdown-item" href="${req.contextPath}/mantenimiento/Unidad.jsp">Unidad de Medida</a>
                         </div>
                     </li>
                     <li class="nav-item dropdown">
@@ -66,7 +65,7 @@
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="${req.contextPath}/persona/Paciente.jsp">Pacientes</a>
                             <a class="dropdown-item" href="${req.contextPath}/persona/Empleado.jsp">Empleados</a>
-                            <a class="dropdown-item" href="${req.contextPath}/persona/Persona.jsp">Personas</a>
+                            <a class="dropdown-item" href="${req.contextPath}/persona/Persona.jsp">Familiares</a>
                         </div>
                     </li>
                 <%}%>
@@ -76,7 +75,7 @@
                             <i class="fas fa-chart-pie"></i> Reportes
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="${req.contextPath}/reporte/FichaMedica.jsp">Ficha Médica</a>
+                            <a class="dropdown-item" href="${req.contextPath}/reporte/FichaMedica.jsp">Imprimir Ficha Médica</a>
                             <a class="dropdown-item" href="${req.contextPath}/cita/BuscarConsulta.jsp">Imprimir Consultas Médicas</a>
                             <a class="dropdown-item" href="${req.contextPath}/cita/Buscar.jsp">Imprimir Citas</a>
                         </div>

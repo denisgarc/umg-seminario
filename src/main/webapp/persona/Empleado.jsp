@@ -75,20 +75,20 @@
                                         <div class="row">
                                             <div class="col-12 col-sm-6 col-md-6 col-lg-6">
                                                 <div class="form-group">
-                                                    <label for="idEspecializacion">Especialización</label>
+                                                    <label for="idEspecializacion">Especialización (*)</label>
                                                     <select id="idEspecializacion" 
                                                         name="idEspecializacion" 
                                                         class="form-control"
                                                         data-required data-required-msg="El campo Especialización es requerido"
                                                         data-select-value-different="0"
-                                                        data-select-value-different-msg="Por favor seleccione una Especializacio´n">
+                                                        data-select-value-different-msg="Por favor seleccione una Especialización">
                                                         <option value="-1" selected>- Seleccione uno -</option>
                                                     </select>
                                                 </div>
                                             </div>
                                             <div class="col-12 col-sm-6 col-md-6 col-lg-6">
                                                 <div class="form-group">
-                                                    <label for="idPuesto">Puesto</label>
+                                                    <label for="idPuesto">Puesto (*)</label>
                                                     <select id="idPuesto" 
                                                         name="idPuesto" 
                                                         class="form-control"
@@ -103,12 +103,12 @@
                                         <div class="row">
                                             <div class="col-12 col-sm-6 col-md-6 col-lg-6">
                                                 <div class="form-group">
-                                                    <label for="fecIngreso" class="label">Fecha de Alta (*)</label>
+                                                    <label for="fecIngreso" class="label">Fecha de Ingreso (*)</label>
                                                     <input type="text" class="form-control isDatePicker" 
                                                            id="fecIngreso" 
                                                            name="fecIngreso"
                                                            autocomplete="off"
-                                                           data-required data-required-msg="El campo Fecha de Alta es requerido" >
+                                                           data-required data-required-msg="El campo Fecha de Ingreso es requerido" >
                                                 </div>
                                             </div>
                                             <div class="col-12 col-sm-3 col-md-3 col-lg-3">
